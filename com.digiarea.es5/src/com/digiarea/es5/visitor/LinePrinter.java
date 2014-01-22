@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2011 - 2014 DigiArea, Inc. and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     DigiArea, Inc. - initial API and implementation
+ *******************************************************************************/
 package com.digiarea.es5.visitor;
 
 import java.io.IOException;
@@ -80,8 +90,19 @@ import com.digiarea.es5.VariableStatement;
 import com.digiarea.es5.WhileStatement;
 import com.digiarea.es5.WithStatement;
 
+/**
+ * The Class LinePrinter.
+ */
 public class LinePrinter implements VoidVisitor<SourcePrinter> {
 
+	/**
+	 * Prints the expressions.
+	 *
+	 * @param expressions the expressions
+	 * @param printer the printer
+	 * @throws Exception the exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private void printExpressions(List<Expression> expressions,
 			SourcePrinter printer) throws Exception, IOException {
 		for (Iterator<Expression> i = expressions.iterator(); i.hasNext();) {
@@ -95,6 +116,14 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/**
+	 * Prints the statements.
+	 *
+	 * @param statements the statements
+	 * @param printer the printer
+	 * @throws Exception the exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private void printStatements(List<Statement> statements,
 			SourcePrinter printer) throws Exception, IOException {
 		for (Iterator<Statement> i = statements.iterator(); i.hasNext();) {
@@ -106,6 +135,14 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/**
+	 * Prints the variable declarations.
+	 *
+	 * @param decls the decls
+	 * @param printer the printer
+	 * @throws Exception the exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private void printVariableDeclarations(List<VariableDeclaration> decls,
 			SourcePrinter printer) throws Exception, IOException {
 		for (Iterator<VariableDeclaration> i = decls.iterator(); i.hasNext();) {
@@ -117,6 +154,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.AllocationExpression, java.lang.Object)
+	 */
 	@Override
 	public void visit(AllocationExpression n, SourcePrinter printer)
 			throws Exception {
@@ -126,6 +166,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.ArrayAccessExpression, java.lang.Object)
+	 */
 	@Override
 	public void visit(ArrayAccessExpression n, SourcePrinter printer)
 			throws Exception {
@@ -139,6 +182,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print("]");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.ArrayLiteral, java.lang.Object)
+	 */
 	@Override
 	public void visit(ArrayLiteral n, SourcePrinter printer) throws Exception {
 		printer.print("[");
@@ -149,6 +195,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print("]");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.AssignmentExpression, java.lang.Object)
+	 */
 	@Override
 	public void visit(AssignmentExpression n, SourcePrinter printer)
 			throws Exception {
@@ -163,6 +212,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.AssignmentExpression.AssignOperator, java.lang.Object)
+	 */
 	@Override
 	public void visit(AssignOperator n, SourcePrinter printer) throws Exception {
 		switch (n) {
@@ -205,6 +257,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.BinaryExpression, java.lang.Object)
+	 */
 	@Override
 	public void visit(BinaryExpression n, SourcePrinter printer)
 			throws Exception {
@@ -219,6 +274,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.BinaryExpression.BinaryOperator, java.lang.Object)
+	 */
 	@Override
 	public void visit(BinaryOperator n, SourcePrinter printer) throws Exception {
 		switch (n) {
@@ -294,6 +352,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.Block, java.lang.Object)
+	 */
 	@Override
 	public void visit(Block n, SourcePrinter printer) throws Exception {
 		printer.print("{");
@@ -315,11 +376,17 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print("}");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.BooleanLiteral, java.lang.Object)
+	 */
 	@Override
 	public void visit(BooleanLiteral n, SourcePrinter printer) throws Exception {
 		printer.print(n.isValue() ? "true" : "false");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.BreakStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(BreakStatement n, SourcePrinter printer) throws Exception {
 		if (n.getComment() != null) {
@@ -333,6 +400,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print(";");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.CallExpression, java.lang.Object)
+	 */
 	@Override
 	public void visit(CallExpression n, SourcePrinter printer) throws Exception {
 		if (n.getScope() != null) {
@@ -345,6 +415,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print(")");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.CaseBlock, java.lang.Object)
+	 */
 	@Override
 	public void visit(CaseBlock n, SourcePrinter printer) throws Exception {
 		printer.print(" {");
@@ -369,6 +442,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print("}");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.CaseClause, java.lang.Object)
+	 */
 	@Override
 	public void visit(CaseClause n, SourcePrinter printer) throws Exception {
 
@@ -385,6 +461,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.CatchClause, java.lang.Object)
+	 */
 	@Override
 	public void visit(CatchClause n, SourcePrinter printer) throws Exception {
 		printer.print(" catch ( ");
@@ -395,6 +474,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.CompilationUnit, java.lang.Object)
+	 */
 	@Override
 	public void visit(CompilationUnit n, SourcePrinter printer)
 			throws Exception {
@@ -408,6 +490,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.ConditionalExpression, java.lang.Object)
+	 */
 	@Override
 	public void visit(ConditionalExpression n, SourcePrinter printer)
 			throws Exception {
@@ -424,6 +509,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.ConstantStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(ConstantStatement n, SourcePrinter printer)
 			throws Exception {
@@ -438,6 +526,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print(";");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.ContinueStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(ContinueStatement n, SourcePrinter printer)
 			throws Exception {
@@ -452,6 +543,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print(";");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.DebuggerStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(DebuggerStatement n, SourcePrinter printer)
 			throws Exception {
@@ -461,11 +555,17 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.printLn("debugger;");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.DecimalLiteral, java.lang.Object)
+	 */
 	@Override
 	public void visit(DecimalLiteral n, SourcePrinter printer) throws Exception {
 		printer.print(n.getValue());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.DefaultClause, java.lang.Object)
+	 */
 	@Override
 	public void visit(DefaultClause n, SourcePrinter printer) throws Exception {
 
@@ -478,6 +578,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.DoWhileStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(DoWhileStatement n, SourcePrinter printer)
 			throws Exception {
@@ -495,10 +598,16 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.EmptyLiteral, java.lang.Object)
+	 */
 	@Override
 	public void visit(EmptyLiteral n, SourcePrinter printer) throws Exception {
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.EmptyStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(EmptyStatement n, SourcePrinter printer) throws Exception {
 		if (n.getComment() != null) {
@@ -507,6 +616,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print(";");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.EnclosedExpression, java.lang.Object)
+	 */
 	@Override
 	public void visit(EnclosedExpression n, SourcePrinter printer)
 			throws Exception {
@@ -517,6 +629,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print(")");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.ExpressionStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(ExpressionStatement n, SourcePrinter printer)
 			throws Exception {
@@ -529,6 +644,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print(";");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.FieldAccessExpression, java.lang.Object)
+	 */
 	@Override
 	public void visit(FieldAccessExpression n, SourcePrinter printer)
 			throws Exception {
@@ -541,11 +659,17 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.FloatLiteral, java.lang.Object)
+	 */
 	@Override
 	public void visit(FloatLiteral n, SourcePrinter printer) throws Exception {
 		printer.print(n.getValue());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.ForeachStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(ForeachStatement n, SourcePrinter printer)
 			throws Exception {
@@ -566,6 +690,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.ForStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(ForStatement n, SourcePrinter printer) throws Exception {
 		if (n.getComment() != null) {
@@ -589,6 +716,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.FunctionDeclaration, java.lang.Object)
+	 */
 	@Override
 	public void visit(FunctionDeclaration n, SourcePrinter printer)
 			throws Exception {
@@ -614,6 +744,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.FunctionExpression, java.lang.Object)
+	 */
 	@Override
 	public void visit(FunctionExpression n, SourcePrinter printer)
 			throws Exception {
@@ -638,6 +771,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.GetAssignment, java.lang.Object)
+	 */
 	@Override
 	public void visit(GetAssignment n, SourcePrinter printer) throws Exception {
 		if (n.getComment() != null) {
@@ -653,17 +789,26 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.HexIntegerLiteral, java.lang.Object)
+	 */
 	@Override
 	public void visit(HexIntegerLiteral n, SourcePrinter printer)
 			throws Exception {
 		printer.print(n.getValue());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.IdentifierName, java.lang.Object)
+	 */
 	@Override
 	public void visit(IdentifierName n, SourcePrinter printer) throws Exception {
 		printer.print(n.getValue());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.IfStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(IfStatement n, SourcePrinter printer) throws Exception {
 		if (n.getComment() != null) {
@@ -683,6 +828,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.ImportStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(ImportStatement n, SourcePrinter printer)
 			throws Exception {
@@ -696,6 +844,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.printLn(";");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.LabelledStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(LabelledStatement n, SourcePrinter printer)
 			throws Exception {
@@ -709,6 +860,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.LetDefinition, java.lang.Object)
+	 */
 	@Override
 	public void visit(LetDefinition n, SourcePrinter printer) throws Exception {
 		if (n.getComment() != null) {
@@ -722,6 +876,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print(";");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.LetExpression, java.lang.Object)
+	 */
 	@Override
 	public void visit(LetExpression n, SourcePrinter printer) throws Exception {
 		printer.print("let ");
@@ -738,6 +895,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.LetStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(LetStatement n, SourcePrinter printer) throws Exception {
 		if (n.getComment() != null) {
@@ -755,6 +915,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print(";");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.NewExpression, java.lang.Object)
+	 */
 	@Override
 	public void visit(NewExpression n, SourcePrinter printer) throws Exception {
 		printer.print("new ");
@@ -766,11 +929,17 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.NullLiteral, java.lang.Object)
+	 */
 	@Override
 	public void visit(NullLiteral n, SourcePrinter printer) throws Exception {
 		printer.print("null");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.ObjectLiteral, java.lang.Object)
+	 */
 	@Override
 	public void visit(ObjectLiteral n, SourcePrinter printer) throws Exception {
 		printer.print("{");
@@ -792,16 +961,25 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print("}");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.OctalLiteral, java.lang.Object)
+	 */
 	@Override
 	public void visit(OctalLiteral n, SourcePrinter printer) throws Exception {
 		printer.print(n.getValue());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.Parameter, java.lang.Object)
+	 */
 	@Override
 	public void visit(Parameter n, SourcePrinter printer) throws Exception {
 		printer.print(n.getName());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.Project, java.lang.Object)
+	 */
 	@Override
 	public void visit(Project n, SourcePrinter printer) throws Exception {
 		if (n.getCompilationUnits() != null) {
@@ -813,6 +991,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.PutAssignment, java.lang.Object)
+	 */
 	@Override
 	public void visit(PutAssignment n, SourcePrinter printer) throws Exception {
 		if (n.getComment() != null) {
@@ -827,11 +1008,17 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.RegexpLiteral, java.lang.Object)
+	 */
 	@Override
 	public void visit(RegexpLiteral n, SourcePrinter printer) throws Exception {
 		printer.print(n.getValue());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.ReturnStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(ReturnStatement n, SourcePrinter printer)
 			throws Exception {
@@ -846,6 +1033,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print(";");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.SequenceExpression, java.lang.Object)
+	 */
 	@Override
 	public void visit(SequenceExpression n, SourcePrinter printer)
 			throws Exception {
@@ -864,6 +1054,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.SetAssignment, java.lang.Object)
+	 */
 	@Override
 	public void visit(SetAssignment n, SourcePrinter printer) throws Exception {
 		printer.print("set ");
@@ -878,6 +1071,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.StringLiteralSingle, java.lang.Object)
+	 */
 	@Override
 	public void visit(StringLiteralSingle n, SourcePrinter printer)
 			throws Exception {
@@ -886,6 +1082,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print("'");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.StringLiteralDouble, java.lang.Object)
+	 */
 	@Override
 	public void visit(StringLiteralDouble n, SourcePrinter printer)
 			throws Exception {
@@ -894,12 +1093,18 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print("\"");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.SuperExpression, java.lang.Object)
+	 */
 	@Override
 	public void visit(SuperExpression n, SourcePrinter printer)
 			throws Exception {
 		printer.print("super");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.SwitchStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(SwitchStatement n, SourcePrinter printer)
 			throws Exception {
@@ -918,11 +1123,17 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.ThisExpression, java.lang.Object)
+	 */
 	@Override
 	public void visit(ThisExpression n, SourcePrinter printer) throws Exception {
 		printer.print("this");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.ThrowStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(ThrowStatement n, SourcePrinter printer) throws Exception {
 		if (n.getComment() != null) {
@@ -935,6 +1146,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print(";");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.TryStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(TryStatement n, SourcePrinter printer) throws Exception {
 		if (n.getComment() != null) {
@@ -953,6 +1167,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.UnaryExpression, java.lang.Object)
+	 */
 	@Override
 	public void visit(UnaryExpression n, SourcePrinter printer)
 			throws Exception {
@@ -1005,6 +1222,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.UnaryExpression.UnaryOperator, java.lang.Object)
+	 */
 	@Override
 	public void visit(UnaryOperator n, SourcePrinter printer) throws Exception {
 		switch (n) {
@@ -1049,6 +1269,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.VariableDeclaration, java.lang.Object)
+	 */
 	@Override
 	public void visit(VariableDeclaration n, SourcePrinter printer)
 			throws Exception {
@@ -1059,6 +1282,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.VariableExpression, java.lang.Object)
+	 */
 	@Override
 	public void visit(VariableExpression n, SourcePrinter printer)
 			throws Exception {
@@ -1069,6 +1295,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.VariableStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(VariableStatement n, SourcePrinter printer)
 			throws Exception {
@@ -1083,6 +1312,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.print(";");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.WhileStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(WhileStatement n, SourcePrinter printer) throws Exception {
 		if (n.getComment() != null) {
@@ -1098,6 +1330,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.WithStatement, java.lang.Object)
+	 */
 	@Override
 	public void visit(WithStatement n, SourcePrinter printer) throws Exception {
 		if (n.getComment() != null) {
@@ -1113,6 +1348,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.BlockComment, java.lang.Object)
+	 */
 	@Override
 	public void visit(BlockComment n, SourcePrinter printer) throws Exception {
 		printer.print("/*");
@@ -1120,6 +1358,9 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.printLn("*/");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.JSDocComment, java.lang.Object)
+	 */
 	@Override
 	public void visit(JSDocComment n, SourcePrinter printer) throws Exception {
 		printer.print("/**");
@@ -1127,12 +1368,18 @@ public class LinePrinter implements VoidVisitor<SourcePrinter> {
 		printer.printLn("*/");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.LineComment, java.lang.Object)
+	 */
 	@Override
 	public void visit(LineComment n, SourcePrinter printer) throws Exception {
 		printer.print("//");
 		printer.printLn(n.getContent());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.digiarea.es5.visitor.VoidVisitor#visit(com.digiarea.es5.NodeList, java.lang.Object)
+	 */
 	@Override
 	public <E extends Node> void visit(NodeList<E> n, SourcePrinter printer)
 			throws Exception {
