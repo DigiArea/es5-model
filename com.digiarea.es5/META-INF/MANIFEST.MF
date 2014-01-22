@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Es5
+Bundle-SymbolicName: com.digiarea.es5
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: DIGIAREA
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: com.digiarea.common;bundle-version="1.0.0"
+Export-Package: com.digiarea.es5,
+ com.digiarea.es5.parser,
+ com.digiarea.es5.visitor
