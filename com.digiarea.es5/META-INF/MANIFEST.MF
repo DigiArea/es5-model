@@ -7,5 +7,6 @@ Bundle-Vendor: DIGIAREA
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: com.digiarea.common;bundle-version="1.0.0"
 Export-Package: com.digiarea.es5,
+ com.digiarea.es5.io,
  com.digiarea.es5.parser,
  com.digiarea.es5.visitor

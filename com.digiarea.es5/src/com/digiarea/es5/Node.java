@@ -13,7 +13,7 @@ package com.digiarea.es5;
 import java.io.ByteArrayOutputStream;
 import java.security.MessageDigest;
 
-import com.digiarea.common.SourcePrinter;
+import com.digiarea.common.utils.SourcePrinter;
 import com.digiarea.es5.visitor.CloneVisitor;
 import com.digiarea.es5.visitor.EqualsVisitor;
 import com.digiarea.es5.visitor.GenericVisitor;

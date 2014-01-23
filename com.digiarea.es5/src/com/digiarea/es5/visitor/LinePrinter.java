@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-import com.digiarea.common.SourcePrinter;
+import com.digiarea.common.utils.SourcePrinter;
 import com.digiarea.es5.AllocationExpression;
 import com.digiarea.es5.ArrayAccessExpression;
 import com.digiarea.es5.ArrayLiteral;
