@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package com.digiarea.es5.io;
 
 import java.io.File;
