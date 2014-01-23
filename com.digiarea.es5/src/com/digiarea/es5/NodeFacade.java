@@ -342,4 +342,13 @@ public class NodeFacade extends NodeFactory {
 		return NewExpression(expression, initializer);
 	}
 
+	public static ExpressionStatement ExpressionStatement(Expression expression) {
+		return ExpressionStatement(null, expression);
+	}
+
+	public static AllocationExpression AllocationExpression(
+			Expression expression) {
+		return AllocationExpression(expression, 0, 0);
+	}
+
 }
