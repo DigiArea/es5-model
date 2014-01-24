@@ -1,13 +1,6 @@
-/*******************************************************************************
- * Copyright (c) 2011 - 2014 DigiArea, Inc. and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     DigiArea, Inc. - initial API and implementation
- *******************************************************************************/
+/*
+ * 
+ */
 package com.digiarea.es5;
 
 import com.digiarea.es5.Node;
@@ -28,11 +21,11 @@ public class Project extends Node {
         this.compilationUnits = compilationUnits;
     }
 
-    public Project() {
+    Project() {
         super();
     }
 
-    public Project(NodeList<CompilationUnit> compilationUnits, int posBegin, int posEnd) {
+    Project(NodeList<CompilationUnit> compilationUnits, int posBegin, int posEnd) {
         super(posBegin, posEnd);
         this.compilationUnits = compilationUnits;
     }

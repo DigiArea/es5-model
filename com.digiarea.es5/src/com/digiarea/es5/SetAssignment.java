@@ -1,13 +1,6 @@
-/*******************************************************************************
- * Copyright (c) 2011 - 2014 DigiArea, Inc. and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     DigiArea, Inc. - initial API and implementation
- *******************************************************************************/
+/*
+ * 
+ */
 package com.digiarea.es5;
 
 import com.digiarea.es5.GetAssignment;
@@ -29,11 +22,11 @@ public class SetAssignment extends GetAssignment {
         this.identifier = identifier;
     }
 
-    public SetAssignment() {
+    SetAssignment() {
         super();
     }
 
-    public SetAssignment(String identifier, Block block, PropertyName propertyName, Comment comment, int posBegin, int posEnd) {
+    SetAssignment(String identifier, Block block, PropertyName propertyName, Comment comment, int posBegin, int posEnd) {
         super(block, propertyName, comment, posBegin, posEnd);
         this.identifier = identifier;
     }

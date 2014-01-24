@@ -1,13 +1,6 @@
-/*******************************************************************************
- * Copyright (c) 2011 - 2014 DigiArea, Inc. and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     DigiArea, Inc. - initial API and implementation
- *******************************************************************************/
+/*
+ * 
+ */
 package com.digiarea.es5;
 
 import com.digiarea.es5.Expression;
@@ -49,11 +42,11 @@ public class FunctionExpression extends Expression {
         this.body = body;
     }
 
-    public FunctionExpression() {
+    FunctionExpression() {
         super();
     }
 
-    public FunctionExpression(String name, NodeList<Parameter> parameters, Block body, int posBegin, int posEnd) {
+    FunctionExpression(String name, NodeList<Parameter> parameters, Block body, int posBegin, int posEnd) {
         super(posBegin, posEnd);
         this.name = name;
         this.parameters = parameters;
