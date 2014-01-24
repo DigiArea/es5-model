@@ -12,12 +12,25 @@ package com.digiarea.es5;
 
 import com.digiarea.es5.PropertyName;
 
+/** 
+ * The Class StringLiteral.
+ */
 public abstract class StringLiteral extends PropertyName {
 
+    /**
+     * Instantiates a new string literal.
+     */
     StringLiteral() {
         super();
     }
 
+    /**
+     * Instantiates a new string literal.
+     *
+     * @param value the value
+     * @param posBegin the pos begin
+     * @param posEnd the pos end
+     */
     StringLiteral(String value, int posBegin, int posEnd) {
         super(value, posBegin, posEnd);
     }

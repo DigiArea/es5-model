@@ -15,8 +15,18 @@ import java.io.InputStream;
 
 import com.digiarea.es5.Node;
 
+/**
+ * The Class ParserFacade.
+ */
 public class ParserFacade {
 
+	/**
+	 * Parses the.
+	 *
+	 * @param jsCode the js code
+	 * @return the node
+	 * @throws Exception the exception
+	 */
 	public static final Node parse(String jsCode) throws Exception {
 		InputStream is = new ByteArrayInputStream(jsCode.getBytes());
 		ASTParser parser = new ASTParser(is);
@@ -115,6 +125,9 @@ public class ParserFacade {
 		return null;
 	}
 
+	/**
+	 * Instantiates a new parser facade.
+	 */
 	public ParserFacade() {
 		super();
 	}

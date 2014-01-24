@@ -20,20 +20,50 @@ import com.digiarea.es5.NodeList;
 import com.digiarea.es5.Project;
 import com.digiarea.es5.visitor.PrinterVisitor;
 
+/**
+ * The Class Output.
+ */
 public class Output implements Runnable {
 
+	/**
+	 * The Constant ENCODING.
+	 */
 	private static final String ENCODING = "UTF-8";
 
+	/**
+	 * The Constant EXT.
+	 */
 	private static final String EXT = FileExtensions.JS.END;
 
+	/**
+	 * The encoding.
+	 */
 	private String encoding = null;
+	
+	/**
+	 * The path.
+	 */
 	private String path = null;
+	
+	/**
+	 * The project.
+	 */
 	private Project project = null;
 
+	/**
+	 * Instantiates a new output.
+	 */
 	public Output() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new output.
+	 *
+	 * @param encoding the encoding
+	 * @param path the path
+	 * @param project the project
+	 */
 	public Output(String encoding, String path, Project project) {
 		super();
 		if (encoding == null) {
@@ -45,30 +75,63 @@ public class Output implements Runnable {
 		this.project = project;
 	}
 
+	/**
+	 * Gets the encoding.
+	 *
+	 * @return the encoding
+	 */
 	public String getEncoding() {
 		return encoding;
 	}
 
+	/**
+	 * Sets the encoding.
+	 *
+	 * @param encoding the new encoding
+	 */
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
 	}
 
+	/**
+	 * Gets the path.
+	 *
+	 * @return the path
+	 */
 	public String getPath() {
 		return path;
 	}
 
+	/**
+	 * Sets the path.
+	 *
+	 * @param path the new path
+	 */
 	public void setPath(String path) {
 		this.path = path;
 	}
 
+	/**
+	 * Gets the project.
+	 *
+	 * @return the project
+	 */
 	public Project getProject() {
 		return project;
 	}
 
+	/**
+	 * Sets the project.
+	 *
+	 * @param project the new project
+	 */
 	public void setProject(Project project) {
 		this.project = project;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		NodeList<CompilationUnit> compilationUnits = project
@@ -89,14 +152,33 @@ public class Output implements Runnable {
 		}
 	}
 
+	/**
+	 * Gets the name.
+	 *
+	 * @param unit the unit
+	 * @return the name
+	 */
 	private String getName(CompilationUnit unit) {
 		return unit.getName();
 	}
 
+	/**
+	 * Gets the path.
+	 *
+	 * @param path the path
+	 * @param name the name
+	 * @return the path
+	 */
 	private String getPath(String path, String name) {
 		return path + createPathFromQName(name) + "." + EXT;
 	}
 
+	/**
+	 * Creates the path from q name.
+	 *
+	 * @param name the name
+	 * @return the string
+	 */
 	private static String createPathFromQName(String name) {
 		String[] split = name.split("\\.");
 		String ret = File.separatorChar + split[0];

@@ -12,12 +12,24 @@ package com.digiarea.es5;
 
 import com.digiarea.es5.Expression;
 
+/** 
+ * The Class Literal.
+ */
 public abstract class Literal extends Expression {
 
+    /**
+     * Instantiates a new literal.
+     */
     Literal() {
         super();
     }
 
+    /**
+     * Instantiates a new literal.
+     *
+     * @param posBegin the pos begin
+     * @param posEnd the pos end
+     */
     Literal(int posBegin, int posEnd) {
         super(posBegin, posEnd);
     }

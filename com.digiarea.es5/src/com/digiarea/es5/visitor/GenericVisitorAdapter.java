@@ -83,8 +83,17 @@ import com.digiarea.es5.VariableStatement;
 import com.digiarea.es5.WhileStatement;
 import com.digiarea.es5.WithStatement;
 
+/**
+ * The Class GenericVisitorAdapter.
+ *
+ * @param <R> the generic type
+ * @param <C> the generic type
+ */
 public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.AllocationExpression, java.lang.Object)
+     */
     @Override
     public R visit(AllocationExpression n, C ctx) throws Exception {
         if (n.getBody() != null) {
@@ -93,6 +102,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ArrayAccessExpression, java.lang.Object)
+     */
     @Override
     public R visit(ArrayAccessExpression n, C ctx) throws Exception {
         if (n.getName() != null) {
@@ -104,6 +116,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ArrayLiteral, java.lang.Object)
+     */
     @Override
     public R visit(ArrayLiteral n, C ctx) throws Exception {
         if (n.getExpressions() != null) {
@@ -112,6 +127,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.AssignmentExpression, java.lang.Object)
+     */
     @Override
     public R visit(AssignmentExpression n, C ctx) throws Exception {
         if (n.getTarget() != null) {
@@ -126,11 +144,17 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.AssignmentExpression.AssignOperator, java.lang.Object)
+     */
     @Override
     public R visit(AssignOperator n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BinaryExpression, java.lang.Object)
+     */
     @Override
     public R visit(BinaryExpression n, C ctx) throws Exception {
         if (n.getLeft() != null) {
@@ -145,11 +169,17 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BinaryExpression.BinaryOperator, java.lang.Object)
+     */
     @Override
     public R visit(BinaryOperator n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.Block, java.lang.Object)
+     */
     @Override
     public R visit(Block n, C ctx) throws Exception {
         if (n.getStatements() != null) {
@@ -161,16 +191,25 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BlockComment, java.lang.Object)
+     */
     @Override
     public R visit(BlockComment n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BooleanLiteral, java.lang.Object)
+     */
     @Override
     public R visit(BooleanLiteral n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BreakStatement, java.lang.Object)
+     */
     @Override
     public R visit(BreakStatement n, C ctx) throws Exception {
         if (n.getComment() != null) {
@@ -179,6 +218,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CallExpression, java.lang.Object)
+     */
     @Override
     public R visit(CallExpression n, C ctx) throws Exception {
         if (n.getScope() != null) {
@@ -190,6 +232,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CaseBlock, java.lang.Object)
+     */
     @Override
     public R visit(CaseBlock n, C ctx) throws Exception {
         if (n.getDefaultClause() != null) {
@@ -204,6 +249,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CaseClause, java.lang.Object)
+     */
     @Override
     public R visit(CaseClause n, C ctx) throws Exception {
         if (n.getExpression() != null) {
@@ -215,6 +263,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CatchClause, java.lang.Object)
+     */
     @Override
     public R visit(CatchClause n, C ctx) throws Exception {
         if (n.getBlock() != null) {
@@ -223,6 +274,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CompilationUnit, java.lang.Object)
+     */
     @Override
     public R visit(CompilationUnit n, C ctx) throws Exception {
         if (n.getElements() != null) {
@@ -234,6 +288,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ConditionalExpression, java.lang.Object)
+     */
     @Override
     public R visit(ConditionalExpression n, C ctx) throws Exception {
         if (n.getCondition() != null) {
@@ -248,6 +305,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ConstantStatement, java.lang.Object)
+     */
     @Override
     public R visit(ConstantStatement n, C ctx) throws Exception {
         if (n.getVariableDeclarations() != null) {
@@ -259,6 +319,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ContinueStatement, java.lang.Object)
+     */
     @Override
     public R visit(ContinueStatement n, C ctx) throws Exception {
         if (n.getComment() != null) {
@@ -267,6 +330,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DebuggerStatement, java.lang.Object)
+     */
     @Override
     public R visit(DebuggerStatement n, C ctx) throws Exception {
         if (n.getComment() != null) {
@@ -275,11 +341,17 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DecimalLiteral, java.lang.Object)
+     */
     @Override
     public R visit(DecimalLiteral n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DefaultClause, java.lang.Object)
+     */
     @Override
     public R visit(DefaultClause n, C ctx) throws Exception {
         if (n.getStatements() != null) {
@@ -288,6 +360,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DoWhileStatement, java.lang.Object)
+     */
     @Override
     public R visit(DoWhileStatement n, C ctx) throws Exception {
         if (n.getCondition() != null) {
@@ -302,11 +377,17 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.EmptyLiteral, java.lang.Object)
+     */
     @Override
     public R visit(EmptyLiteral n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.EmptyStatement, java.lang.Object)
+     */
     @Override
     public R visit(EmptyStatement n, C ctx) throws Exception {
         if (n.getComment() != null) {
@@ -315,6 +396,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.EnclosedExpression, java.lang.Object)
+     */
     @Override
     public R visit(EnclosedExpression n, C ctx) throws Exception {
         if (n.getInner() != null) {
@@ -323,6 +407,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ExpressionStatement, java.lang.Object)
+     */
     @Override
     public R visit(ExpressionStatement n, C ctx) throws Exception {
         if (n.getExpression() != null) {
@@ -334,6 +421,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FieldAccessExpression, java.lang.Object)
+     */
     @Override
     public R visit(FieldAccessExpression n, C ctx) throws Exception {
         if (n.getScope() != null) {
@@ -345,11 +435,17 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FloatLiteral, java.lang.Object)
+     */
     @Override
     public R visit(FloatLiteral n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ForeachStatement, java.lang.Object)
+     */
     @Override
     public R visit(ForeachStatement n, C ctx) throws Exception {
         if (n.getVariable() != null) {
@@ -367,6 +463,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ForStatement, java.lang.Object)
+     */
     @Override
     public R visit(ForStatement n, C ctx) throws Exception {
         if (n.getVariable() != null) {
@@ -387,6 +486,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FunctionDeclaration, java.lang.Object)
+     */
     @Override
     public R visit(FunctionDeclaration n, C ctx) throws Exception {
         if (n.getParameters() != null) {
@@ -401,6 +503,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FunctionExpression, java.lang.Object)
+     */
     @Override
     public R visit(FunctionExpression n, C ctx) throws Exception {
         if (n.getParameters() != null) {
@@ -412,6 +517,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.GetAssignment, java.lang.Object)
+     */
     @Override
     public R visit(GetAssignment n, C ctx) throws Exception {
         if (n.getBlock() != null) {
@@ -426,16 +534,25 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.HexIntegerLiteral, java.lang.Object)
+     */
     @Override
     public R visit(HexIntegerLiteral n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.IdentifierName, java.lang.Object)
+     */
     @Override
     public R visit(IdentifierName n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.IfStatement, java.lang.Object)
+     */
     @Override
     public R visit(IfStatement n, C ctx) throws Exception {
         if (n.getCondition() != null) {
@@ -453,6 +570,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ImportStatement, java.lang.Object)
+     */
     @Override
     public R visit(ImportStatement n, C ctx) throws Exception {
         if (n.getName() != null) {
@@ -464,11 +584,17 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.JSDocComment, java.lang.Object)
+     */
     @Override
     public R visit(JSDocComment n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LabelledStatement, java.lang.Object)
+     */
     @Override
     public R visit(LabelledStatement n, C ctx) throws Exception {
         if (n.getStatement() != null) {
@@ -480,6 +606,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LetDefinition, java.lang.Object)
+     */
     @Override
     public R visit(LetDefinition n, C ctx) throws Exception {
         if (n.getVariableDeclarations() != null) {
@@ -491,6 +620,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LetExpression, java.lang.Object)
+     */
     @Override
     public R visit(LetExpression n, C ctx) throws Exception {
         if (n.getVariableDeclarations() != null) {
@@ -502,6 +634,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LetStatement, java.lang.Object)
+     */
     @Override
     public R visit(LetStatement n, C ctx) throws Exception {
         if (n.getVariableDeclarations() != null) {
@@ -516,11 +651,17 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LineComment, java.lang.Object)
+     */
     @Override
     public R visit(LineComment n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.NewExpression, java.lang.Object)
+     */
     @Override
     public R visit(NewExpression n, C ctx) throws Exception {
         if (n.getExpression() != null) {
@@ -532,6 +673,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.NodeList, java.lang.Object)
+     */
     @Override
     public <E extends Node> R visit(NodeList<E> n, C ctx) throws Exception {
         if (n.getNodes() != null) {
@@ -544,11 +688,17 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.NullLiteral, java.lang.Object)
+     */
     @Override
     public R visit(NullLiteral n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ObjectLiteral, java.lang.Object)
+     */
     @Override
     public R visit(ObjectLiteral n, C ctx) throws Exception {
         if (n.getPropertyAssignments() != null) {
@@ -557,16 +707,25 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.OctalLiteral, java.lang.Object)
+     */
     @Override
     public R visit(OctalLiteral n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.Parameter, java.lang.Object)
+     */
     @Override
     public R visit(Parameter n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.Project, java.lang.Object)
+     */
     @Override
     public R visit(Project n, C ctx) throws Exception {
         if (n.getCompilationUnits() != null) {
@@ -575,6 +734,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.PutAssignment, java.lang.Object)
+     */
     @Override
     public R visit(PutAssignment n, C ctx) throws Exception {
         if (n.getPropertyValue() != null) {
@@ -589,11 +751,17 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.RegexpLiteral, java.lang.Object)
+     */
     @Override
     public R visit(RegexpLiteral n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ReturnStatement, java.lang.Object)
+     */
     @Override
     public R visit(ReturnStatement n, C ctx) throws Exception {
         if (n.getExpression() != null) {
@@ -605,6 +773,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SequenceExpression, java.lang.Object)
+     */
     @Override
     public R visit(SequenceExpression n, C ctx) throws Exception {
         if (n.getExpressions() != null) {
@@ -613,6 +784,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SetAssignment, java.lang.Object)
+     */
     @Override
     public R visit(SetAssignment n, C ctx) throws Exception {
         if (n.getBlock() != null) {
@@ -627,21 +801,33 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.StringLiteralDouble, java.lang.Object)
+     */
     @Override
     public R visit(StringLiteralDouble n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.StringLiteralSingle, java.lang.Object)
+     */
     @Override
     public R visit(StringLiteralSingle n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SuperExpression, java.lang.Object)
+     */
     @Override
     public R visit(SuperExpression n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SwitchStatement, java.lang.Object)
+     */
     @Override
     public R visit(SwitchStatement n, C ctx) throws Exception {
         if (n.getExpression() != null) {
@@ -656,11 +842,17 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ThisExpression, java.lang.Object)
+     */
     @Override
     public R visit(ThisExpression n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ThrowStatement, java.lang.Object)
+     */
     @Override
     public R visit(ThrowStatement n, C ctx) throws Exception {
         if (n.getExpression() != null) {
@@ -672,6 +864,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.TryStatement, java.lang.Object)
+     */
     @Override
     public R visit(TryStatement n, C ctx) throws Exception {
         if (n.getTryBlock() != null) {
@@ -689,6 +884,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.UnaryExpression, java.lang.Object)
+     */
     @Override
     public R visit(UnaryExpression n, C ctx) throws Exception {
         if (n.getExpression() != null) {
@@ -700,11 +898,17 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.UnaryExpression.UnaryOperator, java.lang.Object)
+     */
     @Override
     public R visit(UnaryOperator n, C ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.VariableDeclaration, java.lang.Object)
+     */
     @Override
     public R visit(VariableDeclaration n, C ctx) throws Exception {
         if (n.getExpression() != null) {
@@ -713,6 +917,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.VariableExpression, java.lang.Object)
+     */
     @Override
     public R visit(VariableExpression n, C ctx) throws Exception {
         if (n.getVariableDeclarations() != null) {
@@ -721,6 +928,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.VariableStatement, java.lang.Object)
+     */
     @Override
     public R visit(VariableStatement n, C ctx) throws Exception {
         if (n.getVariableDeclarations() != null) {
@@ -732,6 +942,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.WhileStatement, java.lang.Object)
+     */
     @Override
     public R visit(WhileStatement n, C ctx) throws Exception {
         if (n.getCondition() != null) {
@@ -746,6 +959,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.WithStatement, java.lang.Object)
+     */
     @Override
     public R visit(WithStatement n, C ctx) throws Exception {
         if (n.getExpression() != null) {
@@ -760,6 +976,9 @@ public class GenericVisitorAdapter<R, C> implements GenericVisitor<R, C> {
         return null;
     }
 
+    /**
+     * Instantiates a new generic visitor adapter.
+     */
     public GenericVisitorAdapter() {
         super();
     }

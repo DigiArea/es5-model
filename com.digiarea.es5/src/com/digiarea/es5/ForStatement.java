@@ -16,52 +16,121 @@ import com.digiarea.es5.Comment;
 import com.digiarea.es5.visitor.VoidVisitor;
 import com.digiarea.es5.visitor.GenericVisitor;
 
+/** 
+ * The Class ForStatement.
+ */
 public class ForStatement extends Statement {
 
+    /** 
+     * The variable.
+     */
     private Expression variable;
 
+    /** 
+     * The condition.
+     */
     private Expression condition;
 
+    /** 
+     * The expr.
+     */
     private Expression expr;
 
+    /** 
+     * The body.
+     */
     private Statement body;
 
+    /**
+     * Gets the variable.
+     *
+     * @return the variable
+     */
     public Expression getVariable() {
         return variable;
     }
 
+    /**
+     * Sets the variable.
+     *
+     * @param variable the new variable
+     */
     public void setVariable(Expression variable) {
         this.variable = variable;
     }
 
+    /**
+     * Gets the condition.
+     *
+     * @return the condition
+     */
     public Expression getCondition() {
         return condition;
     }
 
+    /**
+     * Sets the condition.
+     *
+     * @param condition the new condition
+     */
     public void setCondition(Expression condition) {
         this.condition = condition;
     }
 
+    /**
+     * Gets the expr.
+     *
+     * @return the expr
+     */
     public Expression getExpr() {
         return expr;
     }
 
+    /**
+     * Sets the expr.
+     *
+     * @param expr the new expr
+     */
     public void setExpr(Expression expr) {
         this.expr = expr;
     }
 
+    /**
+     * Gets the body.
+     *
+     * @return the body
+     */
     public Statement getBody() {
         return body;
     }
 
+    /**
+     * Sets the body.
+     *
+     * @param body the new body
+     */
     public void setBody(Statement body) {
         this.body = body;
     }
 
+    /**
+     * Instantiates a new for statement.
+     */
     ForStatement() {
         super();
     }
 
+    /**
+     * Instantiates a new for statement.
+     *
+     * @param variable the variable
+     * @param condition the condition
+     * @param expr the expr
+     * @param body the body
+     * @param comment the comment
+     * @param posBegin the pos begin
+     * @param posEnd the pos end
+     */
     ForStatement(Expression variable, Expression condition, Expression expr, Statement body, Comment comment, int posBegin, int posEnd) {
         super(comment, posBegin, posEnd);
         this.variable = variable;
@@ -70,11 +139,17 @@ public class ForStatement extends Statement {
         this.body = body;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.Node#accept(com.digiarea.es5.visitor.VoidVisitor, java.lang.Object)
+     */
     @Override
     public <C> void accept(VoidVisitor<C> v, C ctx) throws Exception {
         v.visit(this, ctx);
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.Node#accept(com.digiarea.es5.visitor.GenericVisitor, java.lang.Object)
+     */
     @Override
     public <R, C> R accept(GenericVisitor<R, C> v, C ctx) throws Exception {
         return v.visit(this, ctx);

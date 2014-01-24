@@ -14,21 +14,40 @@ import com.digiarea.es5.PropertyName;
 import com.digiarea.es5.visitor.VoidVisitor;
 import com.digiarea.es5.visitor.GenericVisitor;
 
+/** 
+ * The Class IdentifierName.
+ */
 public class IdentifierName extends PropertyName {
 
+    /**
+     * Instantiates a new identifier name.
+     */
     IdentifierName() {
         super();
     }
 
+    /**
+     * Instantiates a new identifier name.
+     *
+     * @param value the value
+     * @param posBegin the pos begin
+     * @param posEnd the pos end
+     */
     IdentifierName(String value, int posBegin, int posEnd) {
         super(value, posBegin, posEnd);
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.Node#accept(com.digiarea.es5.visitor.VoidVisitor, java.lang.Object)
+     */
     @Override
     public <C> void accept(VoidVisitor<C> v, C ctx) throws Exception {
         v.visit(this, ctx);
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.Node#accept(com.digiarea.es5.visitor.GenericVisitor, java.lang.Object)
+     */
     @Override
     public <R, C> R accept(GenericVisitor<R, C> v, C ctx) throws Exception {
         return v.visit(this, ctx);

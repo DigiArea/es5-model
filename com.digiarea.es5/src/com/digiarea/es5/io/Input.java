@@ -29,21 +29,56 @@ import com.digiarea.es5.NodeFacade;
 import com.digiarea.es5.Project;
 import com.digiarea.es5.parser.ASTParser;
 
+/**
+ * The Class Input.
+ */
 public class Input implements Runnable {
 
+	/**
+	 * The Constant ENCODING.
+	 */
 	private static final String ENCODING = "UTF-8";
 
+	/**
+	 * The Constant EXT.
+	 */
 	private static final String EXT = FileExtensions.JS.END;
 
+	/**
+	 * The encoding.
+	 */
 	private String encoding = null;
+	
+	/**
+	 * The recursive.
+	 */
 	private boolean recursive = false;
+	
+	/**
+	 * The path.
+	 */
 	private String path = null;
+	
+	/**
+	 * The project.
+	 */
 	private Project project = null;
 
+	/**
+	 * Instantiates a new input.
+	 */
 	public Input() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new input.
+	 *
+	 * @param encoding the encoding
+	 * @param recursive the recursive
+	 * @param path the path
+	 * @param project the project
+	 */
 	public Input(String encoding, boolean recursive, String path,
 			Project project) {
 		super();
@@ -57,38 +92,81 @@ public class Input implements Runnable {
 		this.project = project;
 	}
 
+	/**
+	 * Gets the encoding.
+	 *
+	 * @return the encoding
+	 */
 	public String getEncoding() {
 		return encoding;
 	}
 
+	/**
+	 * Sets the encoding.
+	 *
+	 * @param encoding the new encoding
+	 */
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
 	}
 
+	/**
+	 * Checks if is recursive.
+	 *
+	 * @return true, if is recursive
+	 */
 	public boolean isRecursive() {
 		return recursive;
 	}
 
+	/**
+	 * Sets the recursive.
+	 *
+	 * @param recursive the new recursive
+	 */
 	public void setRecursive(boolean recursive) {
 		this.recursive = recursive;
 	}
 
+	/**
+	 * Gets the path.
+	 *
+	 * @return the path
+	 */
 	public String getPath() {
 		return path;
 	}
 
+	/**
+	 * Sets the path.
+	 *
+	 * @param path the new path
+	 */
 	public void setPath(String path) {
 		this.path = path;
 	}
 
+	/**
+	 * Gets the project.
+	 *
+	 * @return the project
+	 */
 	public Project getProject() {
 		return project;
 	}
 
+	/**
+	 * Sets the project.
+	 *
+	 * @param project the new project
+	 */
 	public void setProject(Project project) {
 		this.project = project;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		final List<CompilationUnit> compilationUnits = new ArrayList<>();

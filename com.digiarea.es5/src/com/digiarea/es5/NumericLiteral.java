@@ -12,12 +12,25 @@ package com.digiarea.es5;
 
 import com.digiarea.es5.PropertyName;
 
+/** 
+ * The Class NumericLiteral.
+ */
 public abstract class NumericLiteral extends PropertyName {
 
+    /**
+     * Instantiates a new numeric literal.
+     */
     NumericLiteral() {
         super();
     }
 
+    /**
+     * Instantiates a new numeric literal.
+     *
+     * @param value the value
+     * @param posBegin the pos begin
+     * @param posEnd the pos end
+     */
     NumericLiteral(String value, int posBegin, int posEnd) {
         super(value, posBegin, posEnd);
     }

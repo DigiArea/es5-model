@@ -84,15 +84,38 @@ import com.digiarea.es5.VariableStatement;
 import com.digiarea.es5.WhileStatement;
 import com.digiarea.es5.WithStatement;
 
+/**
+ * The Class EqualsVisitor.
+ */
 @SuppressWarnings("unchecked")
 public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
 
+    /**
+     * The Constant SINGLETON.
+     */
     private static final EqualsVisitor SINGLETON = new EqualsVisitor();
 
+    /**
+     * Equals.
+     *
+     * @param n1 the n1
+     * @param n2 the n2
+     * @return true, if successful
+     * @throws Exception the exception
+     */
     public static boolean equals(Node n1, Node n2) throws Exception {
         return SINGLETON.nodeEquals(n1, n2);
     }
 
+    /**
+     * Node equals.
+     *
+     * @param <T> the generic type
+     * @param n1 the n1
+     * @param n2 the n2
+     * @return true, if successful
+     * @throws Exception the exception
+     */
     protected <T extends Node> boolean nodeEquals(T n1, T n2) throws Exception {
         if (n1 == n2) {
             return true;
@@ -111,6 +134,15 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return n1.accept(this, n2).booleanValue();
     }
 
+    /**
+     * Nodes equals.
+     *
+     * @param <T> the generic type
+     * @param nodes1 the nodes1
+     * @param nodes2 the nodes2
+     * @return true, if successful
+     * @throws Exception the exception
+     */
     protected <T extends Node> boolean nodesEquals(List<T> nodes1, List<T> nodes2) throws Exception {
         if (nodes1 == null) {
             if (nodes2 == null) {
@@ -131,6 +163,13 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return true;
     }
 
+    /**
+     * Obj equals.
+     *
+     * @param n1 the n1
+     * @param n2 the n2
+     * @return true, if successful
+     */
     protected boolean objEquals(Object n1, Object n2) {
         if (n1 == n2) {
             return true;
@@ -146,6 +185,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return n1.equals(n2);
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.AllocationExpression, java.lang.Object)
+     */
     @Override
     public Boolean visit(AllocationExpression n, Node ctx) throws Exception {
         AllocationExpression x = (AllocationExpression) ctx;
@@ -155,6 +197,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ArrayAccessExpression, java.lang.Object)
+     */
     @Override
     public Boolean visit(ArrayAccessExpression n, Node ctx) throws Exception {
         ArrayAccessExpression x = (ArrayAccessExpression) ctx;
@@ -167,6 +212,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ArrayLiteral, java.lang.Object)
+     */
     @Override
     public Boolean visit(ArrayLiteral n, Node ctx) throws Exception {
         ArrayLiteral x = (ArrayLiteral) ctx;
@@ -176,6 +224,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.AssignmentExpression, java.lang.Object)
+     */
     @Override
     public Boolean visit(AssignmentExpression n, Node ctx) throws Exception {
         AssignmentExpression x = (AssignmentExpression) ctx;
@@ -191,11 +242,17 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.AssignmentExpression.AssignOperator, java.lang.Object)
+     */
     @Override
     public Boolean visit(AssignOperator n, Node ctx) throws Exception {
         return java.lang.Boolean.FALSE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BinaryExpression, java.lang.Object)
+     */
     @Override
     public Boolean visit(BinaryExpression n, Node ctx) throws Exception {
         BinaryExpression x = (BinaryExpression) ctx;
@@ -211,11 +268,17 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BinaryExpression.BinaryOperator, java.lang.Object)
+     */
     @Override
     public Boolean visit(BinaryOperator n, Node ctx) throws Exception {
         return java.lang.Boolean.FALSE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.Block, java.lang.Object)
+     */
     @Override
     public Boolean visit(Block n, Node ctx) throws Exception {
         Block x = (Block) ctx;
@@ -225,6 +288,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BlockComment, java.lang.Object)
+     */
     @Override
     public Boolean visit(BlockComment n, Node ctx) throws Exception {
         BlockComment x = (BlockComment) ctx;
@@ -234,6 +300,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BooleanLiteral, java.lang.Object)
+     */
     @Override
     public Boolean visit(BooleanLiteral n, Node ctx) throws Exception {
         BooleanLiteral x = (BooleanLiteral) ctx;
@@ -243,6 +312,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BreakStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(BreakStatement n, Node ctx) throws Exception {
         BreakStatement x = (BreakStatement) ctx;
@@ -252,6 +324,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CallExpression, java.lang.Object)
+     */
     @Override
     public Boolean visit(CallExpression n, Node ctx) throws Exception {
         CallExpression x = (CallExpression) ctx;
@@ -264,6 +339,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CaseBlock, java.lang.Object)
+     */
     @Override
     public Boolean visit(CaseBlock n, Node ctx) throws Exception {
         CaseBlock x = (CaseBlock) ctx;
@@ -276,6 +354,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CaseClause, java.lang.Object)
+     */
     @Override
     public Boolean visit(CaseClause n, Node ctx) throws Exception {
         CaseClause x = (CaseClause) ctx;
@@ -288,6 +369,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CatchClause, java.lang.Object)
+     */
     @Override
     public Boolean visit(CatchClause n, Node ctx) throws Exception {
         CatchClause x = (CatchClause) ctx;
@@ -300,6 +384,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CompilationUnit, java.lang.Object)
+     */
     @Override
     public Boolean visit(CompilationUnit n, Node ctx) throws Exception {
         CompilationUnit x = (CompilationUnit) ctx;
@@ -312,6 +399,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ConditionalExpression, java.lang.Object)
+     */
     @Override
     public Boolean visit(ConditionalExpression n, Node ctx) throws Exception {
         ConditionalExpression x = (ConditionalExpression) ctx;
@@ -327,6 +417,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ConstantStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(ConstantStatement n, Node ctx) throws Exception {
         ConstantStatement x = (ConstantStatement) ctx;
@@ -336,6 +429,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ContinueStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(ContinueStatement n, Node ctx) throws Exception {
         ContinueStatement x = (ContinueStatement) ctx;
@@ -345,11 +441,17 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DebuggerStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(DebuggerStatement n, Node ctx) throws Exception {
         return ctx instanceof DebuggerStatement;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DecimalLiteral, java.lang.Object)
+     */
     @Override
     public Boolean visit(DecimalLiteral n, Node ctx) throws Exception {
         DecimalLiteral x = (DecimalLiteral) ctx;
@@ -359,6 +461,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DefaultClause, java.lang.Object)
+     */
     @Override
     public Boolean visit(DefaultClause n, Node ctx) throws Exception {
         DefaultClause x = (DefaultClause) ctx;
@@ -368,6 +473,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DoWhileStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(DoWhileStatement n, Node ctx) throws Exception {
         DoWhileStatement x = (DoWhileStatement) ctx;
@@ -380,16 +488,25 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.EmptyLiteral, java.lang.Object)
+     */
     @Override
     public Boolean visit(EmptyLiteral n, Node ctx) throws Exception {
         return ctx instanceof EmptyLiteral;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.EmptyStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(EmptyStatement n, Node ctx) throws Exception {
         return ctx instanceof EmptyStatement;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.EnclosedExpression, java.lang.Object)
+     */
     @Override
     public Boolean visit(EnclosedExpression n, Node ctx) throws Exception {
         EnclosedExpression x = (EnclosedExpression) ctx;
@@ -399,6 +516,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ExpressionStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(ExpressionStatement n, Node ctx) throws Exception {
         ExpressionStatement x = (ExpressionStatement) ctx;
@@ -408,6 +528,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FieldAccessExpression, java.lang.Object)
+     */
     @Override
     public Boolean visit(FieldAccessExpression n, Node ctx) throws Exception {
         FieldAccessExpression x = (FieldAccessExpression) ctx;
@@ -420,6 +543,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FloatLiteral, java.lang.Object)
+     */
     @Override
     public Boolean visit(FloatLiteral n, Node ctx) throws Exception {
         FloatLiteral x = (FloatLiteral) ctx;
@@ -429,6 +555,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ForeachStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(ForeachStatement n, Node ctx) throws Exception {
         ForeachStatement x = (ForeachStatement) ctx;
@@ -444,6 +573,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ForStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(ForStatement n, Node ctx) throws Exception {
         ForStatement x = (ForStatement) ctx;
@@ -462,6 +594,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FunctionDeclaration, java.lang.Object)
+     */
     @Override
     public Boolean visit(FunctionDeclaration n, Node ctx) throws Exception {
         FunctionDeclaration x = (FunctionDeclaration) ctx;
@@ -477,6 +612,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FunctionExpression, java.lang.Object)
+     */
     @Override
     public Boolean visit(FunctionExpression n, Node ctx) throws Exception {
         FunctionExpression x = (FunctionExpression) ctx;
@@ -492,6 +630,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.GetAssignment, java.lang.Object)
+     */
     @Override
     public Boolean visit(GetAssignment n, Node ctx) throws Exception {
         GetAssignment x = (GetAssignment) ctx;
@@ -507,6 +648,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.HexIntegerLiteral, java.lang.Object)
+     */
     @Override
     public Boolean visit(HexIntegerLiteral n, Node ctx) throws Exception {
         HexIntegerLiteral x = (HexIntegerLiteral) ctx;
@@ -516,6 +660,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.IdentifierName, java.lang.Object)
+     */
     @Override
     public Boolean visit(IdentifierName n, Node ctx) throws Exception {
         IdentifierName x = (IdentifierName) ctx;
@@ -525,6 +672,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.IfStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(IfStatement n, Node ctx) throws Exception {
         IfStatement x = (IfStatement) ctx;
@@ -540,6 +690,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ImportStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(ImportStatement n, Node ctx) throws Exception {
         ImportStatement x = (ImportStatement) ctx;
@@ -549,6 +702,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.JSDocComment, java.lang.Object)
+     */
     @Override
     public Boolean visit(JSDocComment n, Node ctx) throws Exception {
         JSDocComment x = (JSDocComment) ctx;
@@ -558,6 +714,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LabelledStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(LabelledStatement n, Node ctx) throws Exception {
         LabelledStatement x = (LabelledStatement) ctx;
@@ -570,6 +729,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LetDefinition, java.lang.Object)
+     */
     @Override
     public Boolean visit(LetDefinition n, Node ctx) throws Exception {
         LetDefinition x = (LetDefinition) ctx;
@@ -579,6 +741,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LetExpression, java.lang.Object)
+     */
     @Override
     public Boolean visit(LetExpression n, Node ctx) throws Exception {
         LetExpression x = (LetExpression) ctx;
@@ -591,6 +756,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LetStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(LetStatement n, Node ctx) throws Exception {
         LetStatement x = (LetStatement) ctx;
@@ -603,6 +771,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LineComment, java.lang.Object)
+     */
     @Override
     public Boolean visit(LineComment n, Node ctx) throws Exception {
         LineComment x = (LineComment) ctx;
@@ -612,6 +783,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.NewExpression, java.lang.Object)
+     */
     @Override
     public Boolean visit(NewExpression n, Node ctx) throws Exception {
         NewExpression x = (NewExpression) ctx;
@@ -624,6 +798,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.NodeList, java.lang.Object)
+     */
     @Override
     public <E extends Node> Boolean visit(NodeList<E> n, Node ctx) throws Exception {
         NodeList<E> x = (NodeList<E>) ctx;
@@ -633,11 +810,17 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.NullLiteral, java.lang.Object)
+     */
     @Override
     public Boolean visit(NullLiteral n, Node ctx) throws Exception {
         return ctx instanceof NullLiteral;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ObjectLiteral, java.lang.Object)
+     */
     @Override
     public Boolean visit(ObjectLiteral n, Node ctx) throws Exception {
         ObjectLiteral x = (ObjectLiteral) ctx;
@@ -647,6 +830,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.OctalLiteral, java.lang.Object)
+     */
     @Override
     public Boolean visit(OctalLiteral n, Node ctx) throws Exception {
         OctalLiteral x = (OctalLiteral) ctx;
@@ -656,6 +842,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.Parameter, java.lang.Object)
+     */
     @Override
     public Boolean visit(Parameter n, Node ctx) throws Exception {
         Parameter x = (Parameter) ctx;
@@ -665,6 +854,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.Project, java.lang.Object)
+     */
     @Override
     public Boolean visit(Project n, Node ctx) throws Exception {
         Project x = (Project) ctx;
@@ -674,6 +866,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.PutAssignment, java.lang.Object)
+     */
     @Override
     public Boolean visit(PutAssignment n, Node ctx) throws Exception {
         PutAssignment x = (PutAssignment) ctx;
@@ -689,6 +884,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.RegexpLiteral, java.lang.Object)
+     */
     @Override
     public Boolean visit(RegexpLiteral n, Node ctx) throws Exception {
         RegexpLiteral x = (RegexpLiteral) ctx;
@@ -698,6 +896,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ReturnStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(ReturnStatement n, Node ctx) throws Exception {
         ReturnStatement x = (ReturnStatement) ctx;
@@ -707,6 +908,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SequenceExpression, java.lang.Object)
+     */
     @Override
     public Boolean visit(SequenceExpression n, Node ctx) throws Exception {
         SequenceExpression x = (SequenceExpression) ctx;
@@ -716,6 +920,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SetAssignment, java.lang.Object)
+     */
     @Override
     public Boolean visit(SetAssignment n, Node ctx) throws Exception {
         SetAssignment x = (SetAssignment) ctx;
@@ -734,6 +941,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.StringLiteralDouble, java.lang.Object)
+     */
     @Override
     public Boolean visit(StringLiteralDouble n, Node ctx) throws Exception {
         StringLiteralDouble x = (StringLiteralDouble) ctx;
@@ -743,6 +953,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.StringLiteralSingle, java.lang.Object)
+     */
     @Override
     public Boolean visit(StringLiteralSingle n, Node ctx) throws Exception {
         StringLiteralSingle x = (StringLiteralSingle) ctx;
@@ -752,11 +965,17 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SuperExpression, java.lang.Object)
+     */
     @Override
     public Boolean visit(SuperExpression n, Node ctx) throws Exception {
         return ctx instanceof SuperExpression;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SwitchStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(SwitchStatement n, Node ctx) throws Exception {
         SwitchStatement x = (SwitchStatement) ctx;
@@ -769,11 +988,17 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ThisExpression, java.lang.Object)
+     */
     @Override
     public Boolean visit(ThisExpression n, Node ctx) throws Exception {
         return ctx instanceof ThisExpression;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ThrowStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(ThrowStatement n, Node ctx) throws Exception {
         ThrowStatement x = (ThrowStatement) ctx;
@@ -783,6 +1008,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.TryStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(TryStatement n, Node ctx) throws Exception {
         TryStatement x = (TryStatement) ctx;
@@ -798,6 +1026,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.UnaryExpression, java.lang.Object)
+     */
     @Override
     public Boolean visit(UnaryExpression n, Node ctx) throws Exception {
         UnaryExpression x = (UnaryExpression) ctx;
@@ -810,11 +1041,17 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.UnaryExpression.UnaryOperator, java.lang.Object)
+     */
     @Override
     public Boolean visit(UnaryOperator n, Node ctx) throws Exception {
         return java.lang.Boolean.FALSE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.VariableDeclaration, java.lang.Object)
+     */
     @Override
     public Boolean visit(VariableDeclaration n, Node ctx) throws Exception {
         VariableDeclaration x = (VariableDeclaration) ctx;
@@ -827,6 +1064,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.VariableExpression, java.lang.Object)
+     */
     @Override
     public Boolean visit(VariableExpression n, Node ctx) throws Exception {
         VariableExpression x = (VariableExpression) ctx;
@@ -836,6 +1076,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.VariableStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(VariableStatement n, Node ctx) throws Exception {
         VariableStatement x = (VariableStatement) ctx;
@@ -845,6 +1088,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.WhileStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(WhileStatement n, Node ctx) throws Exception {
         WhileStatement x = (WhileStatement) ctx;
@@ -857,6 +1103,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.WithStatement, java.lang.Object)
+     */
     @Override
     public Boolean visit(WithStatement n, Node ctx) throws Exception {
         WithStatement x = (WithStatement) ctx;
@@ -869,6 +1118,9 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Node> {
         return java.lang.Boolean.TRUE;
     }
 
+    /**
+     * Instantiates a new equals visitor.
+     */
     public EqualsVisitor() {
         super();
     }

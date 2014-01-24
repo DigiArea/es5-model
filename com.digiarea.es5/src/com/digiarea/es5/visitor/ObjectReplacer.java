@@ -92,9 +92,15 @@ import com.digiarea.es5.VariableStatement;
 import com.digiarea.es5.WhileStatement;
 import com.digiarea.es5.WithStatement;
 
+/**
+ * The Class ObjectReplacer.
+ */
 @SuppressWarnings("unchecked")
 public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>> {
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.AllocationExpression, java.lang.Object)
+     */
     @Override
     public Node visit(AllocationExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -117,6 +123,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ArrayAccessExpression, java.lang.Object)
+     */
     @Override
     public Node visit(ArrayAccessExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -142,6 +151,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ArrayLiteral, java.lang.Object)
+     */
     @Override
     public Node visit(ArrayLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -164,6 +176,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.AssignmentExpression, java.lang.Object)
+     */
     @Override
     public Node visit(AssignmentExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -194,11 +209,17 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.AssignmentExpression.AssignOperator, java.lang.Object)
+     */
     @Override
     public Node visit(AssignOperator n, Map<Object, Object> ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BinaryExpression, java.lang.Object)
+     */
     @Override
     public Node visit(BinaryExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -229,11 +250,17 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BinaryExpression.BinaryOperator, java.lang.Object)
+     */
     @Override
     public Node visit(BinaryOperator n, Map<Object, Object> ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.Block, java.lang.Object)
+     */
     @Override
     public Node visit(Block n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -259,6 +286,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BlockComment, java.lang.Object)
+     */
     @Override
     public Node visit(BlockComment n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -283,6 +313,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BooleanLiteral, java.lang.Object)
+     */
     @Override
     public Node visit(BooleanLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -307,6 +340,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BreakStatement, java.lang.Object)
+     */
     @Override
     public Node visit(BreakStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -334,6 +370,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CallExpression, java.lang.Object)
+     */
     @Override
     public Node visit(CallExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -359,6 +398,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CaseBlock, java.lang.Object)
+     */
     @Override
     public Node visit(CaseBlock n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -387,6 +429,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CaseClause, java.lang.Object)
+     */
     @Override
     public Node visit(CaseClause n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -412,6 +457,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CatchClause, java.lang.Object)
+     */
     @Override
     public Node visit(CatchClause n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -439,6 +487,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CompilationUnit, java.lang.Object)
+     */
     @Override
     public Node visit(CompilationUnit n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -469,6 +520,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ConditionalExpression, java.lang.Object)
+     */
     @Override
     public Node visit(ConditionalExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -497,6 +551,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ConstantStatement, java.lang.Object)
+     */
     @Override
     public Node visit(ConstantStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -522,6 +579,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ContinueStatement, java.lang.Object)
+     */
     @Override
     public Node visit(ContinueStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -549,6 +609,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DebuggerStatement, java.lang.Object)
+     */
     @Override
     public Node visit(DebuggerStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -571,6 +634,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DecimalLiteral, java.lang.Object)
+     */
     @Override
     public Node visit(DecimalLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -595,6 +661,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DefaultClause, java.lang.Object)
+     */
     @Override
     public Node visit(DefaultClause n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -617,6 +686,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DoWhileStatement, java.lang.Object)
+     */
     @Override
     public Node visit(DoWhileStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -645,6 +717,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.EmptyLiteral, java.lang.Object)
+     */
     @Override
     public Node visit(EmptyLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -664,6 +739,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.EmptyStatement, java.lang.Object)
+     */
     @Override
     public Node visit(EmptyStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -686,6 +764,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.EnclosedExpression, java.lang.Object)
+     */
     @Override
     public Node visit(EnclosedExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -708,6 +789,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ExpressionStatement, java.lang.Object)
+     */
     @Override
     public Node visit(ExpressionStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -733,6 +817,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FieldAccessExpression, java.lang.Object)
+     */
     @Override
     public Node visit(FieldAccessExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -758,6 +845,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FloatLiteral, java.lang.Object)
+     */
     @Override
     public Node visit(FloatLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -782,6 +872,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ForeachStatement, java.lang.Object)
+     */
     @Override
     public Node visit(ForeachStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -813,6 +906,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ForStatement, java.lang.Object)
+     */
     @Override
     public Node visit(ForStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -847,6 +943,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FunctionDeclaration, java.lang.Object)
+     */
     @Override
     public Node visit(FunctionDeclaration n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -880,6 +979,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FunctionExpression, java.lang.Object)
+     */
     @Override
     public Node visit(FunctionExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -910,6 +1012,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.GetAssignment, java.lang.Object)
+     */
     @Override
     public Node visit(GetAssignment n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -938,6 +1043,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.HexIntegerLiteral, java.lang.Object)
+     */
     @Override
     public Node visit(HexIntegerLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -962,6 +1070,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.IdentifierName, java.lang.Object)
+     */
     @Override
     public Node visit(IdentifierName n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -986,6 +1097,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.IfStatement, java.lang.Object)
+     */
     @Override
     public Node visit(IfStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1017,6 +1131,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ImportStatement, java.lang.Object)
+     */
     @Override
     public Node visit(ImportStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1042,6 +1159,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.JSDocComment, java.lang.Object)
+     */
     @Override
     public Node visit(JSDocComment n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1066,6 +1186,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LabelledStatement, java.lang.Object)
+     */
     @Override
     public Node visit(LabelledStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1096,6 +1219,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LetDefinition, java.lang.Object)
+     */
     @Override
     public Node visit(LetDefinition n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1121,6 +1247,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LetExpression, java.lang.Object)
+     */
     @Override
     public Node visit(LetExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1146,6 +1275,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LetStatement, java.lang.Object)
+     */
     @Override
     public Node visit(LetStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1174,6 +1306,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LineComment, java.lang.Object)
+     */
     @Override
     public Node visit(LineComment n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1198,6 +1333,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.NewExpression, java.lang.Object)
+     */
     @Override
     public Node visit(NewExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1223,6 +1361,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.NodeList, java.lang.Object)
+     */
     @Override
     public <E extends Node> Node visit(NodeList<E> n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1254,6 +1395,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.NullLiteral, java.lang.Object)
+     */
     @Override
     public Node visit(NullLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1273,6 +1417,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ObjectLiteral, java.lang.Object)
+     */
     @Override
     public Node visit(ObjectLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1295,6 +1442,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.OctalLiteral, java.lang.Object)
+     */
     @Override
     public Node visit(OctalLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1319,6 +1469,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.Parameter, java.lang.Object)
+     */
     @Override
     public Node visit(Parameter n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1343,6 +1496,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.Project, java.lang.Object)
+     */
     @Override
     public Node visit(Project n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1365,6 +1521,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.PutAssignment, java.lang.Object)
+     */
     @Override
     public Node visit(PutAssignment n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1393,6 +1552,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.RegexpLiteral, java.lang.Object)
+     */
     @Override
     public Node visit(RegexpLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1417,6 +1579,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ReturnStatement, java.lang.Object)
+     */
     @Override
     public Node visit(ReturnStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1442,6 +1607,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SequenceExpression, java.lang.Object)
+     */
     @Override
     public Node visit(SequenceExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1464,6 +1632,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SetAssignment, java.lang.Object)
+     */
     @Override
     public Node visit(SetAssignment n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1497,6 +1668,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.StringLiteralDouble, java.lang.Object)
+     */
     @Override
     public Node visit(StringLiteralDouble n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1521,6 +1695,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.StringLiteralSingle, java.lang.Object)
+     */
     @Override
     public Node visit(StringLiteralSingle n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1545,6 +1722,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SuperExpression, java.lang.Object)
+     */
     @Override
     public Node visit(SuperExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1564,6 +1744,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SwitchStatement, java.lang.Object)
+     */
     @Override
     public Node visit(SwitchStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1592,6 +1775,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ThisExpression, java.lang.Object)
+     */
     @Override
     public Node visit(ThisExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1611,6 +1797,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ThrowStatement, java.lang.Object)
+     */
     @Override
     public Node visit(ThrowStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1636,6 +1825,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.TryStatement, java.lang.Object)
+     */
     @Override
     public Node visit(TryStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1667,6 +1859,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.UnaryExpression, java.lang.Object)
+     */
     @Override
     public Node visit(UnaryExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1694,11 +1889,17 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.UnaryExpression.UnaryOperator, java.lang.Object)
+     */
     @Override
     public Node visit(UnaryOperator n, Map<Object, Object> ctx) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.VariableDeclaration, java.lang.Object)
+     */
     @Override
     public Node visit(VariableDeclaration n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1726,6 +1927,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.VariableExpression, java.lang.Object)
+     */
     @Override
     public Node visit(VariableExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1748,6 +1952,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.VariableStatement, java.lang.Object)
+     */
     @Override
     public Node visit(VariableStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1773,6 +1980,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.WhileStatement, java.lang.Object)
+     */
     @Override
     public Node visit(WhileStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1801,6 +2011,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /* (non-Javadoc)
+     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.WithStatement, java.lang.Object)
+     */
     @Override
     public Node visit(WithStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1829,6 +2042,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
+    /**
+     * Instantiates a new object replacer.
+     */
     public ObjectReplacer() {
         super();
     }

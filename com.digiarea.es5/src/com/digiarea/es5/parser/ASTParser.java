@@ -12,16 +12,35 @@ package com.digiarea.es5.parser;
 import java.util.*;
 import com.digiarea.es5.*;
 
+/**
+ * The Class ASTParser.
+ */
 @SuppressWarnings({"unused", "serial"})
 public final class ASTParser implements ASTParserConstants {
 
+  /**
+   * The cu name.
+   */
   private String cuName = null;
 
+  /**
+   * Reset.
+   *
+   * @param in the in
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void reset(java.io.InputStream in) throws java.io.IOException
   {
     reset(in, null);
   }
 
+  /**
+   * Reset.
+   *
+   * @param in the in
+   * @param encoding the encoding
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void reset(java.io.InputStream in, String encoding) throws java.io.IOException
   {
     in.reset();
@@ -29,21 +48,40 @@ public final class ASTParser implements ASTParserConstants {
     token_source.clearComments();
   }
 
+  /**
+   * Push js doc.
+   */
   private void pushJSDoc()
   {
     token_source.pushJSDoc();
   }
 
+  /**
+   * Pop js doc.
+   *
+   * @return the JS doc comment
+   */
   private JSDocComment popJSDoc()
   {
     return token_source.popJSDoc();
   }
 
+  /**
+   * Gets the comments.
+   *
+   * @return the comments
+   */
   private List < Comment > getComments()
   {
     return token_source.getComments();
   }
 
+  /**
+   * Numeric literal.
+   *
+   * @return the numeric literal
+   * @throws ParseException the parse exception
+   */
   final public NumericLiteral NumericLiteral() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case DECIMAL_LITERAL:
@@ -70,6 +108,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Boolean literal.
+   *
+   * @return the boolean literal
+   * @throws ParseException the parse exception
+   */
   final public BooleanLiteral BooleanLiteral() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case TRUE:
@@ -88,18 +132,36 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Null literal.
+   *
+   * @return the null literal
+   * @throws ParseException the parse exception
+   */
   final public NullLiteral NullLiteral() throws ParseException {
     jj_consume_token(NULL);
     {if (true) return NodeFacade.NullLiteral();}
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Regexp literal.
+   *
+   * @return the regexp literal
+   * @throws ParseException the parse exception
+   */
   final public RegexpLiteral RegexpLiteral() throws ParseException {
     jj_consume_token(REGULAR_EXPRESSION_LITERAL);
     {if (true) return NodeFacade.RegexpLiteral(token.image);}
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Literal.
+   *
+   * @return the literal
+   * @throws ParseException the parse exception
+   */
   final public Literal Literal() throws ParseException {
   Literal literal = null;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -141,6 +203,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Identifier.
+   *
+   * @return the string
+   * @throws ParseException the parse exception
+   */
   final public String Identifier() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case IDENTIFIER:
@@ -161,6 +229,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Identifier name.
+   *
+   * @return the identifier name
+   * @throws ParseException the parse exception
+   */
   final public IdentifierName IdentifierName() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case IDENTIFIER:
@@ -289,6 +363,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Primary expression.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression PrimaryExpression() throws ParseException {
   Expression expression = null;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -355,6 +435,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Primary expression in es.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression PrimaryExpressionInES() throws ParseException {
   Expression expression = null;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -467,6 +553,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * This or super.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression ThisOrSuper() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case THIS:
@@ -485,6 +577,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Name.
+   *
+   * @return the identifier name
+   * @throws ParseException the parse exception
+   */
   final public IdentifierName Name() throws ParseException {
   String name = null;
     name = Identifier();
@@ -492,6 +590,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Enclosed expression.
+   *
+   * @return the enclosed expression
+   * @throws ParseException the parse exception
+   */
   final public EnclosedExpression EnclosedExpression() throws ParseException {
   Expression expression = null;
     jj_consume_token(LPAREN);
@@ -501,6 +605,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Function expression.
+   *
+   * @return the function expression
+   * @throws ParseException the parse exception
+   */
   final public FunctionExpression FunctionExpression() throws ParseException {
   String name = null;
   List<Parameter> parameters = null;
@@ -533,6 +643,13 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Primary suffix.
+   *
+   * @param scope the scope
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression PrimarySuffix(Expression scope) throws ParseException {
   List<Expression> args = null;
   Expression expr = null;
@@ -561,6 +678,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Arguments.
+   *
+   * @return the list
+   * @throws ParseException the parse exception
+   */
   final public List<Expression> Arguments() throws ParseException {
   List<Expression> expressions = null;
     jj_consume_token(LPAREN);
@@ -608,6 +731,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Argument list.
+   *
+   * @return the list
+   * @throws ParseException the parse exception
+   */
   final public List<Expression> ArgumentList() throws ParseException {
   List<Expression> expressions = new ArrayList<Expression>();
   Expression expression = null;
@@ -631,6 +760,13 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * New suffix.
+   *
+   * @param scope the scope
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression NewSuffix(Expression scope) throws ParseException {
   String identifier = null;
   Expression expression = null;
@@ -654,6 +790,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Allocation expression.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression AllocationExpression() throws ParseException {
   Expression expression = null;
   List<Expression> arguments = null;
@@ -822,6 +964,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Array literal.
+   *
+   * @return the array literal
+   * @throws ParseException the parse exception
+   */
   final public ArrayLiteral ArrayLiteral() throws ParseException {
   List<Expression> expressions = new ArrayList<Expression>();
   Expression expression = null;
@@ -933,6 +1081,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Object literal.
+   *
+   * @return the object literal
+   * @throws ParseException the parse exception
+   */
   final public ObjectLiteral ObjectLiteral() throws ParseException {
   List<PropertyAssignment> assignments = new ArrayList<PropertyAssignment>();
     jj_consume_token(LBRACE);
@@ -992,6 +1146,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Property name and value list.
+   *
+   * @param assignments the assignments
+   * @throws ParseException the parse exception
+   */
   final public void PropertyNameAndValueList(List<PropertyAssignment> assignments) throws ParseException {
   PropertyAssignment assignment = null;
     assignment = PropertyAssignment();
@@ -1057,6 +1217,12 @@ public final class ASTParser implements ASTParserConstants {
     }
   }
 
+  /**
+   * Property assignment.
+   *
+   * @return the property assignment
+   * @throws ParseException the parse exception
+   */
   final public PropertyAssignment PropertyAssignment() throws ParseException {
   PropertyName propertyName = null;
   Block block = null;
@@ -1137,6 +1303,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Property name.
+   *
+   * @return the property name
+   * @throws ParseException the parse exception
+   */
   final public PropertyName PropertyName() throws ParseException {
    PropertyName propertyName = null;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -1199,6 +1371,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * String literal.
+   *
+   * @return the string literal
+   * @throws ParseException the parse exception
+   */
   final public StringLiteral StringLiteral() throws ParseException {
     jj_consume_token(STRING_LITERAL);
     if (token.image.charAt(0) == '\u005c'')
@@ -1211,6 +1389,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Postfix op.
+   *
+   * @return the unary expression. unary operator
+   * @throws ParseException the parse exception
+   */
   final public UnaryExpression.UnaryOperator PostfixOp() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case INCR:
@@ -1229,6 +1413,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Postfix expression.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression PostfixExpression() throws ParseException {
   Expression expression = null;
   UnaryExpression.UnaryOperator operator = null;
@@ -1250,6 +1440,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Postfix expression in es.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression PostfixExpressionInES() throws ParseException {
   Expression expression = null;
   UnaryExpression.UnaryOperator operator = null;
@@ -1271,6 +1467,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Unary op.
+   *
+   * @return the unary expression. unary operator
+   * @throws ParseException the parse exception
+   */
   final public UnaryExpression.UnaryOperator UnaryOp() throws ParseException {
   UnaryExpression.UnaryOperator operator = null;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -1331,6 +1533,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Unary expression.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression UnaryExpression() throws ParseException {
   Expression expression = null;
   UnaryExpression.UnaryOperator operator = null;
@@ -1382,6 +1590,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Unary expression in es.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression UnaryExpressionInES() throws ParseException {
   Expression expression = null;
   UnaryExpression.UnaryOperator operator = null;
@@ -1431,6 +1645,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Mul op.
+   *
+   * @return the binary expression. binary operator
+   * @throws ParseException the parse exception
+   */
   final public BinaryExpression.BinaryOperator MulOp() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case STAR:
@@ -1453,6 +1673,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Multiplicative expression.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression MultiplicativeExpression() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -1478,6 +1704,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Multiplicative expression in es.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression MultiplicativeExpressionInES() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -1503,6 +1735,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Adds the op.
+   *
+   * @return the binary expression. binary operator
+   * @throws ParseException the parse exception
+   */
   final public BinaryExpression.BinaryOperator AddOp() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case PLUS:
@@ -1521,6 +1759,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Additive expression.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression AdditiveExpression() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -1545,6 +1789,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Additive expression in es.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression AdditiveExpressionInES() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -1569,6 +1819,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Shift op.
+   *
+   * @return the binary expression. binary operator
+   * @throws ParseException the parse exception
+   */
   final public BinaryExpression.BinaryOperator ShiftOp() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case LSHIFT:
@@ -1591,6 +1847,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Shift expression.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression ShiftExpression() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -1616,6 +1878,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Shift expression in es.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression ShiftExpressionInES() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -1641,6 +1909,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Rel op.
+   *
+   * @return the binary expression. binary operator
+   * @throws ParseException the parse exception
+   */
   final public BinaryExpression.BinaryOperator RelOp() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case LT:
@@ -1675,6 +1949,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Rel op no in.
+   *
+   * @return the binary expression. binary operator
+   * @throws ParseException the parse exception
+   */
   final public BinaryExpression.BinaryOperator RelOpNoIn() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case LT:
@@ -1705,6 +1985,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Relational expression.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression RelationalExpression() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -1733,6 +2019,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Relational expression no in.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression RelationalExpressionNoIn() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -1760,6 +2052,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Relational expression in es.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression RelationalExpressionInES() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -1788,6 +2086,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Equal op.
+   *
+   * @return the binary expression. binary operator
+   * @throws ParseException the parse exception
+   */
   final public BinaryExpression.BinaryOperator EqualOp() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case EQ:
@@ -1814,6 +2118,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Equality expression.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression EqualityExpression() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -1840,6 +2150,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Equality expression no in.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression EqualityExpressionNoIn() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -1866,6 +2182,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Equality expression in es.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression EqualityExpressionInES() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -1892,12 +2214,24 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Bitwise and op.
+   *
+   * @return the binary expression. binary operator
+   * @throws ParseException the parse exception
+   */
   final public BinaryExpression.BinaryOperator BitwiseANDOp() throws ParseException {
     jj_consume_token(BIT_AND);
     {if (true) return BinaryExpression.BinaryOperator.binAnd;}
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Bitwise and expression.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression BitwiseANDExpression() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -1921,6 +2255,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Bitwise and expression no in.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression BitwiseANDExpressionNoIn() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -1944,6 +2284,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Bitwise and expression in es.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression BitwiseANDExpressionInES() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -1967,12 +2313,24 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Bitwise xor op.
+   *
+   * @return the binary expression. binary operator
+   * @throws ParseException the parse exception
+   */
   final public BinaryExpression.BinaryOperator BitwiseXOROp() throws ParseException {
     jj_consume_token(XOR);
     {if (true) return BinaryExpression.BinaryOperator.xor;}
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Bitwise xor expression.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression BitwiseXORExpression() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -1996,6 +2354,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Bitwise xor expression no in.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression BitwiseXORExpressionNoIn() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -2019,6 +2383,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Bitwise xor expression in es.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression BitwiseXORExpressionInES() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -2042,12 +2412,24 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Bitwise or op.
+   *
+   * @return the binary expression. binary operator
+   * @throws ParseException the parse exception
+   */
   final public BinaryExpression.BinaryOperator BitwiseOROp() throws ParseException {
     jj_consume_token(BIT_OR);
     {if (true) return BinaryExpression.BinaryOperator.or;}
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Bitwise or expression.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression BitwiseORExpression() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -2071,6 +2453,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Bitwise or expression no in.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression BitwiseORExpressionNoIn() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -2094,6 +2482,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Bitwise or expression in es.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression BitwiseORExpressionInES() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -2117,6 +2511,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Logical and expression.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression LogicalANDExpression() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -2139,6 +2539,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Logical and expression no in.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression LogicalANDExpressionNoIn() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -2161,6 +2567,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Logical and expression in es.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression LogicalANDExpressionInES() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -2183,6 +2595,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Logical or expression.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression LogicalORExpression() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -2206,6 +2624,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Logical or expression no in.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression LogicalORExpressionNoIn() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -2228,6 +2652,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Logical or expression in es.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression LogicalORExpressionInES() throws ParseException {
   Expression result = null;
   Expression right = null;
@@ -2250,6 +2680,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Conditional expression.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression ConditionalExpression() throws ParseException {
   Expression condition = null;
   Expression thenExpr = null;
@@ -2274,6 +2710,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Conditional expression no in.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression ConditionalExpressionNoIn() throws ParseException {
   Expression condition = null;
   Expression thenExpr = null;
@@ -2298,6 +2740,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Conditional expression in es.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression ConditionalExpressionInES() throws ParseException {
   Expression condition = null;
   Expression thenExpr = null;
@@ -2322,6 +2770,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Assignement operator.
+   *
+   * @return the assignment expression. assign operator
+   * @throws ParseException the parse exception
+   */
   final public AssignmentExpression.AssignOperator AssignementOperator() throws ParseException {
   AssignmentExpression.AssignOperator operator = null;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -2382,6 +2836,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Assignment expression.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression AssignmentExpression() throws ParseException {
   AssignmentExpression.AssignOperator operator = null;
   Expression left = null;
@@ -2417,6 +2877,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Assignment expression no in.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression AssignmentExpressionNoIn() throws ParseException {
   AssignmentExpression.AssignOperator operator = null;
   Expression left = null;
@@ -2452,6 +2918,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Assignment expression in es.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression AssignmentExpressionInES() throws ParseException {
   AssignmentExpression.AssignOperator operator = null;
   Expression left = null;
@@ -2487,6 +2959,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Expression.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression Expression() throws ParseException {
   Expression expression = null;
   List<Expression> expressions = new ArrayList<Expression>();
@@ -2516,6 +2994,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Expression no in.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression ExpressionNoIn() throws ParseException {
   Expression expression = null;
   List<Expression> expressions = new ArrayList<Expression>();
@@ -2545,6 +3029,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Expression in es.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression ExpressionInES() throws ParseException {
   Expression expression = null;
   List<Expression> expressions = new ArrayList<Expression>();
@@ -2574,6 +3064,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Statement.
+   *
+   * @return the statement
+   * @throws ParseException the parse exception
+   */
   final public Statement Statement() throws ParseException {
   Statement statement = null;
     pushJSDoc();
@@ -2666,6 +3162,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Block.
+   *
+   * @return the block
+   * @throws ParseException the parse exception
+   */
   final public Block Block() throws ParseException {
   List< Statement > statements = null;
     if (jj_2_3(3)) {
@@ -2742,6 +3244,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Let statement.
+   *
+   * @return the statement
+   * @throws ParseException the parse exception
+   */
   final public Statement LetStatement() throws ParseException {
   List<VariableDeclaration> declarations = null;
   Statement statement = null;
@@ -2827,6 +3335,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Debugger statement.
+   *
+   * @return the debugger statement
+   * @throws ParseException the parse exception
+   */
   final public DebuggerStatement DebuggerStatement() throws ParseException {
     jj_consume_token(DEBUGGER);
     Sc();
@@ -2834,6 +3348,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Constant statement.
+   *
+   * @return the constant statement
+   * @throws ParseException the parse exception
+   */
   final public ConstantStatement ConstantStatement() throws ParseException {
   List<VariableDeclaration> declarations = null;
     jj_consume_token(CONST);
@@ -2843,6 +3363,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Variable statement.
+   *
+   * @return the variable statement
+   * @throws ParseException the parse exception
+   */
   final public VariableStatement VariableStatement() throws ParseException {
   List<VariableDeclaration> declarations = null;
     jj_consume_token(VAR);
@@ -2852,6 +3378,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Variable declarator list.
+   *
+   * @return the list
+   * @throws ParseException the parse exception
+   */
   final public List<VariableDeclaration> VariableDeclaratorList() throws ParseException {
   List<VariableDeclaration> declarations = new ArrayList<VariableDeclaration>();
   VariableDeclaration declaration;
@@ -2875,6 +3407,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Variable declarator list no in.
+   *
+   * @return the list
+   * @throws ParseException the parse exception
+   */
   final public List<VariableDeclaration> VariableDeclaratorListNoIn() throws ParseException {
   List<VariableDeclaration> declarations = new ArrayList<VariableDeclaration>();
   VariableDeclaration declaration;
@@ -2898,6 +3436,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Variable declaration.
+   *
+   * @return the variable declaration
+   * @throws ParseException the parse exception
+   */
   final public VariableDeclaration VariableDeclaration() throws ParseException {
   String name = null;
   Expression expression = null;
@@ -2914,6 +3458,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Initializer.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression Initializer() throws ParseException {
   Expression expression = null;
     jj_consume_token(ASSIGN);
@@ -2922,6 +3472,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Variable declaration no in.
+   *
+   * @return the variable declaration
+   * @throws ParseException the parse exception
+   */
   final public VariableDeclaration VariableDeclarationNoIn() throws ParseException {
   String name = null;
   Expression expression = null;
@@ -2938,6 +3494,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Initializer no in.
+   *
+   * @return the expression
+   * @throws ParseException the parse exception
+   */
   final public Expression InitializerNoIn() throws ParseException {
   Expression expression = null;
     jj_consume_token(ASSIGN);
@@ -2946,12 +3508,24 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Empty statement.
+   *
+   * @return the empty statement
+   * @throws ParseException the parse exception
+   */
   final public EmptyStatement EmptyStatement() throws ParseException {
     jj_consume_token(SEMICOLON);
       {if (true) return NodeFacade.EmptyStatement(popJSDoc());}
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Expression or labelled statement.
+   *
+   * @return the statement
+   * @throws ParseException the parse exception
+   */
   final public Statement ExpressionOrLabelledStatement() throws ParseException {
   Statement statement = null;
   Expression expression = null;
@@ -3003,6 +3577,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Labelled statement.
+   *
+   * @return the labelled statement
+   * @throws ParseException the parse exception
+   */
   final public LabelledStatement LabelledStatement() throws ParseException {
   String identifier = null;
   Statement statement = null;
@@ -3013,6 +3593,11 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Sc.
+   *
+   * @throws ParseException the parse exception
+   */
   void Sc() throws ParseException {
     Token tok = getToken(1);
     if (tok.kind == SEMICOLON) {
@@ -3026,6 +3611,12 @@ public final class ASTParser implements ASTParserConstants {
     }
   }
 
+  /**
+   * If statement.
+   *
+   * @return the if statement
+   * @throws ParseException the parse exception
+   */
   final public IfStatement IfStatement() throws ParseException {
   Expression condition = null;
   Statement thenStatement = null;
@@ -3048,6 +3639,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Iteration statement.
+   *
+   * @return the statement
+   * @throws ParseException the parse exception
+   */
   final public Statement IterationStatement() throws ParseException {
   Statement statement = null;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -3082,6 +3679,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Do while statement.
+   *
+   * @return the do while statement
+   * @throws ParseException the parse exception
+   */
   final public DoWhileStatement DoWhileStatement() throws ParseException {
   Expression condition = null;
   Statement statement = null;
@@ -3095,6 +3698,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * While statement.
+   *
+   * @return the while statement
+   * @throws ParseException the parse exception
+   */
   final public WhileStatement WhileStatement() throws ParseException {
   Expression condition = null;
   Statement statement = null;
@@ -3107,6 +3716,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * For statement.
+   *
+   * @return the for statement
+   * @throws ParseException the parse exception
+   */
   final public ForStatement ForStatement() throws ParseException {
   Expression variable = null;
   Expression condition = null;
@@ -3239,6 +3854,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * For var statement.
+   *
+   * @return the for statement
+   * @throws ParseException the parse exception
+   */
   final public ForStatement ForVarStatement() throws ParseException {
   List<VariableDeclaration> declarations = null;
   Expression condition = null;
@@ -3335,6 +3956,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * For let statement.
+   *
+   * @return the for statement
+   * @throws ParseException the parse exception
+   */
   final public ForStatement ForLetStatement() throws ParseException {
   List<VariableDeclaration> declarations = null;
   Expression condition = null;
@@ -3431,6 +4058,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * For in statement.
+   *
+   * @return the foreach statement
+   * @throws ParseException the parse exception
+   */
   final public ForeachStatement ForInStatement() throws ParseException {
   Expression variable = null;
   Expression expression = null;
@@ -3446,6 +4079,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * For in var statement.
+   *
+   * @return the foreach statement
+   * @throws ParseException the parse exception
+   */
   final public ForeachStatement ForInVarStatement() throws ParseException {
   List<VariableDeclaration> declarations = null;
   Expression expression = null;
@@ -3462,6 +4101,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * For in let statement.
+   *
+   * @return the foreach statement
+   * @throws ParseException the parse exception
+   */
   final public ForeachStatement ForInLetStatement() throws ParseException {
   List<VariableDeclaration> declarations = null;
   Expression expression = null;
@@ -3479,6 +4124,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Continue statement.
+   *
+   * @return the continue statement
+   * @throws ParseException the parse exception
+   */
   final public ContinueStatement ContinueStatement() throws ParseException {
   String identifier = null;
     jj_consume_token(CONTINUE);
@@ -3503,6 +4154,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Break statement.
+   *
+   * @return the break statement
+   * @throws ParseException the parse exception
+   */
   final public BreakStatement BreakStatement() throws ParseException {
   String identifier = null;
     jj_consume_token(BREAK);
@@ -3527,6 +4184,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Return statement.
+   *
+   * @return the return statement
+   * @throws ParseException the parse exception
+   */
   final public ReturnStatement ReturnStatement() throws ParseException {
   Expression expression = null;
     jj_consume_token(RETURN);
@@ -3580,6 +4243,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * With statement.
+   *
+   * @return the with statement
+   * @throws ParseException the parse exception
+   */
   final public WithStatement WithStatement() throws ParseException {
   Statement statement = null;
   Expression expression = null;
@@ -3592,6 +4261,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Try statement.
+   *
+   * @return the try statement
+   * @throws ParseException the parse exception
+   */
   final public TryStatement TryStatement() throws ParseException {
   Block tryBlock = null;
   CatchClause catchClause = null;
@@ -3618,6 +4293,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Throw statement.
+   *
+   * @return the throw statement
+   * @throws ParseException the parse exception
+   */
   final public ThrowStatement ThrowStatement() throws ParseException {
   Expression expression = null;
     jj_consume_token(THROW);
@@ -3627,6 +4308,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Catch.
+   *
+   * @return the catch clause
+   * @throws ParseException the parse exception
+   */
   final public CatchClause Catch() throws ParseException {
   String identifier = null;
   Block block = null;
@@ -3639,6 +4326,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Finally.
+   *
+   * @return the block
+   * @throws ParseException the parse exception
+   */
   final public Block Finally() throws ParseException {
   Block block = null;
     jj_consume_token(FINALLY);
@@ -3647,6 +4340,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Switch statement.
+   *
+   * @return the switch statement
+   * @throws ParseException the parse exception
+   */
   final public SwitchStatement SwitchStatement() throws ParseException {
   Expression expression = null;
   List<CaseClause> caseClauses = new ArrayList<CaseClause>();
@@ -3701,6 +4400,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Case clause.
+   *
+   * @return the case clause
+   * @throws ParseException the parse exception
+   */
   final public CaseClause CaseClause() throws ParseException {
   Expression expression = null;
   List<Statement> statements = null;
@@ -3766,6 +4471,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Default clause.
+   *
+   * @return the default clause
+   * @throws ParseException the parse exception
+   */
   final public DefaultClause DefaultClause() throws ParseException {
   List<Statement> statements = null;
     jj_consume_token(_DEFAULT);
@@ -3829,6 +4540,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Function declaration.
+   *
+   * @return the function declaration
+   * @throws ParseException the parse exception
+   */
   final public FunctionDeclaration FunctionDeclaration() throws ParseException {
   String name = null;
   List<Parameter> parameters = null;
@@ -3853,6 +4570,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Formal parameter list.
+   *
+   * @return the list
+   * @throws ParseException the parse exception
+   */
   final public List<Parameter> FormalParameterList() throws ParseException {
   List<Parameter> parameters = new ArrayList<Parameter>();
   String parameter = null;
@@ -3876,6 +4599,13 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Compilation unit.
+   *
+   * @param name the name
+   * @return the compilation unit
+   * @throws ParseException the parse exception
+   */
   final public CompilationUnit CompilationUnit(String name) throws ParseException {
   List<Statement> elements = new ArrayList <Statement> ();
   Statement element = null;
@@ -3948,6 +4678,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Source element.
+   *
+   * @return the statement
+   * @throws ParseException the parse exception
+   */
   final public Statement SourceElement() throws ParseException {
   Statement element;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -4012,6 +4748,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Statement list.
+   *
+   * @return the list
+   * @throws ParseException the parse exception
+   */
   final public List<Statement> StatementList() throws ParseException {
   List<Statement> statements = new ArrayList<Statement>();
   Statement statement;
@@ -4137,6 +4879,12 @@ public final class ASTParser implements ASTParserConstants {
     throw new Error("Missing return statement in function");
   }
 
+  /**
+   * Jj_2_1.
+   *
+   * @param xla the xla
+   * @return true, if successful
+   */
   private boolean jj_2_1(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_1(); }
@@ -4144,6 +4892,12 @@ public final class ASTParser implements ASTParserConstants {
     finally { jj_save(0, xla); }
   }
 
+  /**
+   * Jj_2_2.
+   *
+   * @param xla the xla
+   * @return true, if successful
+   */
   private boolean jj_2_2(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_2(); }
@@ -4151,6 +4905,12 @@ public final class ASTParser implements ASTParserConstants {
     finally { jj_save(1, xla); }
   }
 
+  /**
+   * Jj_2_3.
+   *
+   * @param xla the xla
+   * @return true, if successful
+   */
   private boolean jj_2_3(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_3(); }
@@ -4158,6 +4918,12 @@ public final class ASTParser implements ASTParserConstants {
     finally { jj_save(2, xla); }
   }
 
+  /**
+   * Jj_2_4.
+   *
+   * @param xla the xla
+   * @return true, if successful
+   */
   private boolean jj_2_4(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_4(); }
@@ -4165,6 +4931,12 @@ public final class ASTParser implements ASTParserConstants {
     finally { jj_save(3, xla); }
   }
 
+  /**
+   * Jj_2_5.
+   *
+   * @param xla the xla
+   * @return true, if successful
+   */
   private boolean jj_2_5(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_5(); }
@@ -4172,6 +4944,12 @@ public final class ASTParser implements ASTParserConstants {
     finally { jj_save(4, xla); }
   }
 
+  /**
+   * Jj_2_6.
+   *
+   * @param xla the xla
+   * @return true, if successful
+   */
   private boolean jj_2_6(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_6(); }
@@ -4179,6 +4957,12 @@ public final class ASTParser implements ASTParserConstants {
     finally { jj_save(5, xla); }
   }
 
+  /**
+   * Jj_2_7.
+   *
+   * @param xla the xla
+   * @return true, if successful
+   */
   private boolean jj_2_7(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_7(); }
@@ -4186,6 +4970,12 @@ public final class ASTParser implements ASTParserConstants {
     finally { jj_save(6, xla); }
   }
 
+  /**
+   * Jj_2_8.
+   *
+   * @param xla the xla
+   * @return true, if successful
+   */
   private boolean jj_2_8(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_8(); }
@@ -4193,6 +4983,12 @@ public final class ASTParser implements ASTParserConstants {
     finally { jj_save(7, xla); }
   }
 
+  /**
+   * Jj_2_9.
+   *
+   * @param xla the xla
+   * @return true, if successful
+   */
   private boolean jj_2_9(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_9(); }
@@ -4200,6 +4996,12 @@ public final class ASTParser implements ASTParserConstants {
     finally { jj_save(8, xla); }
   }
 
+  /**
+   * Jj_2_10.
+   *
+   * @param xla the xla
+   * @return true, if successful
+   */
   private boolean jj_2_10(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_10(); }
@@ -4207,6 +5009,12 @@ public final class ASTParser implements ASTParserConstants {
     finally { jj_save(9, xla); }
   }
 
+  /**
+   * Jj_2_11.
+   *
+   * @param xla the xla
+   * @return true, if successful
+   */
   private boolean jj_2_11(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_11(); }
@@ -4214,6 +5022,11 @@ public final class ASTParser implements ASTParserConstants {
     finally { jj_save(10, xla); }
   }
 
+  /**
+   * Jj_3 r_178.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_178() {
     Token xsp;
     xsp = jj_scanpos;
@@ -4224,27 +5037,52 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_186.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_186() {
     if (jj_scan_token(PLUS)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_91.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_91() {
     if (jj_scan_token(STARASSIGN)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_90.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_90() {
     if (jj_scan_token(ASSIGN)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_336.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_336() {
     if (jj_scan_token(FINALLY)) return true;
     if (jj_3R_222()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_82.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_82() {
     Token xsp;
     xsp = jj_scanpos;
@@ -4285,17 +5123,32 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_379.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_379() {
     if (jj_3R_185()) return true;
     if (jj_3R_176()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_322.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_322() {
     if (true) { jj_la = 0; jj_scanpos = jj_lastpos; return false;}
     return false;
   }
 
+  /**
+   * Jj_3 r_376.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_376() {
     if (jj_3R_378()) return true;
     Token xsp;
@@ -4306,6 +5159,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_357.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_357() {
     if (jj_scan_token(HOOK)) return true;
     if (jj_3R_89()) return true;
@@ -4314,6 +5172,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_335.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_335() {
     if (jj_scan_token(CATCH)) return true;
     if (jj_scan_token(LPAREN)) return true;
@@ -4323,11 +5186,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_320.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_320() {
     if (true) { jj_la = 0; jj_scanpos = jj_lastpos; return false;}
     return false;
   }
 
+  /**
+   * Jj_3 r_352.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_352() {
     if (jj_3R_356()) return true;
     Token xsp;
@@ -4336,6 +5209,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_304.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_304() {
     if (jj_scan_token(THROW)) return true;
     if (jj_3R_89()) return true;
@@ -4343,17 +5221,32 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_318.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_318() {
     if (true) { jj_la = 0; jj_scanpos = jj_lastpos; return false;}
     return false;
   }
 
+  /**
+   * Jj_3 r_177.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_177() {
     if (jj_3R_185()) return true;
     if (jj_3R_176()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_81.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_81() {
     if (jj_scan_token(HOOK)) return true;
     if (jj_3R_89()) return true;
@@ -4362,16 +5255,31 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_324.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_324() {
     if (jj_3R_336()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_323.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_323() {
     if (jj_3R_335()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_166.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_166() {
     if (jj_3R_176()) return true;
     Token xsp;
@@ -4382,6 +5290,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_70.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_70() {
     if (jj_3R_80()) return true;
     Token xsp;
@@ -4390,12 +5303,22 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_321.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_321() {
     if (jj_3R_89()) return true;
     if (true) { jj_la = 0; jj_scanpos = jj_lastpos; return false;}
     return false;
   }
 
+  /**
+   * Jj_3 r_303.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_303() {
     if (jj_scan_token(TRY)) return true;
     if (jj_3R_222()) return true;
@@ -4407,22 +5330,42 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_193.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_193() {
     if (jj_scan_token(REM)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_192.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_192() {
     if (jj_scan_token(SLASH)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_319.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_319() {
     if (jj_3R_53()) return true;
     if (true) { jj_la = 0; jj_scanpos = jj_lastpos; return false;}
     return false;
   }
 
+  /**
+   * Jj_3 r_123.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_123() {
     if (jj_scan_token(HOOK)) return true;
     if (jj_3R_89()) return true;
@@ -4431,11 +5374,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_191.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_191() {
     if (jj_scan_token(STAR)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_302.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_302() {
     if (jj_scan_token(WITH)) return true;
     if (jj_scan_token(LPAREN)) return true;
@@ -4445,6 +5398,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_185.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_185() {
     Token xsp;
     xsp = jj_scanpos;
@@ -4458,6 +5416,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_112.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_112() {
     if (jj_3R_122()) return true;
     Token xsp;
@@ -4466,12 +5429,22 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_317.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_317() {
     if (jj_3R_53()) return true;
     if (true) { jj_la = 0; jj_scanpos = jj_lastpos; return false;}
     return false;
   }
 
+  /**
+   * Jj_3 r_301.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_301() {
     if (jj_scan_token(RETURN)) return true;
     Token xsp;
@@ -4489,17 +5462,32 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_381.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_381() {
     if (jj_3R_190()) return true;
     if (jj_3R_176()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_380.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_380() {
     if (jj_3R_382()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_378.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_378() {
     Token xsp;
     xsp = jj_scanpos;
@@ -4510,12 +5498,22 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_360.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_360() {
     if (jj_scan_token(SC_OR)) return true;
     if (jj_3R_135()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_300.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_300() {
     if (jj_scan_token(BREAK)) return true;
     Token xsp;
@@ -4533,6 +5531,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_356.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_356() {
     if (jj_3R_359()) return true;
     Token xsp;
@@ -4543,12 +5546,22 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_184.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_184() {
     if (jj_3R_190()) return true;
     if (jj_3R_176()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_299.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_299() {
     if (jj_scan_token(CONTINUE)) return true;
     Token xsp;
@@ -4566,11 +5579,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_183.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_183() {
     if (jj_3R_189()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_176.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_176() {
     Token xsp;
     xsp = jj_scanpos;
@@ -4581,17 +5604,32 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_88.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_88() {
     if (jj_scan_token(SC_OR)) return true;
     if (jj_3R_87()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_212.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_212() {
     if (jj_scan_token(BANG)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_80.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_80() {
     if (jj_3R_87()) return true;
     Token xsp;
@@ -4602,16 +5640,31 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_211.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_211() {
     if (jj_scan_token(TILDE)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_210.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_210() {
     if (jj_scan_token(MINUS)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_58.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_58() {
     if (jj_scan_token(FOR)) return true;
     if (jj_scan_token(LPAREN)) return true;
@@ -4624,27 +5677,52 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_209.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_209() {
     if (jj_scan_token(PLUS)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_136.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_136() {
     if (jj_scan_token(SC_OR)) return true;
     if (jj_3R_135()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_208.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_208() {
     if (jj_scan_token(NL_DECR)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_207.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_207() {
     if (jj_scan_token(DECR)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_122.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_122() {
     if (jj_3R_135()) return true;
     Token xsp;
@@ -4655,21 +5733,41 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_206.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_206() {
     if (jj_scan_token(NL_INCR)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_205.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_205() {
     if (jj_scan_token(INCR)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_204.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_204() {
     if (jj_scan_token(TYPEOF)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_57.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_57() {
     if (jj_scan_token(FOR)) return true;
     if (jj_scan_token(LPAREN)) return true;
@@ -4682,22 +5780,42 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_203.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_203() {
     if (jj_scan_token(VOID)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_363.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_363() {
     if (jj_scan_token(SC_AND)) return true;
     if (jj_3R_143()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_202.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_202() {
     if (jj_scan_token(DELETE)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_359.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_359() {
     if (jj_3R_362()) return true;
     Token xsp;
@@ -4708,11 +5826,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_201.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_201() {
     if (jj_scan_token(REM)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_190.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_190() {
     Token xsp;
     xsp = jj_scanpos;
@@ -4753,6 +5881,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_56.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_56() {
     if (jj_scan_token(FOR)) return true;
     if (jj_scan_token(LPAREN)) return true;
@@ -4764,27 +5897,52 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_110.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_110() {
     if (jj_scan_token(SC_AND)) return true;
     if (jj_3R_109()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_383.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_383() {
     if (jj_3R_213()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_348.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_348() {
     if (jj_3R_89()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_347.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_347() {
     if (jj_3R_89()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_382.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_382() {
     if (jj_3R_84()) return true;
     Token xsp;
@@ -4793,6 +5951,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_87.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_87() {
     if (jj_3R_109()) return true;
     Token xsp;
@@ -4803,6 +5966,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_334.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_334() {
     if (jj_scan_token(FOR)) return true;
     if (jj_scan_token(LPAREN)) return true;
@@ -4820,17 +5988,32 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_200.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_200() {
     if (jj_3R_213()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_144.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_144() {
     if (jj_scan_token(SC_AND)) return true;
     if (jj_3R_143()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_189.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_189() {
     if (jj_3R_66()) return true;
     Token xsp;
@@ -4839,11 +6022,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_346.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_346() {
     if (jj_3R_89()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_135.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_135() {
     if (jj_3R_143()) return true;
     Token xsp;
@@ -4854,16 +6047,31 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_345.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_345() {
     if (jj_3R_89()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_217.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_217() {
     if (jj_scan_token(DECR)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_213.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_213() {
     Token xsp;
     xsp = jj_scanpos;
@@ -4874,11 +6082,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_216.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_216() {
     if (jj_scan_token(INCR)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_333.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_333() {
     if (jj_scan_token(FOR)) return true;
     if (jj_scan_token(LPAREN)) return true;
@@ -4896,12 +6114,22 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_365.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_365() {
     if (jj_3R_134()) return true;
     if (jj_3R_150()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_362.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_362() {
     if (jj_3R_364()) return true;
     Token xsp;
@@ -4912,41 +6140,81 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_344.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_344() {
     if (jj_3R_89()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_343.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_343() {
     if (jj_3R_89()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_342.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_342() {
     if (jj_3R_54()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_68.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_68() {
     if (jj_scan_token(STRING_LITERAL)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_61.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_61() {
     if (jj_3R_69()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_60.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_60() {
     if (jj_3R_68()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_59.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_59() {
     if (jj_3R_67()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_332.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_332() {
     if (jj_scan_token(FOR)) return true;
     if (jj_scan_token(LPAREN)) return true;
@@ -4964,12 +6232,22 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_121.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_121() {
     if (jj_3R_134()) return true;
     if (jj_3R_120()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_52.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_52() {
     Token xsp;
     xsp = jj_scanpos;
@@ -4983,6 +6261,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_109.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_109() {
     if (jj_3R_120()) return true;
     Token xsp;
@@ -4993,12 +6276,22 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3_2.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3_2() {
     if (jj_scan_token(SET)) return true;
     if (jj_3R_52()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_256.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_256() {
     if (jj_3R_52()) return true;
     if (jj_scan_token(COLON)) return true;
@@ -5006,6 +6299,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_331.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_331() {
     if (jj_scan_token(WHILE)) return true;
     if (jj_scan_token(LPAREN)) return true;
@@ -5015,12 +6313,22 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3_1.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3_1() {
     if (jj_scan_token(GET)) return true;
     if (jj_3R_52()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_255.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_255() {
     if (jj_scan_token(SET)) return true;
     if (jj_3R_52()) return true;
@@ -5031,12 +6339,22 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_151.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_151() {
     if (jj_3R_134()) return true;
     if (jj_3R_150()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_241.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_241() {
     Token xsp;
     xsp = jj_scanpos;
@@ -5050,6 +6368,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_254.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_254() {
     if (jj_scan_token(GET)) return true;
     if (jj_3R_52()) return true;
@@ -5059,6 +6382,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_330.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_330() {
     if (jj_scan_token(DO)) return true;
     if (jj_3R_272()) return true;
@@ -5069,6 +6397,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3_8.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3_8() {
     if (jj_scan_token(FOR)) return true;
     if (jj_scan_token(LPAREN)) return true;
@@ -5078,11 +6411,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_257.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_257() {
     if (jj_3R_228()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_143.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_143() {
     if (jj_3R_150()) return true;
     Token xsp;
@@ -5093,6 +6436,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3_7.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3_7() {
     if (jj_scan_token(FOR)) return true;
     if (jj_scan_token(LPAREN)) return true;
@@ -5102,6 +6450,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3_6.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3_6() {
     if (jj_scan_token(FOR)) return true;
     if (jj_scan_token(LPAREN)) return true;
@@ -5109,11 +6462,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3_11.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3_11() {
     if (jj_3R_58()) return true;
     return false;
   }
 
+  /**
+   * Jj_3_5.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3_5() {
     if (jj_scan_token(FOR)) return true;
     if (jj_scan_token(LPAREN)) return true;
@@ -5122,11 +6485,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3_10.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3_10() {
     if (jj_3R_57()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_242.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_242() {
     if (jj_scan_token(COMMA)) return true;
     Token xsp;
@@ -5135,21 +6508,41 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3_9.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3_9() {
     if (jj_3R_56()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_316.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_316() {
     if (jj_3R_334()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_315.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_315() {
     if (jj_3R_333()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_228.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_228() {
     if (jj_3R_241()) return true;
     Token xsp;
@@ -5158,42 +6551,82 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_134.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_134() {
     if (jj_scan_token(BIT_OR)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_314.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_314() {
     if (jj_3R_332()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_313.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_313() {
     if (jj_3R_332()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_312.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_312() {
     if (jj_3R_331()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_218.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_218() {
     if (jj_3R_228()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_311.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_311() {
     if (jj_3R_330()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_367.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_367() {
     if (jj_3R_142()) return true;
     if (jj_3R_155()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_85.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_85() {
     if (jj_scan_token(LBRACE)) return true;
     Token xsp;
@@ -5203,6 +6636,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_298.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_298() {
     Token xsp;
     xsp = jj_scanpos;
@@ -5234,6 +6672,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_364.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_364() {
     if (jj_3R_366()) return true;
     Token xsp;
@@ -5244,17 +6687,32 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_310.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_310() {
     if (jj_scan_token(ELSE)) return true;
     if (jj_3R_272()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_250.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_250() {
     if (jj_3R_260()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_297.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_297() {
     if (jj_scan_token(IF)) return true;
     if (jj_scan_token(LPAREN)) return true;
@@ -5267,17 +6725,32 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_253.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_253() {
     if (jj_3R_102()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_133.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_133() {
     if (jj_3R_142()) return true;
     if (jj_3R_132()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_240.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_240() {
     if (jj_scan_token(COMMA)) return true;
     Token xsp;
@@ -5286,11 +6759,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_239.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_239() {
     if (jj_3R_102()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_120.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_120() {
     if (jj_3R_132()) return true;
     Token xsp;
@@ -5301,6 +6784,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_119.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_119() {
     if (jj_scan_token(LBRACKET)) return true;
     Token xsp;
@@ -5314,11 +6802,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_249.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_249() {
     if (jj_3R_116()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_328.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_328() {
     if (jj_3R_53()) return true;
     if (jj_scan_token(COLON)) return true;
@@ -5326,33 +6824,63 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_264.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_264() {
     if (jj_3R_219()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_156.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_156() {
     if (jj_3R_142()) return true;
     if (jj_3R_155()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_238.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_238() {
     if (jj_3R_86()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_237.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_237() {
     if (jj_3R_118()) return true;
     return false;
   }
 
+  /**
+   * Jj_3_4.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3_4() {
     if (jj_3R_53()) return true;
     if (jj_scan_token(COLON)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_252.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_252() {
     if (jj_3R_243()) return true;
     Token xsp;
@@ -5363,6 +6891,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_150.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_150() {
     if (jj_3R_155()) return true;
     Token xsp;
@@ -5373,17 +6906,32 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_263.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_263() {
     if (jj_3R_219()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_309.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_309() {
     if (jj_3R_329()) return true;
     if (true) { jj_la = 0; jj_scanpos = jj_lastpos; return false;}
     return false;
   }
 
+  /**
+   * Jj_3 r_236.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_236() {
     if (jj_3R_117()) return true;
     Token xsp;
@@ -5392,16 +6940,31 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_262.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_262() {
     if (jj_3R_85()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_308.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_308() {
     if (jj_3R_328()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_251.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_251() {
     if (jj_3R_243()) return true;
     Token xsp;
@@ -5414,6 +6977,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_296.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_296() {
     Token xsp;
     xsp = jj_scanpos;
@@ -5424,21 +6992,41 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_248.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_248() {
     if (jj_3R_115()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_261.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_261() {
     if (jj_3R_219()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_142.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_142() {
     if (jj_scan_token(XOR)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_235.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_235() {
     Token xsp;
     xsp = jj_scanpos;
@@ -5455,6 +7043,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_247.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_247() {
     if (jj_3R_243()) return true;
     Token xsp;
@@ -5465,22 +7058,42 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_295.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_295() {
     if (jj_scan_token(SEMICOLON)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_246.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_246() {
     if (jj_3R_260()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_369.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_369() {
     if (jj_3R_149()) return true;
     if (jj_3R_164()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_234.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_234() {
     if (jj_scan_token(THIS)) return true;
     Token xsp;
@@ -5493,6 +7106,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_366.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_366() {
     if (jj_3R_368()) return true;
     Token xsp;
@@ -5503,12 +7121,22 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_361.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_361() {
     if (jj_scan_token(ASSIGN)) return true;
     if (jj_3R_62()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_118.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_118() {
     if (jj_scan_token(NEW)) return true;
     Token xsp;
@@ -5529,11 +7157,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_358.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_358() {
     if (jj_3R_361()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_268.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_268() {
     if (jj_scan_token(LBRACKET)) return true;
     if (jj_3R_89()) return true;
@@ -5541,6 +7179,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_354.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_354() {
     if (jj_3R_53()) return true;
     Token xsp;
@@ -5549,12 +7192,22 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_141.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_141() {
     if (jj_3R_149()) return true;
     if (jj_3R_140()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_260.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_260() {
     Token xsp;
     xsp = jj_scanpos;
@@ -5565,12 +7218,22 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_267.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_267() {
     if (jj_scan_token(DOT)) return true;
     if (jj_3R_53()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_132.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_132() {
     if (jj_3R_140()) return true;
     Token xsp;
@@ -5581,29 +7244,54 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_83.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_83() {
     if (jj_scan_token(ASSIGN)) return true;
     if (jj_3R_102()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_72.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_72() {
     if (jj_3R_83()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_269.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_269() {
     if (jj_scan_token(COMMA)) return true;
     if (jj_3R_102()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_165.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_165() {
     if (jj_3R_149()) return true;
     if (jj_3R_164()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_64.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_64() {
     if (jj_3R_53()) return true;
     Token xsp;
@@ -5612,6 +7300,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_265.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_265() {
     if (jj_3R_102()) return true;
     Token xsp;
@@ -5622,6 +7315,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_155.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_155() {
     if (jj_3R_164()) return true;
     Token xsp;
@@ -5632,22 +7330,42 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_258.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_258() {
     if (jj_3R_265()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_355.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_355() {
     if (jj_scan_token(COMMA)) return true;
     if (jj_3R_354()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_149.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_149() {
     if (jj_scan_token(BIT_AND)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_243.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_243() {
     if (jj_scan_token(LPAREN)) return true;
     Token xsp;
@@ -5657,6 +7375,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_349.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_349() {
     if (jj_3R_354()) return true;
     Token xsp;
@@ -5667,24 +7390,44 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_231.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_231() {
     if (jj_scan_token(DOT)) return true;
     if (jj_3R_67()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_371.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_371() {
     if (jj_3R_154()) return true;
     if (jj_3R_174()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_65.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_65() {
     if (jj_scan_token(COMMA)) return true;
     if (jj_3R_64()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_230.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_230() {
     if (jj_scan_token(LBRACKET)) return true;
     if (jj_3R_89()) return true;
@@ -5692,6 +7435,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_368.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_368() {
     if (jj_3R_370()) return true;
     Token xsp;
@@ -5702,6 +7450,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_219.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_219() {
     Token xsp;
     xsp = jj_scanpos;
@@ -5715,11 +7468,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_229.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_229() {
     if (jj_3R_243()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_55.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_55() {
     if (jj_3R_64()) return true;
     Token xsp;
@@ -5730,22 +7493,42 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_221.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_221() {
     if (jj_3R_232()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_148.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_148() {
     if (jj_3R_154()) return true;
     if (jj_3R_147()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_220.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_220() {
     if (jj_3R_53()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_294.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_294() {
     if (jj_scan_token(VAR)) return true;
     if (jj_3R_55()) return true;
@@ -5753,6 +7536,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_86.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_86() {
     if (jj_scan_token(FUNCTION)) return true;
     Token xsp;
@@ -5766,6 +7554,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_140.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_140() {
     if (jj_3R_147()) return true;
     Token xsp;
@@ -5776,6 +7569,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_293.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_293() {
     if (jj_scan_token(CONST)) return true;
     if (jj_3R_55()) return true;
@@ -5783,6 +7581,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_117.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_117() {
     if (jj_scan_token(LPAREN)) return true;
     if (jj_3R_89()) return true;
@@ -5790,22 +7593,42 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_226.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_226() {
     if (jj_3R_219()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_175.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_175() {
     if (jj_3R_154()) return true;
     if (jj_3R_174()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_227.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_227() {
     if (jj_3R_219()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_164.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_164() {
     if (jj_3R_174()) return true;
     Token xsp;
@@ -5816,62 +7639,122 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_223.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_223() {
     if (jj_3R_219()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_292.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_292() {
     if (jj_scan_token(DEBUGGER)) return true;
     if (true) { jj_la = 0; jj_scanpos = jj_lastpos; return false;}
     return false;
   }
 
+  /**
+   * Jj_3 r_115.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_115() {
     if (jj_3R_53()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_225.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_225() {
     if (jj_3R_219()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_215.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_215() {
     if (jj_3R_219()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_224.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_224() {
     if (jj_3R_219()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_163.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_163() {
     if (jj_scan_token(STRICT_NEQ)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_327.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_327() {
     if (jj_3R_272()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_125.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_125() {
     if (jj_scan_token(SUPER)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_214.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_214() {
     if (jj_3R_219()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_162.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_162() {
     if (jj_scan_token(STRICT_EQ)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_307.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_307() {
     if (jj_scan_token(LPAREN)) return true;
     if (jj_3R_55()) return true;
@@ -5882,11 +7765,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_124.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_124() {
     if (jj_scan_token(THIS)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_114.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_114() {
     Token xsp;
     xsp = jj_scanpos;
@@ -5897,21 +7790,41 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_161.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_161() {
     if (jj_scan_token(NE)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_306.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_306() {
     if (jj_3R_55()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_160.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_160() {
     if (jj_scan_token(EQ)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_154.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_154() {
     Token xsp;
     xsp = jj_scanpos;
@@ -5928,6 +7841,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_108.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_108() {
     if (jj_3R_119()) return true;
     Token xsp;
@@ -5938,6 +7856,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_291.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_291() {
     if (jj_scan_token(LET)) return true;
     Token xsp;
@@ -5950,11 +7873,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_107.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_107() {
     if (jj_3R_118()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_106.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_106() {
     if (jj_3R_117()) return true;
     Token xsp;
@@ -5965,6 +7898,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_105.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_105() {
     if (jj_3R_116()) return true;
     Token xsp;
@@ -5975,6 +7913,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_104.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_104() {
     if (jj_3R_115()) return true;
     Token xsp;
@@ -5985,11 +7928,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_245.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_245() {
     if (jj_3R_259()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_103.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_103() {
     if (jj_3R_114()) return true;
     Token xsp;
@@ -6000,6 +7953,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_84.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_84() {
     Token xsp;
     xsp = jj_scanpos;
@@ -6022,6 +7980,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_233.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_233() {
     if (jj_scan_token(LBRACE)) return true;
     Token xsp;
@@ -6031,18 +7994,33 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_373.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_373() {
     if (jj_3R_188()) return true;
     if (jj_3R_152()) return true;
     return false;
   }
 
+  /**
+   * Jj_3_3.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3_3() {
     if (jj_scan_token(LBRACE)) return true;
     if (jj_scan_token(RBRACE)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_222.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_222() {
     Token xsp;
     xsp = jj_scanpos;
@@ -6053,6 +8031,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_75.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_75() {
     if (jj_3R_86()) return true;
     Token xsp;
@@ -6063,6 +8046,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_74.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_74() {
     if (jj_3R_85()) return true;
     Token xsp;
@@ -6073,6 +8061,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_370.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_370() {
     if (jj_3R_372()) return true;
     Token xsp;
@@ -6083,21 +8076,41 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_73.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_73() {
     if (jj_3R_84()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_289.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_289() {
     if (jj_3R_305()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_288.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_288() {
     if (jj_3R_304()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_66.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_66() {
     Token xsp;
     xsp = jj_scanpos;
@@ -6111,56 +8124,111 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_287.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_287() {
     if (jj_3R_303()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_286.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_286() {
     if (jj_3R_302()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_285.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_285() {
     if (jj_3R_301()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_284.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_284() {
     if (jj_3R_300()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_283.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_283() {
     if (jj_3R_299()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_282.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_282() {
     if (jj_3R_298()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_281.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_281() {
     if (jj_3R_297()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_280.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_280() {
     if (jj_3R_296()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_279.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_279() {
     if (jj_3R_295()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_278.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_278() {
     if (jj_3R_294()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_67.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_67() {
     Token xsp;
     xsp = jj_scanpos;
@@ -6282,32 +8350,62 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_277.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_277() {
     if (jj_3R_293()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_153.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_153() {
     if (jj_3R_159()) return true;
     if (jj_3R_152()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_276.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_276() {
     if (jj_3R_292()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_275.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_275() {
     if (jj_3R_291()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_274.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_274() {
     if (jj_3R_222()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_147.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_147() {
     if (jj_3R_152()) return true;
     Token xsp;
@@ -6318,6 +8416,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_272.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_272() {
     Token xsp;
     xsp = jj_scanpos;
@@ -6370,6 +8473,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_53.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_53() {
     Token xsp;
     xsp = jj_scanpos;
@@ -6383,38 +8491,73 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_182.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_182() {
     if (jj_3R_188()) return true;
     if (jj_3R_152()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_341.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_341() {
     if (jj_scan_token(COMMA)) return true;
     if (jj_3R_102()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_131.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_131() {
     if (jj_scan_token(UNTERMINATED_STRING_LITERAL)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_130.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_130() {
     if (jj_3R_139()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_129.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_129() {
     if (jj_3R_138()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_128.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_128() {
     if (jj_3R_137()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_174.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_174() {
     if (jj_3R_152()) return true;
     Token xsp;
@@ -6425,16 +8568,31 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_127.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_127() {
     if (jj_3R_68()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_126.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_126() {
     if (jj_3R_69()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_329.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_329() {
     if (jj_3R_340()) return true;
     Token xsp;
@@ -6445,6 +8603,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_116.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_116() {
     Token xsp;
     xsp = jj_scanpos;
@@ -6467,52 +8630,102 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_173.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_173() {
     if (jj_scan_token(INSTANCEOF)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_172.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_172() {
     if (jj_scan_token(GE)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_139.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_139() {
     if (jj_scan_token(REGULAR_EXPRESSION_LITERAL)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_171.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_171() {
     if (jj_scan_token(LE)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_170.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_170() {
     if (jj_scan_token(GT)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_271.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_271() {
     if (jj_3R_273()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_63.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_63() {
     if (jj_scan_token(COMMA)) return true;
     if (jj_3R_62()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_138.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_138() {
     if (jj_scan_token(NULL)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_169.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_169() {
     if (jj_scan_token(LT)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_159.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_159() {
     Token xsp;
     xsp = jj_scanpos;
@@ -6532,6 +8745,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_266.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_266() {
     Token xsp;
     xsp = jj_scanpos;
@@ -6542,11 +8760,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_270.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_270() {
     if (jj_3R_272()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_259.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_259() {
     Token xsp;
     if (jj_3R_266()) return true;
@@ -6557,11 +8785,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_199.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_199() {
     if (jj_scan_token(INSTANCEOF)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_54.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_54() {
     if (jj_3R_62()) return true;
     Token xsp;
@@ -6572,21 +8810,41 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_146.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_146() {
     if (jj_scan_token(FALSE)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_198.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_198() {
     if (jj_scan_token(IN)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_145.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_145() {
     if (jj_scan_token(TRUE)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_137.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_137() {
     Token xsp;
     xsp = jj_scanpos;
@@ -6597,42 +8855,82 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_197.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_197() {
     if (jj_scan_token(GE)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_79.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_79() {
     if (jj_scan_token(FLOATING_POINT_LITERAL)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_196.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_196() {
     if (jj_scan_token(LE)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_78.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_78() {
     if (jj_scan_token(HEX_LITERAL)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_195.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_195() {
     if (jj_scan_token(GT)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_111.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_111() {
     if (jj_scan_token(COMMA)) return true;
     if (jj_3R_102()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_77.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_77() {
     if (jj_scan_token(OCTAL_LITERAL)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_188.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_188() {
     Token xsp;
     xsp = jj_scanpos;
@@ -6655,11 +8953,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_194.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_194() {
     if (jj_scan_token(LT)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_69.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_69() {
     Token xsp;
     xsp = jj_scanpos;
@@ -6676,11 +8984,21 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_76.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_76() {
     if (jj_scan_token(DECIMAL_LITERAL)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_89.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_89() {
     if (jj_3R_102()) return true;
     Token xsp;
@@ -6691,12 +9009,22 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_375.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_375() {
     if (jj_3R_168()) return true;
     if (jj_3R_157()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_372.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_372() {
     if (jj_3R_374()) return true;
     Token xsp;
@@ -6707,18 +9035,33 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_353.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_353() {
     if (jj_3R_82()) return true;
     if (jj_3R_102()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_244.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_244() {
     if (jj_scan_token(COMMA)) return true;
     if (jj_3R_53()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_340.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_340() {
     if (jj_3R_352()) return true;
     Token xsp;
@@ -6727,6 +9070,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_232.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_232() {
     if (jj_3R_53()) return true;
     Token xsp;
@@ -6737,17 +9085,32 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_158.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_158() {
     if (jj_3R_168()) return true;
     if (jj_3R_157()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_290.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_290() {
     if (jj_3R_232()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_152.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_152() {
     if (jj_3R_157()) return true;
     Token xsp;
@@ -6758,12 +9121,22 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_71.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_71() {
     if (jj_3R_82()) return true;
     if (jj_3R_62()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_62.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_62() {
     if (jj_3R_70()) return true;
     Token xsp;
@@ -6772,6 +9145,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_273.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_273() {
     if (jj_scan_token(FUNCTION)) return true;
     if (jj_3R_53()) return true;
@@ -6784,26 +9162,51 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_181.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_181() {
     if (jj_scan_token(RUNSIGNEDSHIFT)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_180.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_180() {
     if (jj_scan_token(RSIGNEDSHIFT)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_351.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_351() {
     if (jj_3R_259()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_179.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_179() {
     if (jj_scan_token(LSHIFT)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_168.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_168() {
     Token xsp;
     xsp = jj_scanpos;
@@ -6817,12 +9220,22 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_113.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_113() {
     if (jj_3R_82()) return true;
     if (jj_3R_102()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_338.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_338() {
     if (jj_scan_token(_DEFAULT)) return true;
     if (jj_scan_token(COLON)) return true;
@@ -6832,6 +9245,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_102.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_102() {
     if (jj_3R_112()) return true;
     Token xsp;
@@ -6840,17 +9258,32 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_350.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_350() {
     if (jj_3R_259()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_377.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_377() {
     if (jj_3R_178()) return true;
     if (jj_3R_166()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_374.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_374() {
     if (jj_3R_376()) return true;
     Token xsp;
@@ -6861,6 +9294,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_337.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_337() {
     if (jj_scan_token(CASE)) return true;
     if (jj_3R_89()) return true;
@@ -6871,47 +9309,92 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_101.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_101() {
     if (jj_scan_token(ORASSIGN)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_100.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_100() {
     if (jj_scan_token(XORASSIGN)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_99.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_99() {
     if (jj_scan_token(ANDASSIGN)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_98.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_98() {
     if (jj_scan_token(RUNSIGNEDSHIFTASSIGN)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_167.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_167() {
     if (jj_3R_178()) return true;
     if (jj_3R_166()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_97.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_97() {
     if (jj_scan_token(RSIGNEDSHIFTASSIGN)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_339.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_339() {
     if (jj_3R_337()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_96.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_96() {
     if (jj_scan_token(LSHIFTASSIGN)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_326.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_326() {
     if (jj_3R_338()) return true;
     Token xsp;
@@ -6922,6 +9405,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_157.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_157() {
     if (jj_3R_166()) return true;
     Token xsp;
@@ -6932,31 +9420,61 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_95.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_95() {
     if (jj_scan_token(MINUSASSIGN)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_325.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_325() {
     if (jj_3R_337()) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_94.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_94() {
     if (jj_scan_token(PLUSASSIGN)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_93.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_93() {
     if (jj_scan_token(REMASSIGN)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_187.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_187() {
     if (jj_scan_token(MINUS)) return true;
     return false;
   }
 
+  /**
+   * Jj_3 r_305.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_305() {
     if (jj_scan_token(SWITCH)) return true;
     if (jj_scan_token(LPAREN)) return true;
@@ -6974,6 +9492,11 @@ public final class ASTParser implements ASTParserConstants {
     return false;
   }
 
+  /**
+   * Jj_3 r_92.
+   *
+   * @return true, if successful
+   */
   private boolean jj_3R_92() {
     if (jj_scan_token(SLASHASSIGN)) return true;
     return false;
@@ -6981,20 +9504,64 @@ public final class ASTParser implements ASTParserConstants {
 
   /** Generated Token Manager. */
   public ASTParserTokenManager token_source;
+  
+  /**
+   * The jj_input_stream.
+   */
   SimpleCharStream jj_input_stream;
   /** Current token. */
   public Token token;
   /** Next token. */
   public Token jj_nt;
+  
+  /**
+   * The jj_ntk.
+   */
   private int jj_ntk;
+  
+  /**
+   * The jj_lastpos.
+   */
   private Token jj_scanpos, jj_lastpos;
+  
+  /**
+   * The jj_la.
+   */
   private int jj_la;
+  
+  /**
+   * The jj_gen.
+   */
   private int jj_gen;
+  
+  /**
+   * The jj_la1.
+   */
   final private int[] jj_la1 = new int[124];
+  
+  /**
+   * The jj_la1_0.
+   */
   static private int[] jj_la1_0;
+  
+  /**
+   * The jj_la1_1.
+   */
   static private int[] jj_la1_1;
+  
+  /**
+   * The jj_la1_2.
+   */
   static private int[] jj_la1_2;
+  
+  /**
+   * The jj_la1_3.
+   */
   static private int[] jj_la1_3;
+  
+  /**
+   * The jj_la1_4.
+   */
   static private int[] jj_la1_4;
   static {
       jj_la1_init_0();
@@ -7003,30 +9570,72 @@ public final class ASTParser implements ASTParserConstants {
       jj_la1_init_3();
       jj_la1_init_4();
    }
+   
+   /**
+    * Jj_la1_init_0.
+    */
    private static void jj_la1_init_0() {
       jj_la1_0 = new int[] {0x0,0x0,0x0,0x0,0xfff00000,0x0,0x0,0x52000000,0x0,0x0,0x0,0x0,0x0,0x50000000,0x40000000,0x0,0x0,0x0,0xd2400000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x52000000,0xd2400000,0x0,0xd2400000,0xfff00000,0xfff00000,0x0,0xfff00000,0xfff00000,0x0,0x0,0x0,0x80400000,0xd2400000,0xd0400000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x8000000,0x0,0x8000000,0x0,0x8000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xf5700000,0xf7700000,0x0,0xf5700000,0x0,0x0,0x0,0x0,0x0,0xd0400000,0x800000,0x0,0xd2400000,0xd2400000,0xd2400000,0xd2400000,0xd2400000,0xd2400000,0xd2400000,0x2000,0x2000,0xd2402000,0x0,0x0,0x0,0x0,0x0,0xf7700000,0xf7700000,0x0,0x0,0xf7700000,0xf7700000,0xf7700000,0xf7700000,};
    }
+   
+   /**
+    * Jj_la1_init_1.
+    */
    private static void jj_la1_init_1() {
       jj_la1_1 = new int[] {0x78000000,0x600000,0x78e00000,0x3000000,0x3ffffff,0x0,0x0,0x7be10000,0x0,0x0,0x0,0x0,0x0,0x7be10000,0x10000,0x3000000,0x3000000,0x0,0x7be10002,0x0,0x0,0x0,0x0,0x0,0x7be00000,0x0,0x0,0x0,0x0,0x0,0x0,0x7be00000,0x7be10002,0x0,0x7be10002,0x7bffffff,0x7bffffff,0x0,0x7bffffff,0x7bffffff,0x0,0x0,0x0,0x2,0x7be10002,0x7be10002,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x100000,0x100000,0x100000,0x100000,0x100000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x7fef058f,0x7fef058f,0x0,0x7fef058f,0x3000000,0x0,0x0,0x0,0x0,0x7be10002,0x0,0x404,0x7be10002,0x7be10002,0x7be10002,0x7be10002,0x7be10002,0x7be10002,0x7be10002,0x3000000,0x3000000,0x7be10002,0x20,0x4000,0x10,0x10,0x200,0x7fef058f,0x7fef058f,0x3000000,0x0,0x7fef058f,0x7fef058f,0x7fef058f,0x7fef058f,};
    }
+   
+   /**
+    * Jj_la1_init_2.
+    */
    private static void jj_la1_init_2() {
       jj_la1_2 = new int[] {0x0,0x0,0x19,0x800,0x800,0x44400000,0x44400000,0x5400819,0x44400000,0x44400000,0x44400000,0x44400000,0x44400000,0x4400819,0x0,0x800,0x800,0x44400000,0x5400819,0x20000000,0x44000000,0x44000000,0x44400000,0x400000,0x819,0x44000000,0x1000000,0x44400000,0x400000,0x44400000,0x400000,0x400819,0x5400819,0x20000000,0x5400819,0x801,0x801,0x20000000,0x801,0x801,0x0,0x0,0x0,0x0,0x5400819,0x4400819,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80000000,0x80000000,0x80000000,0x80000000,0x20000000,0x20000000,0x20000000,0x15400819,0x15400819,0x1000000,0x15400819,0x400800,0x20000000,0x20000000,0x80000000,0x80000000,0x4400819,0x0,0x0,0x5400819,0x5400819,0x5400819,0x5400819,0x5400819,0x5400819,0x5400819,0x10000800,0x10000800,0x15400819,0x0,0x0,0x0,0x0,0x0,0x15400819,0x15400819,0x800,0x20000000,0x15400819,0x15400819,0x15400819,0x15400819,};
    }
+   
+   /**
+    * Jj_la1_init_3.
+    */
    private static void jj_la1_init_3() {
       jj_la1_3 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x20fc00c,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x20fc00c,0x0,0x20fc00c,0x0,0x0,0x0,0x0,0x0,0x14000,0x14000,0x14000,0x20fc00c,0x20fc00c,0x20fc00c,0x2300000,0x2300000,0x2300000,0xc0000,0xc0000,0xc0000,0x1c000000,0x1c000000,0x1c000000,0x603,0x603,0x603,0x603,0x603,0x9c0,0x9c0,0x9c0,0x9c0,0x400000,0x400000,0x400000,0x1000000,0x1000000,0x1000000,0x800000,0x800000,0x800000,0x2000,0x2000,0x2000,0x1000,0x1000,0x1000,0x10,0x10,0x10,0xe0000000,0xe0000000,0xe0000000,0xe0000000,0x0,0x0,0x0,0x20fc00c,0x20fc00c,0x0,0x20fc00c,0x0,0x0,0x0,0x0,0x0,0x20fc00c,0x0,0x0,0x20fc00c,0x20fc00c,0x20fc00c,0x20fc00c,0x20fc00c,0x20fc00c,0x20fc00c,0x0,0x0,0x20fc00c,0x0,0x0,0x0,0x0,0x0,0x20fc00c,0x20fc00c,0x0,0x0,0x20fc00c,0x20fc00c,0x20fc00c,0x20fc00c,};
    }
+   
+   /**
+    * Jj_la1_init_4.
+    */
    private static void jj_la1_init_4() {
       jj_la1_4 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xff,0xff,0xff,0xff,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
    }
+  
+  /**
+   * The jj_2_rtns.
+   */
   final private JJCalls[] jj_2_rtns = new JJCalls[11];
+  
+  /**
+   * The jj_rescan.
+   */
   private boolean jj_rescan = false;
+  
+  /**
+   * The jj_gc.
+   */
   private int jj_gc = 0;
 
-  /** Constructor with InputStream. */
+  /**
+   *  Constructor with InputStream.
+   *
+   * @param stream the stream
+   */
   public ASTParser(java.io.InputStream stream) {
      this(stream, null);
   }
-  /** Constructor with InputStream and supplied encoding */
+  
+  /**
+   *  Constructor with InputStream and supplied encoding.
+   *
+   * @param stream the stream
+   * @param encoding the encoding
+   */
   public ASTParser(java.io.InputStream stream, String encoding) {
     try { jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source = new ASTParserTokenManager(jj_input_stream);
@@ -7037,11 +9646,21 @@ public final class ASTParser implements ASTParserConstants {
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
-  /** Reinitialise. */
+  /**
+   *  Reinitialise.
+   *
+   * @param stream the stream
+   */
   public void ReInit(java.io.InputStream stream) {
      ReInit(stream, null);
   }
-  /** Reinitialise. */
+  
+  /**
+   *  Reinitialise.
+   *
+   * @param stream the stream
+   * @param encoding the encoding
+   */
   public void ReInit(java.io.InputStream stream, String encoding) {
     try { jj_input_stream.ReInit(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source.ReInit(jj_input_stream);
@@ -7052,7 +9671,11 @@ public final class ASTParser implements ASTParserConstants {
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
-  /** Constructor. */
+  /**
+   *  Constructor.
+   *
+   * @param stream the stream
+   */
   public ASTParser(java.io.Reader stream) {
     jj_input_stream = new SimpleCharStream(stream, 1, 1);
     token_source = new ASTParserTokenManager(jj_input_stream);
@@ -7063,7 +9686,11 @@ public final class ASTParser implements ASTParserConstants {
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
-  /** Reinitialise. */
+  /**
+   *  Reinitialise.
+   *
+   * @param stream the stream
+   */
   public void ReInit(java.io.Reader stream) {
     jj_input_stream.ReInit(stream, 1, 1);
     token_source.ReInit(jj_input_stream);
@@ -7074,7 +9701,11 @@ public final class ASTParser implements ASTParserConstants {
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
-  /** Constructor with generated Token Manager. */
+  /**
+   *  Constructor with generated Token Manager.
+   *
+   * @param tm the tm
+   */
   public ASTParser(ASTParserTokenManager tm) {
     token_source = tm;
     token = new Token();
@@ -7084,7 +9715,11 @@ public final class ASTParser implements ASTParserConstants {
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
-  /** Reinitialise. */
+  /**
+   *  Reinitialise.
+   *
+   * @param tm the tm
+   */
   public void ReInit(ASTParserTokenManager tm) {
     token_source = tm;
     token = new Token();
@@ -7094,6 +9729,13 @@ public final class ASTParser implements ASTParserConstants {
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
+  /**
+   * Jj_consume_token.
+   *
+   * @param kind the kind
+   * @return the token
+   * @throws ParseException the parse exception
+   */
   private Token jj_consume_token(int kind) throws ParseException {
     Token oldToken;
     if ((oldToken = token).next != null) token = token.next;
@@ -7118,8 +9760,22 @@ public final class ASTParser implements ASTParserConstants {
     throw generateParseException();
   }
 
+  /**
+   * The Class LookaheadSuccess.
+   */
   static private final class LookaheadSuccess extends java.lang.Error { }
+  
+  /**
+   * The jj_ls.
+   */
   final private LookaheadSuccess jj_ls = new LookaheadSuccess();
+  
+  /**
+   * Jj_scan_token.
+   *
+   * @param kind the kind
+   * @return true, if successful
+   */
   private boolean jj_scan_token(int kind) {
     if (jj_scanpos == jj_lastpos) {
       jj_la--;
@@ -7142,7 +9798,11 @@ public final class ASTParser implements ASTParserConstants {
   }
 
 
-/** Get the next Token. */
+/**
+ *  Get the next Token.
+ *
+ * @return the next token
+ */
   final public Token getNextToken() {
     if (token.next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
@@ -7151,7 +9811,12 @@ public final class ASTParser implements ASTParserConstants {
     return token;
   }
 
-/** Get the specific Token. */
+/**
+ *  Get the specific Token.
+ *
+ * @param index the index
+ * @return the token
+ */
   final public Token getToken(int index) {
     Token t = token;
     for (int i = 0; i < index; i++) {
@@ -7161,6 +9826,11 @@ public final class ASTParser implements ASTParserConstants {
     return t;
   }
 
+  /**
+   * Jj_ntk.
+   *
+   * @return the int
+   */
   private int jj_ntk() {
     if ((jj_nt=token.next) == null)
       return (jj_ntk = (token.next=token_source.getNextToken()).kind);
@@ -7168,12 +9838,37 @@ public final class ASTParser implements ASTParserConstants {
       return (jj_ntk = jj_nt.kind);
   }
 
+  /**
+   * The jj_expentries.
+   */
   private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
+  
+  /**
+   * The jj_expentry.
+   */
   private int[] jj_expentry;
+  
+  /**
+   * The jj_kind.
+   */
   private int jj_kind = -1;
+  
+  /**
+   * The jj_lasttokens.
+   */
   private int[] jj_lasttokens = new int[100];
+  
+  /**
+   * The jj_endpos.
+   */
   private int jj_endpos;
 
+  /**
+   * Jj_add_error_token.
+   *
+   * @param kind the kind
+   * @param pos the pos
+   */
   private void jj_add_error_token(int kind, int pos) {
     if (pos >= 100) return;
     if (pos == jj_endpos + 1) {
@@ -7199,7 +9894,11 @@ public final class ASTParser implements ASTParserConstants {
     }
   }
 
-  /** Generate ParseException. */
+  /**
+   *  Generate ParseException.
+   *
+   * @return the parses the exception
+   */
   public ParseException generateParseException() {
     jj_expentries.clear();
     boolean[] la1tokens = new boolean[136];
@@ -7253,6 +9952,9 @@ public final class ASTParser implements ASTParserConstants {
   final public void disable_tracing() {
   }
 
+  /**
+   * Jj_rescan_token.
+   */
   private void jj_rescan_token() {
     jj_rescan = true;
     for (int i = 0; i < 11; i++) {
@@ -7282,6 +9984,12 @@ public final class ASTParser implements ASTParserConstants {
     jj_rescan = false;
   }
 
+  /**
+   * Jj_save.
+   *
+   * @param index the index
+   * @param xla the xla
+   */
   private void jj_save(int index, int xla) {
     JJCalls p = jj_2_rtns[index];
     while (p.gen > jj_gen) {
@@ -7291,10 +9999,29 @@ public final class ASTParser implements ASTParserConstants {
     p.gen = jj_gen + xla - jj_la; p.first = token; p.arg = xla;
   }
 
+  /**
+   * The Class JJCalls.
+   */
   static final class JJCalls {
+    
+    /**
+     * The gen.
+     */
     int gen;
+    
+    /**
+     * The first.
+     */
     Token first;
+    
+    /**
+     * The arg.
+     */
     int arg;
+    
+    /**
+     * The next.
+     */
     JJCalls next;
   }
 

@@ -12,22 +12,48 @@ package com.digiarea.es5;
 
 import com.digiarea.es5.Literal;
 
+/** 
+ * The Class StringBasedLiteral.
+ */
 public abstract class StringBasedLiteral extends Literal {
 
+    /** 
+     * The value.
+     */
     protected String value;
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     public String getValue() {
         return value;
     }
 
+    /**
+     * Sets the value.
+     *
+     * @param value the new value
+     */
     public void setValue(String value) {
         this.value = value;
     }
 
+    /**
+     * Instantiates a new string based literal.
+     */
     StringBasedLiteral() {
         super();
     }
 
+    /**
+     * Instantiates a new string based literal.
+     *
+     * @param value the value
+     * @param posBegin the pos begin
+     * @param posEnd the pos end
+     */
     StringBasedLiteral(String value, int posBegin, int posEnd) {
         super(posBegin, posEnd);
         this.value = value;

@@ -12,12 +12,24 @@ package com.digiarea.es5;
 
 import com.digiarea.es5.Node;
 
+/** 
+ * The Class Expression.
+ */
 public abstract class Expression extends Node {
 
+    /**
+     * Instantiates a new expression.
+     */
     Expression() {
         super();
     }
 
+    /**
+     * Instantiates a new expression.
+     *
+     * @param posBegin the pos begin
+     * @param posEnd the pos end
+     */
     Expression(int posBegin, int posEnd) {
         super(posBegin, posEnd);
     }
