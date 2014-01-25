@@ -24,219 +24,246 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * JS doc comment.
-	 *
-	 * @param content the content
+	 * 
+	 * @param content
+	 *            the content
 	 * @return the JS doc comment
 	 */
 	public static JSDocComment JSDocComment(String content) {
-		return JSDocComment(content);
+		return JSDocComment(content, 0, 0);
 	}
 
 	/**
 	 * Line comment.
-	 *
-	 * @param content the content
+	 * 
+	 * @param content
+	 *            the content
 	 * @return the line comment
 	 */
 	public static LineComment LineComment(String content) {
-		return LineComment(content);
+		return LineComment(content, 0, 0);
 	}
 
 	/**
 	 * Block comment.
-	 *
-	 * @param content the content
+	 * 
+	 * @param content
+	 *            the content
 	 * @return the block comment
 	 */
 	public static BlockComment BlockComment(String content) {
-		return BlockComment(content);
+		return BlockComment(content, 0, 0);
 	}
 
 	/**
 	 * Decimal literal.
-	 *
-	 * @param value the value
+	 * 
+	 * @param value
+	 *            the value
 	 * @return the decimal literal
 	 */
 	public static DecimalLiteral DecimalLiteral(String value) {
-		return DecimalLiteral(value);
+		return DecimalLiteral(value, 0, 0);
 	}
 
 	/**
 	 * Octal literal.
-	 *
-	 * @param value the value
+	 * 
+	 * @param value
+	 *            the value
 	 * @return the octal literal
 	 */
 	public static OctalLiteral OctalLiteral(String value) {
-		return OctalLiteral(value);
+		return OctalLiteral(value, 0, 0);
 	}
 
 	/**
 	 * Hex integer literal.
-	 *
-	 * @param value the value
+	 * 
+	 * @param value
+	 *            the value
 	 * @return the hex integer literal
 	 */
 	public static HexIntegerLiteral HexIntegerLiteral(String value) {
-		return HexIntegerLiteral(value);
+		return HexIntegerLiteral(value, 0, 0);
 	}
 
 	/**
 	 * Float literal.
-	 *
-	 * @param value the value
+	 * 
+	 * @param value
+	 *            the value
 	 * @return the float literal
 	 */
 	public static FloatLiteral FloatLiteral(String value) {
-		return FloatLiteral(value);
+		return FloatLiteral(value, 0, 0);
 	}
 
 	/**
 	 * Boolean literal.
-	 *
-	 * @param value the value
+	 * 
+	 * @param value
+	 *            the value
 	 * @return the boolean literal
 	 */
 	public static BooleanLiteral BooleanLiteral(boolean value) {
-		return BooleanLiteral(value);
+		return BooleanLiteral(value, 0, 0);
 	}
 
 	/**
 	 * Regexp literal.
-	 *
-	 * @param value the value
+	 * 
+	 * @param value
+	 *            the value
 	 * @return the regexp literal
 	 */
 	public static RegexpLiteral RegexpLiteral(String value) {
-		return RegexpLiteral(value);
+		return RegexpLiteral(value, 0, 0);
 	}
 
 	/**
 	 * String literal single.
-	 *
-	 * @param value the value
+	 * 
+	 * @param value
+	 *            the value
 	 * @return the string literal single
 	 */
 	public static StringLiteralSingle StringLiteralSingle(String value) {
-		return StringLiteralSingle(value);
+		return StringLiteralSingle(value, 0, 0);
 	}
 
 	/**
 	 * String literal double.
-	 *
-	 * @param value the value
+	 * 
+	 * @param value
+	 *            the value
 	 * @return the string literal double
 	 */
 	public static StringLiteralDouble StringLiteralDouble(String value) {
-		return StringLiteralDouble(value);
+		return StringLiteralDouble(value, 0, 0);
 	}
 
 	/**
 	 * Identifier name.
-	 *
-	 * @param value the value
+	 * 
+	 * @param value
+	 *            the value
 	 * @return the identifier name
 	 */
 	public static IdentifierName IdentifierName(String value) {
-		return IdentifierName(value);
+		return IdentifierName(value, 0, 0);
 	}
 
 	/**
 	 * Enclosed expression.
-	 *
-	 * @param inner the inner
+	 * 
+	 * @param inner
+	 *            the inner
 	 * @return the enclosed expression
 	 */
 	public static EnclosedExpression EnclosedExpression(Expression inner) {
-		return EnclosedExpression(inner);
+		return EnclosedExpression(inner, 0, 0);
 	}
 
 	/**
 	 * Function expression.
-	 *
-	 * @param name the name
-	 * @param parameters the parameters
-	 * @param body the body
+	 * 
+	 * @param name
+	 *            the name
+	 * @param parameters
+	 *            the parameters
+	 * @param body
+	 *            the body
 	 * @return the function expression
 	 */
 	public static FunctionExpression FunctionExpression(String name,
 			List<Parameter> parameters, Block body) {
-		return FunctionExpression(name, NodeList(parameters), body);
+		return FunctionExpression(name, NodeList(parameters), body, 0, 0);
 	}
 
 	/**
 	 * Call expression.
-	 *
-	 * @param scope the scope
-	 * @param args the args
+	 * 
+	 * @param scope
+	 *            the scope
+	 * @param args
+	 *            the args
 	 * @return the call expression
 	 */
 	public static CallExpression CallExpression(Expression scope,
 			List<Expression> args) {
-		return CallExpression(scope, NodeList(args));
+		return CallExpression(scope, NodeList(args), 0, 0);
 	}
 
 	/**
 	 * Array access expression.
-	 *
-	 * @param name the name
-	 * @param index the index
+	 * 
+	 * @param name
+	 *            the name
+	 * @param index
+	 *            the index
 	 * @return the array access expression
 	 */
 	public static ArrayAccessExpression ArrayAccessExpression(Expression name,
 			Expression index) {
-		return ArrayAccessExpression(name, index);
+		return ArrayAccessExpression(name, index, 0, 0);
 	}
 
 	/**
 	 * Field access expression.
-	 *
-	 * @param scope the scope
-	 * @param field the field
+	 * 
+	 * @param scope
+	 *            the scope
+	 * @param field
+	 *            the field
 	 * @return the field access expression
 	 */
 	public static FieldAccessExpression FieldAccessExpression(Expression scope,
 			IdentifierName field) {
-		return FieldAccessExpression(scope, field);
+		return FieldAccessExpression(scope, field, 0, 0);
 	}
 
 	/**
 	 * New expression.
-	 *
-	 * @param expression the expression
+	 * 
+	 * @param expression
+	 *            the expression
 	 * @return the new expression
 	 */
 	public static NewExpression NewExpression(Expression expression) {
-		return NewExpression(expression);
+		return NewExpression(expression, null, 0, 0);
 	}
 
 	/**
 	 * Array literal.
-	 *
-	 * @param expressions the expressions
+	 * 
+	 * @param expressions
+	 *            the expressions
 	 * @return the array literal
 	 */
 	public static ArrayLiteral ArrayLiteral(List<Expression> expressions) {
-		return ArrayLiteral(NodeList(expressions));
+		return ArrayLiteral(NodeList(expressions), 0, 0);
 	}
 
 	/**
 	 * Object literal.
-	 *
-	 * @param propertyAssignments the property assignments
+	 * 
+	 * @param propertyAssignments
+	 *            the property assignments
 	 * @return the object literal
 	 */
 	public static ObjectLiteral ObjectLiteral(
 			List<PropertyAssignment> propertyAssignments) {
-		return ObjectLiteral(NodeList(propertyAssignments));
+		return ObjectLiteral(NodeList(propertyAssignments), 0, 0);
 	}
 
 	/**
 	 * Gets the assignment.
-	 *
-	 * @param propertyName the property name
-	 * @param block the block
+	 * 
+	 * @param propertyName
+	 *            the property name
+	 * @param block
+	 *            the block
 	 * @return the gets the assignment
 	 */
 	public static GetAssignment GetAssignment(PropertyName propertyName,
@@ -246,10 +273,13 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Sets the assignment.
-	 *
-	 * @param propertyName the property name
-	 * @param identifier the identifier
-	 * @param block the block
+	 * 
+	 * @param propertyName
+	 *            the property name
+	 * @param identifier
+	 *            the identifier
+	 * @param block
+	 *            the block
 	 * @return the sets the assignment
 	 */
 	public static SetAssignment SetAssignment(PropertyName propertyName,
@@ -259,9 +289,11 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Put assignment.
-	 *
-	 * @param propertyName the property name
-	 * @param propertyValue the property value
+	 * 
+	 * @param propertyName
+	 *            the property name
+	 * @param propertyValue
+	 *            the property value
 	 * @return the put assignment
 	 */
 	public static PutAssignment PutAssignment(PropertyName propertyName,
@@ -271,70 +303,83 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Unary expression.
-	 *
-	 * @param expression the expression
-	 * @param operator the operator
+	 * 
+	 * @param expression
+	 *            the expression
+	 * @param operator
+	 *            the operator
 	 * @return the unary expression
 	 */
 	public static UnaryExpression UnaryExpression(Expression expression,
 			UnaryOperator operator) {
-		return UnaryExpression(expression, operator);
+		return UnaryExpression(expression, operator, 0, 0);
 	}
 
 	/**
 	 * Binary expression.
-	 *
-	 * @param left the left
-	 * @param right the right
-	 * @param operator the operator
+	 * 
+	 * @param left
+	 *            the left
+	 * @param right
+	 *            the right
+	 * @param operator
+	 *            the operator
 	 * @return the binary expression
 	 */
 	public static BinaryExpression BinaryExpression(Expression left,
 			Expression right, BinaryOperator operator) {
-		return BinaryExpression(left, right, operator);
+		return BinaryExpression(left, right, operator, 0, 0);
 	}
 
 	/**
 	 * Conditional expression.
-	 *
-	 * @param condition the condition
-	 * @param thenExpr the then expr
-	 * @param elseExpr the else expr
+	 * 
+	 * @param condition
+	 *            the condition
+	 * @param thenExpr
+	 *            the then expr
+	 * @param elseExpr
+	 *            the else expr
 	 * @return the conditional expression
 	 */
 	public static ConditionalExpression ConditionalExpression(
 			Expression condition, Expression thenExpr, Expression elseExpr) {
-		return ConditionalExpression(condition, thenExpr, elseExpr);
+		return ConditionalExpression(condition, thenExpr, elseExpr, 0, 0);
 	}
 
 	/**
 	 * Assignment expression.
-	 *
-	 * @param target the target
-	 * @param value the value
-	 * @param operator the operator
+	 * 
+	 * @param target
+	 *            the target
+	 * @param value
+	 *            the value
+	 * @param operator
+	 *            the operator
 	 * @return the assignment expression
 	 */
 	public static AssignmentExpression AssignmentExpression(Expression target,
 			Expression value, AssignOperator operator) {
-		return AssignmentExpression(target, value, operator);
+		return AssignmentExpression(target, value, operator, 0, 0);
 	}
 
 	/**
 	 * Sequence expression.
-	 *
-	 * @param expressions the expressions
+	 * 
+	 * @param expressions
+	 *            the expressions
 	 * @return the sequence expression
 	 */
 	public static SequenceExpression SequenceExpression(
 			List<Expression> expressions) {
-		return SequenceExpression(NodeList(expressions));
+		return SequenceExpression(NodeList(expressions), 0, 0);
 	}
 
 	/**
 	 * Block.
-	 *
-	 * @param statements the statements
+	 * 
+	 * @param statements
+	 *            the statements
 	 * @return the block
 	 */
 	public static Block Block(List<Statement> statements) {
@@ -343,9 +388,11 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Let definition.
-	 *
-	 * @param comment the comment
-	 * @param declarations the declarations
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param declarations
+	 *            the declarations
 	 * @return the let definition
 	 */
 	public static LetDefinition LetDefinition(JSDocComment comment,
@@ -355,10 +402,13 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Let statement.
-	 *
-	 * @param comment the comment
-	 * @param declarations the declarations
-	 * @param statement the statement
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param declarations
+	 *            the declarations
+	 * @param statement
+	 *            the statement
 	 * @return the let statement
 	 */
 	public static LetStatement LetStatement(JSDocComment comment,
@@ -368,19 +418,22 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Debugger statement.
-	 *
-	 * @param comment the comment
+	 * 
+	 * @param comment
+	 *            the comment
 	 * @return the debugger statement
 	 */
 	public static DebuggerStatement DebuggerStatement(JSDocComment comment) {
-		return DebuggerStatement(comment);
+		return DebuggerStatement(comment, 0, 0);
 	}
 
 	/**
 	 * Constant statement.
-	 *
-	 * @param comment the comment
-	 * @param declarations the declarations
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param declarations
+	 *            the declarations
 	 * @return the constant statement
 	 */
 	public static ConstantStatement ConstantStatement(JSDocComment comment,
@@ -390,9 +443,11 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Variable statement.
-	 *
-	 * @param comment the comment
-	 * @param declarations the declarations
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param declarations
+	 *            the declarations
 	 * @return the variable statement
 	 */
 	public static VariableStatement VariableStatement(JSDocComment comment,
@@ -402,33 +457,40 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Variable declaration.
-	 *
-	 * @param name the name
-	 * @param expression the expression
+	 * 
+	 * @param name
+	 *            the name
+	 * @param expression
+	 *            the expression
 	 * @return the variable declaration
 	 */
 	public static VariableDeclaration VariableDeclaration(String name,
 			Expression expression) {
-		return VariableDeclaration(name, expression);
+		return VariableDeclaration(name, expression, 0, 0);
 	}
 
 	/**
 	 * Empty statement.
-	 *
-	 * @param comment the comment
+	 * 
+	 * @param comment
+	 *            the comment
 	 * @return the empty statement
 	 */
 	public static EmptyStatement EmptyStatement(JSDocComment comment) {
-		return EmptyStatement(comment);
+		return EmptyStatement(comment, 0, 0);
 	}
 
 	/**
 	 * If statement.
-	 *
-	 * @param comment the comment
-	 * @param condition the condition
-	 * @param thenStatement the then statement
-	 * @param elseStatement the else statement
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param condition
+	 *            the condition
+	 * @param thenStatement
+	 *            the then statement
+	 * @param elseStatement
+	 *            the else statement
 	 * @return the if statement
 	 */
 	public static IfStatement IfStatement(JSDocComment comment,
@@ -440,10 +502,13 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Labelled statement.
-	 *
-	 * @param comment the comment
-	 * @param label the label
-	 * @param statement the statement
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param label
+	 *            the label
+	 * @param statement
+	 *            the statement
 	 * @return the labelled statement
 	 */
 	public static LabelledStatement LabelledStatement(JSDocComment comment,
@@ -453,9 +518,11 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Expression statement.
-	 *
-	 * @param comment the comment
-	 * @param expression the expression
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param expression
+	 *            the expression
 	 * @return the expression statement
 	 */
 	public static ExpressionStatement ExpressionStatement(JSDocComment comment,
@@ -465,10 +532,13 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * While statement.
-	 *
-	 * @param comment the comment
-	 * @param condition the condition
-	 * @param statement the statement
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param condition
+	 *            the condition
+	 * @param statement
+	 *            the statement
 	 * @return the while statement
 	 */
 	public static WhileStatement WhileStatement(JSDocComment comment,
@@ -478,10 +548,13 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Do while statement.
-	 *
-	 * @param comment the comment
-	 * @param condition the condition
-	 * @param statement the statement
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param condition
+	 *            the condition
+	 * @param statement
+	 *            the statement
 	 * @return the do while statement
 	 */
 	public static DoWhileStatement DoWhileStatement(JSDocComment comment,
@@ -491,12 +564,17 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * For statement.
-	 *
-	 * @param comment the comment
-	 * @param variable the variable
-	 * @param condition the condition
-	 * @param expr the expr
-	 * @param body the body
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param variable
+	 *            the variable
+	 * @param condition
+	 *            the condition
+	 * @param expr
+	 *            the expr
+	 * @param body
+	 *            the body
 	 * @return the for statement
 	 */
 	public static ForStatement ForStatement(JSDocComment comment,
@@ -507,34 +585,41 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Variable expression.
-	 *
-	 * @param declarations the declarations
+	 * 
+	 * @param declarations
+	 *            the declarations
 	 * @return the variable expression
 	 */
 	public static VariableExpression VariableExpression(
 			List<VariableDeclaration> declarations) {
-		return VariableExpression(NodeList(declarations));
+		return VariableExpression(NodeList(declarations), 0, 0);
 	}
 
 	/**
 	 * Let expression.
-	 *
-	 * @param declarations the declarations
-	 * @param expression the expression
+	 * 
+	 * @param declarations
+	 *            the declarations
+	 * @param expression
+	 *            the expression
 	 * @return the let expression
 	 */
 	public static LetExpression LetExpression(
 			List<VariableDeclaration> declarations, Expression expression) {
-		return LetExpression(NodeList(declarations), expression);
+		return LetExpression(NodeList(declarations), expression, 0, 0);
 	}
 
 	/**
 	 * Foreach statement.
-	 *
-	 * @param comment the comment
-	 * @param variable the variable
-	 * @param expression the expression
-	 * @param body the body
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param variable
+	 *            the variable
+	 * @param expression
+	 *            the expression
+	 * @param body
+	 *            the body
 	 * @return the foreach statement
 	 */
 	public static ForeachStatement ForeachStatement(JSDocComment comment,
@@ -544,9 +629,11 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Break statement.
-	 *
-	 * @param comment the comment
-	 * @param identifier the identifier
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param identifier
+	 *            the identifier
 	 * @return the break statement
 	 */
 	public static BreakStatement BreakStatement(JSDocComment comment,
@@ -556,9 +643,11 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Continue statement.
-	 *
-	 * @param comment the comment
-	 * @param identifier the identifier
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param identifier
+	 *            the identifier
 	 * @return the continue statement
 	 */
 	public static ContinueStatement ContinueStatement(JSDocComment comment,
@@ -568,10 +657,13 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * With statement.
-	 *
-	 * @param comment the comment
-	 * @param expression the expression
-	 * @param statement the statement
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param expression
+	 *            the expression
+	 * @param statement
+	 *            the statement
 	 * @return the with statement
 	 */
 	public static WithStatement WithStatement(JSDocComment comment,
@@ -581,11 +673,15 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Try statement.
-	 *
-	 * @param comment the comment
-	 * @param tryBlock the try block
-	 * @param catchClause the catch clause
-	 * @param finallyBlock the finally block
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param tryBlock
+	 *            the try block
+	 * @param catchClause
+	 *            the catch clause
+	 * @param finallyBlock
+	 *            the finally block
 	 * @return the try statement
 	 */
 	public static TryStatement TryStatement(JSDocComment comment,
@@ -595,9 +691,11 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Throw statement.
-	 *
-	 * @param comment the comment
-	 * @param expression the expression
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param expression
+	 *            the expression
 	 * @return the throw statement
 	 */
 	public static ThrowStatement ThrowStatement(JSDocComment comment,
@@ -607,10 +705,13 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Case block.
-	 *
-	 * @param comment the comment
-	 * @param defaultClause the default clause
-	 * @param caseClauses the case clauses
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param defaultClause
+	 *            the default clause
+	 * @param caseClauses
+	 *            the case clauses
 	 * @return the case block
 	 */
 	public static CaseBlock CaseBlock(JSDocComment comment,
@@ -620,10 +721,13 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Switch statement.
-	 *
-	 * @param comment the comment
-	 * @param expression the expression
-	 * @param block the block
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param expression
+	 *            the expression
+	 * @param block
+	 *            the block
 	 * @return the switch statement
 	 */
 	public static SwitchStatement SwitchStatement(JSDocComment comment,
@@ -633,20 +737,24 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Catch clause.
-	 *
-	 * @param identifier the identifier
-	 * @param block the block
+	 * 
+	 * @param identifier
+	 *            the identifier
+	 * @param block
+	 *            the block
 	 * @return the catch clause
 	 */
 	public static CatchClause CatchClause(String identifier, Block block) {
-		return CatchClause(identifier, block);
+		return CatchClause(identifier, block, 0, 0);
 	}
 
 	/**
 	 * Return statement.
-	 *
-	 * @param comment the comment
-	 * @param expression the expression
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param expression
+	 *            the expression
 	 * @return the return statement
 	 */
 	public static ReturnStatement ReturnStatement(JSDocComment comment,
@@ -656,23 +764,29 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Case clause.
-	 *
-	 * @param expression the expression
-	 * @param statements the statements
+	 * 
+	 * @param expression
+	 *            the expression
+	 * @param statements
+	 *            the statements
 	 * @return the case clause
 	 */
 	public static CaseClause CaseClause(Expression expression,
 			List<Statement> statements) {
-		return CaseClause(expression, NodeList(statements));
+		return CaseClause(expression, NodeList(statements), 0, 0);
 	}
 
 	/**
 	 * Function declaration.
-	 *
-	 * @param comment the comment
-	 * @param name the name
-	 * @param parameters the parameters
-	 * @param body the body
+	 * 
+	 * @param comment
+	 *            the comment
+	 * @param name
+	 *            the name
+	 * @param parameters
+	 *            the parameters
+	 * @param body
+	 *            the body
 	 * @return the function declaration
 	 */
 	public static FunctionDeclaration FunctionDeclaration(JSDocComment comment,
@@ -683,30 +797,35 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Parameter.
-	 *
-	 * @param name the name
+	 * 
+	 * @param name
+	 *            the name
 	 * @return the parameter
 	 */
 	public static Parameter Parameter(String name) {
-		return Parameter(name);
+		return Parameter(name, 0, 0);
 	}
 
 	/**
 	 * Default clause.
-	 *
-	 * @param statements the statements
+	 * 
+	 * @param statements
+	 *            the statements
 	 * @return the default clause
 	 */
 	public static DefaultClause DefaultClause(List<Statement> statements) {
-		return DefaultClause(NodeList(statements));
+		return DefaultClause(NodeList(statements), 0, 0);
 	}
 
 	/**
 	 * Compilation unit.
-	 *
-	 * @param comments the comments
-	 * @param elements the elements
-	 * @param name the name
+	 * 
+	 * @param comments
+	 *            the comments
+	 * @param elements
+	 *            the elements
+	 * @param name
+	 *            the name
 	 * @return the compilation unit
 	 */
 	public static CompilationUnit CompilationUnit(List<Comment> comments,
@@ -717,23 +836,27 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * This method return null when nodes equals null.
-	 *
-	 * @param <E> the element type
-	 * @param nodes the nodes
+	 * 
+	 * @param <E>
+	 *            the element type
+	 * @param nodes
+	 *            the nodes
 	 * @return the node list
 	 */
 	public static <E extends Node> NodeList<E> NodeList(List<E> nodes) {
 		if (nodes != null) {
-			return NodeList(nodes);
+			return NodeList(nodes, 0, 0);
 		}
 		return null;
 	}
 
 	/**
 	 * This method return null when node equals null.
-	 *
-	 * @param <E> the element type
-	 * @param node the node
+	 * 
+	 * @param <E>
+	 *            the element type
+	 * @param node
+	 *            the node
 	 * @return the node list
 	 */
 	public static <E extends Node> NodeList<E> NodeList(E node) {
@@ -745,9 +868,11 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * This method return null when node equals null.
-	 *
-	 * @param <E> the element type
-	 * @param node the node
+	 * 
+	 * @param <E>
+	 *            the element type
+	 * @param node
+	 *            the node
 	 * @return the node list
 	 */
 	public static <E extends Node> NodeList<E> NodeList(E[] node) {
@@ -759,20 +884,23 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * New expression.
-	 *
-	 * @param expression the expression
-	 * @param initializer the initializer
+	 * 
+	 * @param expression
+	 *            the expression
+	 * @param initializer
+	 *            the initializer
 	 * @return the new expression
 	 */
 	public static NewExpression NewExpression(Expression expression,
 			ObjectLiteral initializer) {
-		return NewExpression(expression, initializer);
+		return NewExpression(expression, initializer, 0, 0);
 	}
 
 	/**
 	 * Expression statement.
-	 *
-	 * @param expression the expression
+	 * 
+	 * @param expression
+	 *            the expression
 	 * @return the expression statement
 	 */
 	public static ExpressionStatement ExpressionStatement(Expression expression) {
@@ -781,8 +909,9 @@ public class NodeFacade extends NodeFactory {
 
 	/**
 	 * Allocation expression.
-	 *
-	 * @param expression the expression
+	 * 
+	 * @param expression
+	 *            the expression
 	 * @return the allocation expression
 	 */
 	public static AllocationExpression AllocationExpression(
