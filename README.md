@@ -1,4 +1,4 @@
-![EcmaScript 5 Model](https://lh3.googleusercontent.com/-WXR7JMjLioI/Ut-aNH8Ce7I/AAAAAAAABlk/l-Yjc_A88gY/w718-h312-no/jokerw.jpg)
+![EcmaScript 5 Model](https://lh3.googleusercontent.com/-bL1Gs5sBPQE/UuTEb8_K1VI/AAAAAAAAAEg/MQdbLuElW3Q/w718-h312-no/jokerw.jpg)
 
 es5-model
 =========
