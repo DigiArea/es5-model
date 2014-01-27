@@ -200,7 +200,7 @@ public class Input implements Runnable {
 			throw new Error(e.getMessage());
 		}
 		project.setCompilationUnits(NodeFacade.NodeList(compilationUnits,
-				0, 0));
+				null, 0, 0));
 	}
 
 }

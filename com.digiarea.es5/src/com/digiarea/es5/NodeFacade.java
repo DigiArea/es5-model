@@ -30,7 +30,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the JS doc comment
 	 */
 	public static JSDocComment JSDocComment(String content) {
-		return JSDocComment(content, 0, 0);
+		return JSDocComment(content, null, 0, 0);
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the line comment
 	 */
 	public static LineComment LineComment(String content) {
-		return LineComment(content, 0, 0);
+		return LineComment(content, null, 0, 0);
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the block comment
 	 */
 	public static BlockComment BlockComment(String content) {
-		return BlockComment(content, 0, 0);
+		return BlockComment(content, null, 0, 0);
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the decimal literal
 	 */
 	public static DecimalLiteral DecimalLiteral(String value) {
-		return DecimalLiteral(value, 0, 0);
+		return DecimalLiteral(value, null, 0, 0);
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the octal literal
 	 */
 	public static OctalLiteral OctalLiteral(String value) {
-		return OctalLiteral(value, 0, 0);
+		return OctalLiteral(value, null, 0, 0);
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the hex integer literal
 	 */
 	public static HexIntegerLiteral HexIntegerLiteral(String value) {
-		return HexIntegerLiteral(value, 0, 0);
+		return HexIntegerLiteral(value, null, 0, 0);
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the float literal
 	 */
 	public static FloatLiteral FloatLiteral(String value) {
-		return FloatLiteral(value, 0, 0);
+		return FloatLiteral(value, null, 0, 0);
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the boolean literal
 	 */
 	public static BooleanLiteral BooleanLiteral(boolean value) {
-		return BooleanLiteral(value, 0, 0);
+		return BooleanLiteral(value, null, 0, 0);
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the regexp literal
 	 */
 	public static RegexpLiteral RegexpLiteral(String value) {
-		return RegexpLiteral(value, 0, 0);
+		return RegexpLiteral(value, null, 0, 0);
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the string literal single
 	 */
 	public static StringLiteralSingle StringLiteralSingle(String value) {
-		return StringLiteralSingle(value, 0, 0);
+		return StringLiteralSingle(value, null, 0, 0);
 	}
 
 	/**
@@ -140,7 +140,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the string literal double
 	 */
 	public static StringLiteralDouble StringLiteralDouble(String value) {
-		return StringLiteralDouble(value, 0, 0);
+		return StringLiteralDouble(value, null, 0, 0);
 	}
 
 	/**
@@ -151,7 +151,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the identifier name
 	 */
 	public static IdentifierName IdentifierName(String value) {
-		return IdentifierName(value, 0, 0);
+		return IdentifierName(value, null, 0, 0);
 	}
 
 	/**
@@ -162,7 +162,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the enclosed expression
 	 */
 	public static EnclosedExpression EnclosedExpression(Expression inner) {
-		return EnclosedExpression(inner, 0, 0);
+		return EnclosedExpression(inner, null, 0, 0);
 	}
 
 	/**
@@ -178,7 +178,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static FunctionExpression FunctionExpression(String name,
 			List<Parameter> parameters, Block body) {
-		return FunctionExpression(name, NodeList(parameters), body, 0, 0);
+		return FunctionExpression(name, NodeList(parameters), body, null, 0, 0);
 	}
 
 	/**
@@ -192,7 +192,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static CallExpression CallExpression(Expression scope,
 			List<Expression> args) {
-		return CallExpression(scope, NodeList(args), 0, 0);
+		return CallExpression(scope, NodeList(args), null, 0, 0);
 	}
 
 	/**
@@ -206,7 +206,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static ArrayAccessExpression ArrayAccessExpression(Expression name,
 			Expression index) {
-		return ArrayAccessExpression(name, index, 0, 0);
+		return ArrayAccessExpression(name, index, null, 0, 0);
 	}
 
 	/**
@@ -220,7 +220,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static FieldAccessExpression FieldAccessExpression(Expression scope,
 			IdentifierName field) {
-		return FieldAccessExpression(scope, field, 0, 0);
+		return FieldAccessExpression(scope, field, null, 0, 0);
 	}
 
 	/**
@@ -231,7 +231,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the new expression
 	 */
 	public static NewExpression NewExpression(Expression expression) {
-		return NewExpression(expression, null, 0, 0);
+		return NewExpression(expression, null, null, 0, 0);
 	}
 
 	/**
@@ -242,7 +242,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the array literal
 	 */
 	public static ArrayLiteral ArrayLiteral(List<Expression> expressions) {
-		return ArrayLiteral(NodeList(expressions), 0, 0);
+		return ArrayLiteral(NodeList(expressions), null, 0, 0);
 	}
 
 	/**
@@ -254,7 +254,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static ObjectLiteral ObjectLiteral(
 			List<PropertyAssignment> propertyAssignments) {
-		return ObjectLiteral(NodeList(propertyAssignments), 0, 0);
+		return ObjectLiteral(NodeList(propertyAssignments), null, 0, 0);
 	}
 
 	/**
@@ -268,7 +268,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static GetAssignment GetAssignment(PropertyName propertyName,
 			Block block) {
-		return GetAssignment(block, propertyName, null, 0, 0);
+		return GetAssignment(block, propertyName, null, null, 0, 0);
 	}
 
 	/**
@@ -284,7 +284,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static SetAssignment SetAssignment(PropertyName propertyName,
 			String identifier, Block block) {
-		return SetAssignment(identifier, block, propertyName, null, 0, 0);
+		return SetAssignment(identifier, block, propertyName, null, null, 0, 0);
 	}
 
 	/**
@@ -298,7 +298,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static PutAssignment PutAssignment(PropertyName propertyName,
 			Expression propertyValue) {
-		return PutAssignment(propertyValue, propertyName, null, 0, 0);
+		return PutAssignment(propertyValue, propertyName, null, null, 0, 0);
 	}
 
 	/**
@@ -312,7 +312,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static UnaryExpression UnaryExpression(Expression expression,
 			UnaryOperator operator) {
-		return UnaryExpression(expression, operator, 0, 0);
+		return UnaryExpression(expression, operator, null, 0, 0);
 	}
 
 	/**
@@ -328,7 +328,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static BinaryExpression BinaryExpression(Expression left,
 			Expression right, BinaryOperator operator) {
-		return BinaryExpression(left, right, operator, 0, 0);
+		return BinaryExpression(left, right, operator, null, 0, 0);
 	}
 
 	/**
@@ -344,7 +344,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static ConditionalExpression ConditionalExpression(
 			Expression condition, Expression thenExpr, Expression elseExpr) {
-		return ConditionalExpression(condition, thenExpr, elseExpr, 0, 0);
+		return ConditionalExpression(condition, thenExpr, elseExpr, null, 0, 0);
 	}
 
 	/**
@@ -360,7 +360,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static AssignmentExpression AssignmentExpression(Expression target,
 			Expression value, AssignOperator operator) {
-		return AssignmentExpression(target, value, operator, 0, 0);
+		return AssignmentExpression(target, value, operator, null, 0, 0);
 	}
 
 	/**
@@ -372,7 +372,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static SequenceExpression SequenceExpression(
 			List<Expression> expressions) {
-		return SequenceExpression(NodeList(expressions), 0, 0);
+		return SequenceExpression(NodeList(expressions), null, 0, 0);
 	}
 
 	/**
@@ -466,7 +466,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static VariableDeclaration VariableDeclaration(String name,
 			Expression expression) {
-		return VariableDeclaration(name, expression, 0, 0);
+		return VariableDeclaration(name, expression, null, 0, 0);
 	}
 
 	/**
@@ -592,7 +592,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static VariableExpression VariableExpression(
 			List<VariableDeclaration> declarations) {
-		return VariableExpression(NodeList(declarations), 0, 0);
+		return VariableExpression(NodeList(declarations), null, 0, 0);
 	}
 
 	/**
@@ -606,7 +606,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static LetExpression LetExpression(
 			List<VariableDeclaration> declarations, Expression expression) {
-		return LetExpression(NodeList(declarations), expression, 0, 0);
+		return LetExpression(NodeList(declarations), expression, null, 0, 0);
 	}
 
 	/**
@@ -745,7 +745,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the catch clause
 	 */
 	public static CatchClause CatchClause(String identifier, Block block) {
-		return CatchClause(identifier, block, 0, 0);
+		return CatchClause(identifier, block, null, 0, 0);
 	}
 
 	/**
@@ -773,7 +773,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static CaseClause CaseClause(Expression expression,
 			List<Statement> statements) {
-		return CaseClause(expression, NodeList(statements), 0, 0);
+		return CaseClause(expression, NodeList(statements), null, 0, 0);
 	}
 
 	/**
@@ -803,7 +803,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the parameter
 	 */
 	public static Parameter Parameter(String name) {
-		return Parameter(name, 0, 0);
+		return Parameter(name, null, 0, 0);
 	}
 
 	/**
@@ -814,7 +814,7 @@ public class NodeFacade extends NodeFactory {
 	 * @return the default clause
 	 */
 	public static DefaultClause DefaultClause(List<Statement> statements) {
-		return DefaultClause(NodeList(statements), 0, 0);
+		return DefaultClause(NodeList(statements), null, 0, 0);
 	}
 
 	/**
@@ -830,8 +830,8 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static CompilationUnit CompilationUnit(List<Comment> comments,
 			List<Statement> elements, String name) {
-		return CompilationUnit(NodeList(elements), NodeList(comments), name, 0,
-				0);
+		return CompilationUnit(NodeList(elements), NodeList(comments), name,
+				null, 0, 0);
 	}
 
 	/**
@@ -845,7 +845,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static <E extends Node> NodeList<E> NodeList(List<E> nodes) {
 		if (nodes != null) {
-			return NodeList(nodes, 0, 0);
+			return NodeList(nodes, null, 0, 0);
 		}
 		return null;
 	}
@@ -893,7 +893,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static NewExpression NewExpression(Expression expression,
 			ObjectLiteral initializer) {
-		return NewExpression(expression, initializer, 0, 0);
+		return NewExpression(expression, initializer, null, 0, 0);
 	}
 
 	/**
@@ -916,7 +916,7 @@ public class NodeFacade extends NodeFactory {
 	 */
 	public static AllocationExpression AllocationExpression(
 			Expression expression) {
-		return AllocationExpression(expression, 0, 0);
+		return AllocationExpression(expression, null, 0, 0);
 	}
 
 }
