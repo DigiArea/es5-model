@@ -1,13 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2011 - 2014 DigiArea, Inc. and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     DigiArea, Inc. - initial API and implementation
- *******************************************************************************/
 package com.digiarea.es5.visitor;
 
 import java.util.List;
@@ -85,30 +75,22 @@ import com.digiarea.es5.VariableStatement;
 import com.digiarea.es5.WhileStatement;
 import com.digiarea.es5.WithStatement;
 
-/**
- * The Class ChildrenProvider.
- *
- * @param <C> the generic type
- */
 public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.AllocationExpression, java.lang.Object)
-     */
     @Override
     public List<Object> visit(AllocationExpression n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         if (n.getBody() != null) {
             img.add(n.getBody());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ArrayAccessExpression, java.lang.Object)
-     */
     @Override
     public List<Object> visit(ArrayAccessExpression n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -118,28 +100,28 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getIndex() != null) {
             img.add(n.getIndex());
         }
-        img.add(n.getPosBegin());
-        img.add(n.getPosEnd());
-        return img;
-    }
-
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ArrayLiteral, java.lang.Object)
-     */
-    @Override
-    public List<Object> visit(ArrayLiteral n, Void ctx) throws Exception {
-        List<Object> img = new ArrayList<Object>();
-        if (n.getExpressions() != null) {
-            img.add(n.getExpressions());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.AssignmentExpression, java.lang.Object)
-     */
+    @Override
+    public List<Object> visit(ArrayLiteral n, Void ctx) throws Exception {
+        List<Object> img = new ArrayList<Object>();
+        if (n.getExpressions() != null) {
+            img.add(n.getExpressions());
+        }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
+        img.add(n.getPosBegin());
+        img.add(n.getPosEnd());
+        return img;
+    }
+
     @Override
     public List<Object> visit(AssignmentExpression n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -150,22 +132,19 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
             img.add(n.getValue());
         }
         img.add(n.getAssignOperator());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.AssignmentExpression.AssignOperator, java.lang.Object)
-     */
     @Override
     public List<Object> visit(AssignOperator n, Void ctx) throws Exception {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BinaryExpression, java.lang.Object)
-     */
     @Override
     public List<Object> visit(BinaryExpression n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -176,78 +155,69 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
             img.add(n.getRight());
         }
         img.add(n.getBinaryOperator());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BinaryExpression.BinaryOperator, java.lang.Object)
-     */
     @Override
     public List<Object> visit(BinaryOperator n, Void ctx) throws Exception {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.Block, java.lang.Object)
-     */
     @Override
     public List<Object> visit(Block n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         if (n.getStatements() != null) {
             img.add(n.getStatements());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BlockComment, java.lang.Object)
-     */
     @Override
     public List<Object> visit(BlockComment n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         img.add(n.getContent());
-        img.add(n.getPosBegin());
-        img.add(n.getPosEnd());
-        return img;
-    }
-
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BooleanLiteral, java.lang.Object)
-     */
-    @Override
-    public List<Object> visit(BooleanLiteral n, Void ctx) throws Exception {
-        List<Object> img = new ArrayList<Object>();
-        img.add(n.isValue());
-        img.add(n.getPosBegin());
-        img.add(n.getPosEnd());
-        return img;
-    }
-
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BreakStatement, java.lang.Object)
-     */
-    @Override
-    public List<Object> visit(BreakStatement n, Void ctx) throws Exception {
-        List<Object> img = new ArrayList<Object>();
-        img.add(n.getIdentifier());
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CallExpression, java.lang.Object)
-     */
+    @Override
+    public List<Object> visit(BooleanLiteral n, Void ctx) throws Exception {
+        List<Object> img = new ArrayList<Object>();
+        img.add(n.isValue());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
+        img.add(n.getPosBegin());
+        img.add(n.getPosEnd());
+        return img;
+    }
+
+    @Override
+    public List<Object> visit(BreakStatement n, Void ctx) throws Exception {
+        List<Object> img = new ArrayList<Object>();
+        img.add(n.getIdentifier());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
+        img.add(n.getPosBegin());
+        img.add(n.getPosEnd());
+        return img;
+    }
+
     @Override
     public List<Object> visit(CallExpression n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -257,14 +227,14 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getArgs() != null) {
             img.add(n.getArgs());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CaseBlock, java.lang.Object)
-     */
     @Override
     public List<Object> visit(CaseBlock n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -274,17 +244,14 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getCaseClauses() != null) {
             img.add(n.getCaseClauses());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CaseClause, java.lang.Object)
-     */
     @Override
     public List<Object> visit(CaseClause n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -294,14 +261,14 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getStatements() != null) {
             img.add(n.getStatements());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CatchClause, java.lang.Object)
-     */
     @Override
     public List<Object> visit(CatchClause n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -309,14 +276,14 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getBlock() != null) {
             img.add(n.getBlock());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CompilationUnit, java.lang.Object)
-     */
     @Override
     public List<Object> visit(CompilationUnit n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -327,14 +294,14 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
             img.add(n.getComments());
         }
         img.add(n.getName());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ConditionalExpression, java.lang.Object)
-     */
     @Override
     public List<Object> visit(ConditionalExpression n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -347,86 +314,77 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getElseExpr() != null) {
             img.add(n.getElseExpr());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ConstantStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(ConstantStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         if (n.getVariableDeclarations() != null) {
             img.add(n.getVariableDeclarations());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ContinueStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(ContinueStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         img.add(n.getIdentifier());
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DebuggerStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(DebuggerStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DecimalLiteral, java.lang.Object)
-     */
     @Override
     public List<Object> visit(DecimalLiteral n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         img.add(n.getValue());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DefaultClause, java.lang.Object)
-     */
     @Override
     public List<Object> visit(DefaultClause n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         if (n.getStatements() != null) {
             img.add(n.getStatements());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DoWhileStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(DoWhileStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -436,73 +394,64 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getBody() != null) {
             img.add(n.getBody());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.EmptyLiteral, java.lang.Object)
-     */
     @Override
     public List<Object> visit(EmptyLiteral n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
-        img.add(n.getPosBegin());
-        img.add(n.getPosEnd());
-        return img;
-    }
-
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.EmptyStatement, java.lang.Object)
-     */
-    @Override
-    public List<Object> visit(EmptyStatement n, Void ctx) throws Exception {
-        List<Object> img = new ArrayList<Object>();
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.EnclosedExpression, java.lang.Object)
-     */
+    @Override
+    public List<Object> visit(EmptyStatement n, Void ctx) throws Exception {
+        List<Object> img = new ArrayList<Object>();
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
+        img.add(n.getPosBegin());
+        img.add(n.getPosEnd());
+        return img;
+    }
+
     @Override
     public List<Object> visit(EnclosedExpression n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         if (n.getInner() != null) {
             img.add(n.getInner());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ExpressionStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(ExpressionStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         if (n.getExpression() != null) {
             img.add(n.getExpression());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FieldAccessExpression, java.lang.Object)
-     */
     @Override
     public List<Object> visit(FieldAccessExpression n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -512,26 +461,26 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getField() != null) {
             img.add(n.getField());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FloatLiteral, java.lang.Object)
-     */
     @Override
     public List<Object> visit(FloatLiteral n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         img.add(n.getValue());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ForeachStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(ForeachStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -544,17 +493,14 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getBody() != null) {
             img.add(n.getBody());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ForStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(ForStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -570,17 +516,14 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getBody() != null) {
             img.add(n.getBody());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FunctionDeclaration, java.lang.Object)
-     */
     @Override
     public List<Object> visit(FunctionDeclaration n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -591,17 +534,14 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getBody() != null) {
             img.add(n.getBody());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FunctionExpression, java.lang.Object)
-     */
     @Override
     public List<Object> visit(FunctionExpression n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -612,14 +552,14 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getBody() != null) {
             img.add(n.getBody());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.GetAssignment, java.lang.Object)
-     */
     @Override
     public List<Object> visit(GetAssignment n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -632,38 +572,38 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getComment() != null) {
             img.add(n.getComment());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.HexIntegerLiteral, java.lang.Object)
-     */
     @Override
     public List<Object> visit(HexIntegerLiteral n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         img.add(n.getValue());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.IdentifierName, java.lang.Object)
-     */
     @Override
     public List<Object> visit(IdentifierName n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         img.add(n.getValue());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.IfStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(IfStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -676,46 +616,40 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getElseStatement() != null) {
             img.add(n.getElseStatement());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ImportStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(ImportStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         if (n.getName() != null) {
             img.add(n.getName());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.JSDocComment, java.lang.Object)
-     */
     @Override
     public List<Object> visit(JSDocComment n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         img.add(n.getContent());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LabelledStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(LabelledStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -723,34 +657,28 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getStatement() != null) {
             img.add(n.getStatement());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LetDefinition, java.lang.Object)
-     */
     @Override
     public List<Object> visit(LetDefinition n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         if (n.getVariableDeclarations() != null) {
             img.add(n.getVariableDeclarations());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LetExpression, java.lang.Object)
-     */
     @Override
     public List<Object> visit(LetExpression n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -760,14 +688,14 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getExpression() != null) {
             img.add(n.getExpression());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LetStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(LetStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -777,29 +705,26 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getStatement() != null) {
             img.add(n.getStatement());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LineComment, java.lang.Object)
-     */
     @Override
     public List<Object> visit(LineComment n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         img.add(n.getContent());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.NewExpression, java.lang.Object)
-     */
     @Override
     public List<Object> visit(NewExpression n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -809,91 +734,91 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getInitializer() != null) {
             img.add(n.getInitializer());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.NodeList, java.lang.Object)
-     */
     @Override
     public <E extends Node> List<Object> visit(NodeList<E> n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         if (n.getNodes() != null) {
             img.add(n.getNodes());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.NullLiteral, java.lang.Object)
-     */
     @Override
     public List<Object> visit(NullLiteral n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ObjectLiteral, java.lang.Object)
-     */
     @Override
     public List<Object> visit(ObjectLiteral n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         if (n.getPropertyAssignments() != null) {
             img.add(n.getPropertyAssignments());
         }
-        img.add(n.getPosBegin());
-        img.add(n.getPosEnd());
-        return img;
-    }
-
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.OctalLiteral, java.lang.Object)
-     */
-    @Override
-    public List<Object> visit(OctalLiteral n, Void ctx) throws Exception {
-        List<Object> img = new ArrayList<Object>();
-        img.add(n.getValue());
-        img.add(n.getPosBegin());
-        img.add(n.getPosEnd());
-        return img;
-    }
-
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.Parameter, java.lang.Object)
-     */
-    @Override
-    public List<Object> visit(Parameter n, Void ctx) throws Exception {
-        List<Object> img = new ArrayList<Object>();
-        img.add(n.getName());
-        img.add(n.getPosBegin());
-        img.add(n.getPosEnd());
-        return img;
-    }
-
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.Project, java.lang.Object)
-     */
-    @Override
-    public List<Object> visit(Project n, Void ctx) throws Exception {
-        List<Object> img = new ArrayList<Object>();
-        if (n.getCompilationUnits() != null) {
-            img.add(n.getCompilationUnits());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.PutAssignment, java.lang.Object)
-     */
+    @Override
+    public List<Object> visit(OctalLiteral n, Void ctx) throws Exception {
+        List<Object> img = new ArrayList<Object>();
+        img.add(n.getValue());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
+        img.add(n.getPosBegin());
+        img.add(n.getPosEnd());
+        return img;
+    }
+
+    @Override
+    public List<Object> visit(Parameter n, Void ctx) throws Exception {
+        List<Object> img = new ArrayList<Object>();
+        img.add(n.getName());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
+        img.add(n.getPosBegin());
+        img.add(n.getPosEnd());
+        return img;
+    }
+
+    @Override
+    public List<Object> visit(Project n, Void ctx) throws Exception {
+        List<Object> img = new ArrayList<Object>();
+        if (n.getCompilationUnits() != null) {
+            img.add(n.getCompilationUnits());
+        }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
+        img.add(n.getPosBegin());
+        img.add(n.getPosEnd());
+        return img;
+    }
+
     @Override
     public List<Object> visit(PutAssignment n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -906,57 +831,54 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getComment() != null) {
             img.add(n.getComment());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.RegexpLiteral, java.lang.Object)
-     */
     @Override
     public List<Object> visit(RegexpLiteral n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         img.add(n.getValue());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ReturnStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(ReturnStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         if (n.getExpression() != null) {
             img.add(n.getExpression());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SequenceExpression, java.lang.Object)
-     */
     @Override
     public List<Object> visit(SequenceExpression n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         if (n.getExpressions() != null) {
             img.add(n.getExpressions());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SetAssignment, java.lang.Object)
-     */
     @Override
     public List<Object> visit(SetAssignment n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -970,49 +892,49 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getComment() != null) {
             img.add(n.getComment());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.StringLiteralDouble, java.lang.Object)
-     */
     @Override
     public List<Object> visit(StringLiteralDouble n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         img.add(n.getValue());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.StringLiteralSingle, java.lang.Object)
-     */
     @Override
     public List<Object> visit(StringLiteralSingle n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         img.add(n.getValue());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SuperExpression, java.lang.Object)
-     */
     @Override
     public List<Object> visit(SuperExpression n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SwitchStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(SwitchStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -1022,45 +944,39 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getBlock() != null) {
             img.add(n.getBlock());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ThisExpression, java.lang.Object)
-     */
     @Override
     public List<Object> visit(ThisExpression n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ThrowStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(ThrowStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         if (n.getExpression() != null) {
             img.add(n.getExpression());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.TryStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(TryStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -1073,17 +989,14 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getFinallyBlock() != null) {
             img.add(n.getFinallyBlock());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.UnaryExpression, java.lang.Object)
-     */
     @Override
     public List<Object> visit(UnaryExpression n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -1091,22 +1004,19 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
             img.add(n.getExpression());
         }
         img.add(n.getUnaryOperator());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.UnaryExpression.UnaryOperator, java.lang.Object)
-     */
     @Override
     public List<Object> visit(UnaryOperator n, Void ctx) throws Exception {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.VariableDeclaration, java.lang.Object)
-     */
     @Override
     public List<Object> visit(VariableDeclaration n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -1114,45 +1024,42 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getExpression() != null) {
             img.add(n.getExpression());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.VariableExpression, java.lang.Object)
-     */
     @Override
     public List<Object> visit(VariableExpression n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         if (n.getVariableDeclarations() != null) {
             img.add(n.getVariableDeclarations());
         }
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
+        }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.VariableStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(VariableStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
         if (n.getVariableDeclarations() != null) {
             img.add(n.getVariableDeclarations());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.WhileStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(WhileStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -1162,17 +1069,14 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getBody() != null) {
             img.add(n.getBody());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.WithStatement, java.lang.Object)
-     */
     @Override
     public List<Object> visit(WithStatement n, Void ctx) throws Exception {
         List<Object> img = new ArrayList<Object>();
@@ -1182,17 +1086,14 @@ public class ChildrenProvider<C> implements GenericVisitor<List<Object>, Void> {
         if (n.getStatement() != null) {
             img.add(n.getStatement());
         }
-        if (n.getComment() != null) {
-            img.add(n.getComment());
+        if (n.getJsDocComment() != null) {
+            img.add(n.getJsDocComment());
         }
         img.add(n.getPosBegin());
         img.add(n.getPosEnd());
         return img;
     }
 
-    /**
-     * Instantiates a new children provider.
-     */
     public ChildrenProvider() {
         super();
     }

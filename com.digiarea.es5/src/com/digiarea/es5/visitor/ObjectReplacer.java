@@ -1,13 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2011 - 2014 DigiArea, Inc. and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     DigiArea, Inc. - initial API and implementation
- *******************************************************************************/
 package com.digiarea.es5.visitor;
 
 import com.digiarea.es5.Node;
@@ -16,6 +6,7 @@ import com.digiarea.es5.visitor.GenericVisitor;
 import com.digiarea.es5.AllocationExpression;
 import com.digiarea.es5.NodeFacade;
 import com.digiarea.es5.Expression;
+import com.digiarea.es5.JSDocComment;
 import com.digiarea.es5.ArrayAccessExpression;
 import com.digiarea.es5.ArrayLiteral;
 import com.digiarea.es5.NodeList;
@@ -25,7 +16,6 @@ import com.digiarea.es5.BinaryExpression;
 import com.digiarea.es5.BinaryExpression.BinaryOperator;
 import com.digiarea.es5.Block;
 import com.digiarea.es5.Statement;
-import com.digiarea.es5.Comment;
 import com.digiarea.es5.BlockComment;
 import com.digiarea.es5.BooleanLiteral;
 import com.digiarea.es5.BreakStatement;
@@ -35,6 +25,7 @@ import com.digiarea.es5.DefaultClause;
 import com.digiarea.es5.CaseClause;
 import com.digiarea.es5.CatchClause;
 import com.digiarea.es5.CompilationUnit;
+import com.digiarea.es5.Comment;
 import com.digiarea.es5.ConditionalExpression;
 import com.digiarea.es5.ConstantStatement;
 import com.digiarea.es5.VariableDeclaration;
@@ -59,7 +50,6 @@ import com.digiarea.es5.PropertyName;
 import com.digiarea.es5.HexIntegerLiteral;
 import com.digiarea.es5.IfStatement;
 import com.digiarea.es5.ImportStatement;
-import com.digiarea.es5.JSDocComment;
 import com.digiarea.es5.LabelledStatement;
 import com.digiarea.es5.LetDefinition;
 import com.digiarea.es5.LetExpression;
@@ -92,15 +82,9 @@ import com.digiarea.es5.VariableStatement;
 import com.digiarea.es5.WhileStatement;
 import com.digiarea.es5.WithStatement;
 
-/**
- * The Class ObjectReplacer.
- */
 @SuppressWarnings("unchecked")
 public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>> {
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.AllocationExpression, java.lang.Object)
-     */
     @Override
     public Node visit(AllocationExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -109,6 +93,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         AllocationExpression img = NodeFacade.AllocationExpression();
         if (n.getBody() != null) {
             img.setBody((Expression) n.getBody().accept(this, ctx));
+        }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -123,9 +110,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ArrayAccessExpression, java.lang.Object)
-     */
     @Override
     public Node visit(ArrayAccessExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -138,6 +122,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getIndex() != null) {
             img.setIndex((Expression) n.getIndex().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -151,9 +138,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ArrayLiteral, java.lang.Object)
-     */
     @Override
     public Node visit(ArrayLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -163,6 +147,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getExpressions() != null) {
             img.setExpressions((NodeList<Expression>) n.getExpressions().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -176,9 +163,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.AssignmentExpression, java.lang.Object)
-     */
     @Override
     public Node visit(AssignmentExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -196,6 +180,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setAssignOperator(n.getAssignOperator());
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -209,17 +196,11 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.AssignmentExpression.AssignOperator, java.lang.Object)
-     */
     @Override
     public Node visit(AssignOperator n, Map<Object, Object> ctx) throws Exception {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BinaryExpression, java.lang.Object)
-     */
     @Override
     public Node visit(BinaryExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -237,6 +218,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setBinaryOperator(n.getBinaryOperator());
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -250,17 +234,11 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BinaryExpression.BinaryOperator, java.lang.Object)
-     */
     @Override
     public Node visit(BinaryOperator n, Map<Object, Object> ctx) throws Exception {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.Block, java.lang.Object)
-     */
     @Override
     public Node visit(Block n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -270,8 +248,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getStatements() != null) {
             img.setStatements((NodeList<Statement>) n.getStatements().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -286,9 +264,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BlockComment, java.lang.Object)
-     */
     @Override
     public Node visit(BlockComment n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -300,6 +275,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setContent(n.getContent());
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -313,9 +291,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BooleanLiteral, java.lang.Object)
-     */
     @Override
     public Node visit(BooleanLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -327,6 +302,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setValue(n.isValue());
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -340,9 +318,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.BreakStatement, java.lang.Object)
-     */
     @Override
     public Node visit(BreakStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -354,8 +329,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setIdentifier(n.getIdentifier());
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -370,9 +345,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CallExpression, java.lang.Object)
-     */
     @Override
     public Node visit(CallExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -385,6 +357,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getArgs() != null) {
             img.setArgs((NodeList<Expression>) n.getArgs().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -398,9 +373,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CaseBlock, java.lang.Object)
-     */
     @Override
     public Node visit(CaseBlock n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -413,8 +385,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getCaseClauses() != null) {
             img.setCaseClauses((NodeList<CaseClause>) n.getCaseClauses().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -429,9 +401,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CaseClause, java.lang.Object)
-     */
     @Override
     public Node visit(CaseClause n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -444,6 +413,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getStatements() != null) {
             img.setStatements((NodeList<Statement>) n.getStatements().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -457,9 +429,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CatchClause, java.lang.Object)
-     */
     @Override
     public Node visit(CatchClause n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -474,6 +443,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getBlock() != null) {
             img.setBlock((Block) n.getBlock().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -487,9 +459,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.CompilationUnit, java.lang.Object)
-     */
     @Override
     public Node visit(CompilationUnit n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -507,6 +476,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setName(n.getName());
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -520,9 +492,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ConditionalExpression, java.lang.Object)
-     */
     @Override
     public Node visit(ConditionalExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -538,6 +507,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getElseExpr() != null) {
             img.setElseExpr((Expression) n.getElseExpr().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -551,9 +523,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ConstantStatement, java.lang.Object)
-     */
     @Override
     public Node visit(ConstantStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -563,8 +532,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getVariableDeclarations() != null) {
             img.setVariableDeclarations((NodeList<VariableDeclaration>) n.getVariableDeclarations().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -579,9 +548,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ContinueStatement, java.lang.Object)
-     */
     @Override
     public Node visit(ContinueStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -593,8 +559,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setIdentifier(n.getIdentifier());
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -609,17 +575,14 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DebuggerStatement, java.lang.Object)
-     */
     @Override
     public Node visit(DebuggerStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
             return (Node) ctx.get(n);
         }
         DebuggerStatement img = NodeFacade.DebuggerStatement();
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -634,9 +597,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DecimalLiteral, java.lang.Object)
-     */
     @Override
     public Node visit(DecimalLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -648,6 +608,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setValue(n.getValue());
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -661,9 +624,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DefaultClause, java.lang.Object)
-     */
     @Override
     public Node visit(DefaultClause n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -673,6 +633,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getStatements() != null) {
             img.setStatements((NodeList<Statement>) n.getStatements().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -686,9 +649,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.DoWhileStatement, java.lang.Object)
-     */
     @Override
     public Node visit(DoWhileStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -701,8 +661,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getBody() != null) {
             img.setBody((Statement) n.getBody().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -717,15 +677,15 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.EmptyLiteral, java.lang.Object)
-     */
     @Override
     public Node visit(EmptyLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
             return (Node) ctx.get(n);
         }
         EmptyLiteral img = NodeFacade.EmptyLiteral();
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -739,17 +699,14 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.EmptyStatement, java.lang.Object)
-     */
     @Override
     public Node visit(EmptyStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
             return (Node) ctx.get(n);
         }
         EmptyStatement img = NodeFacade.EmptyStatement();
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -764,9 +721,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.EnclosedExpression, java.lang.Object)
-     */
     @Override
     public Node visit(EnclosedExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -776,6 +730,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getInner() != null) {
             img.setInner((Expression) n.getInner().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -789,9 +746,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ExpressionStatement, java.lang.Object)
-     */
     @Override
     public Node visit(ExpressionStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -801,8 +755,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getExpression() != null) {
             img.setExpression((Expression) n.getExpression().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -817,9 +771,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FieldAccessExpression, java.lang.Object)
-     */
     @Override
     public Node visit(FieldAccessExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -832,6 +783,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getField() != null) {
             img.setField((IdentifierName) n.getField().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -845,9 +799,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FloatLiteral, java.lang.Object)
-     */
     @Override
     public Node visit(FloatLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -859,6 +810,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setValue(n.getValue());
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -872,9 +826,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ForeachStatement, java.lang.Object)
-     */
     @Override
     public Node visit(ForeachStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -890,8 +841,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getBody() != null) {
             img.setBody((Statement) n.getBody().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -906,9 +857,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ForStatement, java.lang.Object)
-     */
     @Override
     public Node visit(ForStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -927,8 +875,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getBody() != null) {
             img.setBody((Statement) n.getBody().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -943,9 +891,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FunctionDeclaration, java.lang.Object)
-     */
     @Override
     public Node visit(FunctionDeclaration n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -963,8 +908,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getBody() != null) {
             img.setBody((Block) n.getBody().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -979,9 +924,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.FunctionExpression, java.lang.Object)
-     */
     @Override
     public Node visit(FunctionExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -999,6 +941,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getBody() != null) {
             img.setBody((Block) n.getBody().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1012,9 +957,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.GetAssignment, java.lang.Object)
-     */
     @Override
     public Node visit(GetAssignment n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1030,6 +972,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getComment() != null) {
             img.setComment((Comment) n.getComment().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1043,9 +988,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.HexIntegerLiteral, java.lang.Object)
-     */
     @Override
     public Node visit(HexIntegerLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1057,6 +999,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setValue(n.getValue());
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1070,9 +1015,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.IdentifierName, java.lang.Object)
-     */
     @Override
     public Node visit(IdentifierName n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1084,6 +1026,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setValue(n.getValue());
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1097,9 +1042,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.IfStatement, java.lang.Object)
-     */
     @Override
     public Node visit(IfStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1115,8 +1057,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getElseStatement() != null) {
             img.setElseStatement((Statement) n.getElseStatement().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -1131,9 +1073,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ImportStatement, java.lang.Object)
-     */
     @Override
     public Node visit(ImportStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1143,8 +1082,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getName() != null) {
             img.setName((IdentifierName) n.getName().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -1159,9 +1098,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.JSDocComment, java.lang.Object)
-     */
     @Override
     public Node visit(JSDocComment n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1173,6 +1109,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setContent(n.getContent());
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1186,9 +1125,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LabelledStatement, java.lang.Object)
-     */
     @Override
     public Node visit(LabelledStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1203,8 +1139,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getStatement() != null) {
             img.setStatement((Statement) n.getStatement().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -1219,9 +1155,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LetDefinition, java.lang.Object)
-     */
     @Override
     public Node visit(LetDefinition n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1231,8 +1164,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getVariableDeclarations() != null) {
             img.setVariableDeclarations((NodeList<VariableDeclaration>) n.getVariableDeclarations().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -1247,9 +1180,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LetExpression, java.lang.Object)
-     */
     @Override
     public Node visit(LetExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1262,6 +1192,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getExpression() != null) {
             img.setExpression((Expression) n.getExpression().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1275,9 +1208,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LetStatement, java.lang.Object)
-     */
     @Override
     public Node visit(LetStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1290,8 +1220,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getStatement() != null) {
             img.setStatement((Statement) n.getStatement().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -1306,9 +1236,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.LineComment, java.lang.Object)
-     */
     @Override
     public Node visit(LineComment n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1320,6 +1247,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setContent(n.getContent());
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1333,9 +1263,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.NewExpression, java.lang.Object)
-     */
     @Override
     public Node visit(NewExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1348,6 +1275,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getInitializer() != null) {
             img.setInitializer((ObjectLiteral) n.getInitializer().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1361,9 +1291,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.NodeList, java.lang.Object)
-     */
     @Override
     public <E extends Node> Node visit(NodeList<E> n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1382,6 +1309,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
             }
             img.setNodes(nodes);
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1395,15 +1325,15 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.NullLiteral, java.lang.Object)
-     */
     @Override
     public Node visit(NullLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
             return (Node) ctx.get(n);
         }
         NullLiteral img = NodeFacade.NullLiteral();
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1417,9 +1347,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ObjectLiteral, java.lang.Object)
-     */
     @Override
     public Node visit(ObjectLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1429,6 +1356,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getPropertyAssignments() != null) {
             img.setPropertyAssignments((NodeList<PropertyAssignment>) n.getPropertyAssignments().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1442,9 +1372,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.OctalLiteral, java.lang.Object)
-     */
     @Override
     public Node visit(OctalLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1456,6 +1383,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setValue(n.getValue());
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1469,9 +1399,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.Parameter, java.lang.Object)
-     */
     @Override
     public Node visit(Parameter n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1483,6 +1410,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setName(n.getName());
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1496,9 +1426,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.Project, java.lang.Object)
-     */
     @Override
     public Node visit(Project n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1508,6 +1435,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getCompilationUnits() != null) {
             img.setCompilationUnits((NodeList<CompilationUnit>) n.getCompilationUnits().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1521,9 +1451,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.PutAssignment, java.lang.Object)
-     */
     @Override
     public Node visit(PutAssignment n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1539,6 +1466,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getComment() != null) {
             img.setComment((Comment) n.getComment().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1552,9 +1482,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.RegexpLiteral, java.lang.Object)
-     */
     @Override
     public Node visit(RegexpLiteral n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1566,6 +1493,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setValue(n.getValue());
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1579,9 +1509,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ReturnStatement, java.lang.Object)
-     */
     @Override
     public Node visit(ReturnStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1591,8 +1518,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getExpression() != null) {
             img.setExpression((Expression) n.getExpression().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -1607,9 +1534,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SequenceExpression, java.lang.Object)
-     */
     @Override
     public Node visit(SequenceExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1619,6 +1543,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getExpressions() != null) {
             img.setExpressions((NodeList<Expression>) n.getExpressions().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1632,9 +1559,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SetAssignment, java.lang.Object)
-     */
     @Override
     public Node visit(SetAssignment n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1655,6 +1579,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getComment() != null) {
             img.setComment((Comment) n.getComment().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1668,9 +1595,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.StringLiteralDouble, java.lang.Object)
-     */
     @Override
     public Node visit(StringLiteralDouble n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1682,6 +1606,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setValue(n.getValue());
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1695,9 +1622,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.StringLiteralSingle, java.lang.Object)
-     */
     @Override
     public Node visit(StringLiteralSingle n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1709,6 +1633,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setValue(n.getValue());
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1722,15 +1649,15 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SuperExpression, java.lang.Object)
-     */
     @Override
     public Node visit(SuperExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
             return (Node) ctx.get(n);
         }
         SuperExpression img = NodeFacade.SuperExpression();
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1744,9 +1671,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.SwitchStatement, java.lang.Object)
-     */
     @Override
     public Node visit(SwitchStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1759,8 +1683,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getBlock() != null) {
             img.setBlock((CaseBlock) n.getBlock().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -1775,15 +1699,15 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ThisExpression, java.lang.Object)
-     */
     @Override
     public Node visit(ThisExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
             return (Node) ctx.get(n);
         }
         ThisExpression img = NodeFacade.ThisExpression();
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1797,9 +1721,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.ThrowStatement, java.lang.Object)
-     */
     @Override
     public Node visit(ThrowStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1809,8 +1730,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getExpression() != null) {
             img.setExpression((Expression) n.getExpression().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -1825,9 +1746,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.TryStatement, java.lang.Object)
-     */
     @Override
     public Node visit(TryStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1843,8 +1761,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getFinallyBlock() != null) {
             img.setFinallyBlock((Block) n.getFinallyBlock().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -1859,9 +1777,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.UnaryExpression, java.lang.Object)
-     */
     @Override
     public Node visit(UnaryExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1876,6 +1791,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         } else {
             img.setUnaryOperator(n.getUnaryOperator());
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1889,17 +1807,11 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.UnaryExpression.UnaryOperator, java.lang.Object)
-     */
     @Override
     public Node visit(UnaryOperator n, Map<Object, Object> ctx) throws Exception {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.VariableDeclaration, java.lang.Object)
-     */
     @Override
     public Node visit(VariableDeclaration n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1914,6 +1826,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getExpression() != null) {
             img.setExpression((Expression) n.getExpression().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1927,9 +1842,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.VariableExpression, java.lang.Object)
-     */
     @Override
     public Node visit(VariableExpression n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1939,6 +1851,9 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getVariableDeclarations() != null) {
             img.setVariableDeclarations((NodeList<VariableDeclaration>) n.getVariableDeclarations().accept(this, ctx));
         }
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
+        }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
         } else {
@@ -1952,9 +1867,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.VariableStatement, java.lang.Object)
-     */
     @Override
     public Node visit(VariableStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1964,8 +1876,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getVariableDeclarations() != null) {
             img.setVariableDeclarations((NodeList<VariableDeclaration>) n.getVariableDeclarations().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -1980,9 +1892,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.WhileStatement, java.lang.Object)
-     */
     @Override
     public Node visit(WhileStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -1995,8 +1904,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getBody() != null) {
             img.setBody((Statement) n.getBody().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -2011,9 +1920,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /* (non-Javadoc)
-     * @see com.digiarea.es5.visitor.GenericVisitor#visit(com.digiarea.es5.WithStatement, java.lang.Object)
-     */
     @Override
     public Node visit(WithStatement n, Map<Object, Object> ctx) throws Exception {
         if (ctx.containsKey(n)) {
@@ -2026,8 +1932,8 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         if (n.getStatement() != null) {
             img.setStatement((Statement) n.getStatement().accept(this, ctx));
         }
-        if (n.getComment() != null) {
-            img.setComment((Comment) n.getComment().accept(this, ctx));
+        if (n.getJsDocComment() != null) {
+            img.setJsDocComment((JSDocComment) n.getJsDocComment().accept(this, ctx));
         }
         if (ctx.containsKey(n.getPosBegin())) {
             img.setPosBegin((int) ctx.get(n.getPosBegin()));
@@ -2042,9 +1948,6 @@ public class ObjectReplacer implements GenericVisitor<Node, Map<Object, Object>>
         return img;
     }
 
-    /**
-     * Instantiates a new object replacer.
-     */
     public ObjectReplacer() {
         super();
     }
