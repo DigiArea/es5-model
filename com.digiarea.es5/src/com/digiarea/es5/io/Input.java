@@ -175,7 +175,7 @@ public class Input implements Runnable {
 			@Override
 			public FileVisitResult visitFile(Path item,
 					BasicFileAttributes attrs) throws IOException {
-				// System.out.println(file);
+//				System.out.println(item);
 				File file = item.toFile();
 				if (file.isDirectory()) {
 					return recursive ? FileVisitResult.CONTINUE

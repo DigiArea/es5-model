@@ -51,8 +51,6 @@ public final class ASTParser
 
 PARSER_END(ASTParser)
 
-
-
 /* WHITE SPACE - 7.2 */
 <DEFAULT,NOREGEXP,NOEOL>
 SKIP : 
@@ -148,6 +146,7 @@ TOKEN_MGR_DECLS :
         comments = new LinkedList < Comment > ();
       }
       Token special = token.specialToken;
+//      System.err.println("TOKEN: "//               + token.image);//      System.err.println("SPECIAL: "//               + ASTParserConstants.tokenImage[special.kind]//               + "\n"+ special.image);
       if (special.kind == JS_DOC_COMMENT)
       {
         lastJSDoc = NodeFacade.JSDocComment(special.image.substring(3, special.image.length() - 2));
@@ -176,7 +175,7 @@ TOKEN_MGR_DECLS :
 /* 7.4 - COMMENTS */
 <DEFAULT,NOREGEXP, NOEOL>
 SPECIAL_TOKEN : {
-	< SINGLE_LINE_COMMENT: "//" (~["\n", "\r", "\u2028", "\u2029"])* >
+	< SINGLE_LINE_COMMENT: "//" (~["\n", "\r", "\u2028", "\u2029"])* (<EOL>)* >
 }
 
 <DEFAULT,NOREGEXP,NOEOL>
@@ -193,19 +192,19 @@ MORE :
 < IN_JS_DOC_COMMENT >
 SPECIAL_TOKEN :
 {
-  < JS_DOC_COMMENT : "*/" > : DEFAULT
+  < JS_DOC_COMMENT : "*/" (<EOL>)* > : DEFAULT
 }
 
 < IN_MULTI_LINE_COMMENT >
 SPECIAL_TOKEN :
 {
-  < MULTI_LINE_COMMENT : "*/" > : DEFAULT
+  < MULTI_LINE_COMMENT : "*/" (<EOL>)* > : DEFAULT
 }
 
 < IN_JS_DOC_COMMENT, IN_MULTI_LINE_COMMENT>
 MORE :
 {
-  < ~[] >
+  <~[]>
 }
 
 /* RESERVED WORDS AND LITERALS EcmaScript 7.4 */
@@ -2607,8 +2606,12 @@ void Sc()
     if (tok.kind == SEMICOLON) {
         tok = getNextToken();
     } else if (tok.specialToken != null) {
-        if ((tok.specialToken.kind != EOL) && (tok.specialToken.kind != SINGLE_LINE_COMMENT)) {
-            throw generateParseException();
+        if ((tok.specialToken.kind != EOL)
+           && (tok.specialToken.kind != JS_DOC_COMMENT)
+           && (tok.specialToken.kind != MULTI_LINE_COMMENT)
+           && (tok.specialToken.kind != SINGLE_LINE_COMMENT)) {
+             System.out.println("###: " + tok.specialToken.image);
+             throw generateParseException();
         }
     } else if ((tok.kind != EOF) && (tok.kind != RBRACE)) {
         throw generateParseException();
@@ -2775,7 +2778,6 @@ ForeachStatement ForInVarStatement() :
     "("
     "var"
     declarations = VariableDeclaratorListNoIn()
-    //Identifier() ( [ InitializerNoIn() ] )
     < IN >
     expression = Expression()
     ")"
@@ -2795,7 +2797,6 @@ ForeachStatement ForInLetStatement() :
     "("
     "let"
     declarations = VariableDeclaratorListNoIn()
-    //Identifier() ( [ InitializerNoIn() ] )
     < IN >
     expression = Expression()
     ")"
@@ -2810,7 +2811,7 @@ ContinueStatement ContinueStatement() :
 }
 {
     "continue"
-    ( < NO_SKIP_EOL > | ";" | identifier = Identifier() Sc() | Sc() )
+    ( (< NO_SKIP_EOL >)+ | ";" | identifier = Identifier() Sc() | Sc() )
     {
       return NodeFacade.ContinueStatement(popJSDoc(), identifier);    }
 }
@@ -2820,7 +2821,7 @@ BreakStatement BreakStatement() :
 }
 {
     "break"
-    ( < NO_SKIP_EOL > | ";" | identifier = Identifier() Sc() | Sc() )
+    ( (< NO_SKIP_EOL >)+ | ";" | identifier = Identifier() Sc() | Sc() )
     {
       return NodeFacade.BreakStatement(popJSDoc(), identifier);    }
 }
@@ -2830,7 +2831,7 @@ ReturnStatement ReturnStatement() :
 }
 {
     "return"
-    ( < NO_SKIP_EOL > | ";" | expression = Expression() Sc() | Sc() )
+    ( (< NO_SKIP_EOL >)+ | ";" | expression = Expression() Sc() | Sc() )
     {
       return NodeFacade.ReturnStatement(popJSDoc(), expression);    }
 }
