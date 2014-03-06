@@ -2,7 +2,11 @@ package com.digiarea.es5.tools;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -48,7 +52,6 @@ import com.digiarea.es5.HexIntegerLiteral;
 import com.digiarea.es5.IdentifierName;
 import com.digiarea.es5.IfStatement;
 import com.digiarea.es5.ImportStatement;
-import com.digiarea.es5.JSDocComment;
 import com.digiarea.es5.LabelledStatement;
 import com.digiarea.es5.LetDefinition;
 import com.digiarea.es5.LetExpression;
@@ -81,28 +84,10 @@ import com.digiarea.es5.VariableExpression;
 import com.digiarea.es5.VariableStatement;
 import com.digiarea.es5.WhileStatement;
 import com.digiarea.es5.WithStatement;
+import com.digiarea.es5.tools.IErrorManager.ErrorType;
 import com.digiarea.es5.visitor.VoidVisitorAdapter;
 
-public class NamespaceOgranizer extends VoidVisitorAdapter<Node> {
-
-	private static Map<String, String> browsers;
-
-	static {
-		browsers = new HashMap<>();
-		browsers.put("ie_event.js", "ie");
-		browsers.put("ie_dom.js", "ie");
-		browsers.put("ie_css.js", "ie");
-		browsers.put("ie_vml.js", "ie");
-		browsers.put("gecko_event.js", "gecko");
-		browsers.put("gecko_dom.js", "gecko");
-		browsers.put("gecko_css.js", "gecko");
-		browsers.put("gecko_event.js", "gecko");
-		browsers.put("gecko_xml.js", "gecko");
-		browsers.put("webkit_event.js", "webkit");
-		browsers.put("webkit_css.js", "webkit");
-		browsers.put("webkit_dom.js", "webkit");
-		browsers.put("webkit_notifications.js", "webkit");
-	}
+public class NamespaceOrganizer extends VoidVisitorAdapter<Node> {
 
 	public class SymbolComparator implements Comparator<String> {
 
@@ -130,91 +115,184 @@ public class NamespaceOgranizer extends VoidVisitorAdapter<Node> {
 		}
 	}
 
-	private Map<String, Node> nodes;
+	private IErrorManager errorManager;
+
+	/**
+	 * Found nodes. Key is a namespace. Value is a node.
+	 */
+	private TreeMap<String, Node> nodes;
+	/**
+	 * A path of the output directory
+	 */
+	private String output;
+	/**
+	 * A path of the current processing compilation unit
+	 */
 	private String path;
 
-	public NamespaceOgranizer() {
-		nodes = new HashMap<>();
+	private Map<String, String> browsers;
+	/**
+	 * Map of libraries. Key is the name of a library. Value is a list of
+	 * namespaces. All prototypes of a namespace are automatically added to the
+	 * library.
+	 */
+	private Map<String, List<String>> libraries;
+
+	private static final String JS_EXT = "js";
+	private static final String JS_EXT_DOTTED = "." + JS_EXT;
+
+	public NamespaceOrganizer(IErrorManager errorManager) {
+		nodes = new TreeMap<>();
+		this.errorManager = errorManager;
+	}
+
+	public void setBrowsers(Map<String, String> browsers) {
+		this.browsers = browsers;
+	}
+
+	public void setLibraries(Map<String, List<String>> libraries) {
+		this.libraries = libraries;
+	}
+
+	public void setOutput(String output) {
+		this.output = output;
 	}
 
 	public void setPath(String path) {
 		this.path = path;
 	}
 
-	public void getAstRoot() throws Exception {
-		Map<String, Node> sortedSymbols = new TreeMap<String, Node>(
+	private void sort() {
+		TreeMap<String, Node> sortedSymbols = new TreeMap<String, Node>(
 				new SymbolComparator());
 		sortedSymbols.putAll(nodes);
-		// Map<String, Node> finalSymbols = new TreeMap<String, Node>(
-		// new AlphabetComparator());
-		// finalSymbols.putAll(sortedSymbols);
-
-		List<Node> stmt = new ArrayList<>();
-		for (Node node : sortedSymbols.values()) {
-			stmt.add(node);
-		}
-
-//		Set<String> set = nodes.keySet();
-//		List<Node> globals = new ArrayList<>();
-//		while (!nodes.isEmpty()) {
-//			String name = null;
-//			boolean namespace = false;
-//			Iterator<String> itr = set.iterator();
-//			List<Node> finalNode = new ArrayList<>();
-//			List<String> names = new ArrayList<>();
-//			while (itr.hasNext()) {
-//				String o = itr.next();
-//				if (name == null) {
-//					if (o.contains(".")) {
-//						int index = o.indexOf(".");
-//						name = o.substring(0, index);
-//						namespace = true;
-//					} else {
-//						name = o;
-//					}
-//					// if (name.contains("Element")) {
-//					// System.out.println("NAME MAIN: " + name);
-//					// }
-//				}
-//				if ((namespace && (o.startsWith(name + ".") || o.equals(name)))
-//						|| (!namespace && o.startsWith(name))) {
-//					finalNode.add(nodes.get(o));
-//					itr.remove();
-//					names.add(o);
-//				}
-//			}
-//			if(finalNode.size() == 1){
-//				globals.addAll(finalNode);
-//			}else{
-//				CompilationUnit result = NodeFacade.CompilationUnit(null,
-//						(List<Statement>) (List<?>) finalNode, "sasha.s");
-//				File output = new File("/home/daginno/temp/externs/" + name + ".js");
-//				if (!output.exists()) {
-//					output.createNewFile();
-//				}else{
-//					System.out.println("FILE EXISTS: " + output.getAbsolutePath());
-//				}
-//				FileOutputStream stream = new FileOutputStream(output);
-//				stream.write(result.toString().getBytes());
-//				stream.close();
-//			}
-//		}
-		if (!stmt.isEmpty()) {
-			CompilationUnit result = NodeFacade.CompilationUnit(null,
-					(List<Statement>) (List<?>) stmt, "sasha.s");
-			File output = new File("/home/daginno/temp/" + "AllNodes"
-					+ ".js");
-			if (!output.exists()) {
-				output.createNewFile();
-			} else {
-				System.out.println("FILE EXISTS: " + output.getAbsolutePath());
-			}
-			FileOutputStream stream = new FileOutputStream(output);
-			stream.write(result.toString().getBytes());
-			stream.close();
-		}
-
+		nodes = sortedSymbols;
 	}
+
+	public void byLibrary() throws IOException {
+		if (libraries != null && !libraries.isEmpty()) {
+			// sort();
+			TreeMap<String, Node> myNodes = new TreeMap<>(nodes);
+			for (String library : libraries.keySet()) {
+				List<String> namespaces = libraries.get(library);
+				List<Node> libraryNodes = new ArrayList<Node>();
+				for (String string : namespaces) {
+					libraryNodes.addAll(pollNodes(myNodes, string));
+				}
+				createFile(libraryNodes, library);
+			}
+			if (!myNodes.isEmpty()) {
+				createFile(new ArrayList<Node>(myNodes.values()), "globals");
+			}
+		}
+	}
+
+	public List<Node> pollNodes(Map<String, Node> nodes, String prefix) {
+		Set<String> set = nodes.keySet();
+		List<Node> poll = new ArrayList<>();
+		Iterator<String> itr = set.iterator();
+		while (itr.hasNext()) {
+			String o = itr.next();
+			if (o.startsWith(prefix + ".") || o.equals(prefix)) {
+				poll.add(nodes.get(o));
+				itr.remove();
+			}
+		}
+		return poll;
+	}
+
+	private void createFile(Collection<Node> nodes, String name)
+			throws IOException {
+		Path path = Paths.get(output, name + JS_EXT_DOTTED);
+		CompilationUnit result = NodeFacade.CompilationUnit(null,
+				(List<Statement>) (List<?>) nodes, name);
+		File output = path.toFile();
+		if (!output.exists()) {
+			output.createNewFile();
+		} else {
+			errorManager.report(ErrorType.ERROR,
+					"FILE EXISTS: " + output.getAbsolutePath());
+		}
+		FileOutputStream stream = new FileOutputStream(output);
+		stream.write(result.toString().getBytes());
+		stream.close();
+	}
+
+	// public void getAstRoot() throws Exception {
+	// TreeMap<String, Node> sortedSymbols = new TreeMap<String, Node>(
+	// new SymbolComparator());
+	// sortedSymbols.putAll(nodes);
+	// // Map<String, Node> finalSymbols = new TreeMap<String, Node>(
+	// // new AlphabetComparator());
+	// // finalSymbols.putAll(sortedSymbols);
+	//
+	// List<Node> stmt = new ArrayList<>();
+	// for (Node node : sortedSymbols.values()) {
+	// stmt.add(node);
+	// }
+	//
+	// Set<String> set = nodes.keySet();
+	// List<Node> globals = new ArrayList<>();
+	// while (!nodes.isEmpty()) {
+	// String name = null;
+	// boolean namespace = false;
+	// Iterator<String> itr = set.iterator();
+	// List<Node> finalNode = new ArrayList<>();
+	// List<String> names = new ArrayList<>();
+	// while (itr.hasNext()) {
+	// String o = itr.next();
+	// if (name == null) {
+	// if (o.contains(".")) {
+	// int index = o.indexOf(".");
+	// name = o.substring(0, index);
+	// namespace = true;
+	// } else {
+	// name = o;
+	// }
+	// // if (name.contains("Element")) {
+	// // System.out.println("NAME MAIN: " + name);
+	// // }
+	// }
+	// if ((namespace && (o.startsWith(name + ".") || o.equals(name)))
+	// || (!namespace && o.startsWith(name))) {
+	// finalNode.add(nodes.get(o));
+	// itr.remove();
+	// names.add(o);
+	// }
+	// }
+	// if (finalNode.size() == 1) {
+	// globals.addAll(finalNode);
+	// } else {
+	// CompilationUnit result = NodeFacade.CompilationUnit(null,
+	// (List<Statement>) (List<?>) finalNode, "sasha.s");
+	// File output = new File("/home/daginno/temp/externs/" + name
+	// + ".js");
+	// if (!output.exists()) {
+	// output.createNewFile();
+	// } else {
+	// System.out.println("FILE EXISTS: "
+	// + output.getAbsolutePath());
+	// }
+	// FileOutputStream stream = new FileOutputStream(output);
+	// stream.write(result.toString().getBytes());
+	// stream.close();
+	// }
+	// }
+	// if (!stmt.isEmpty()) {
+	// CompilationUnit result = NodeFacade.CompilationUnit(null,
+	// (List<Statement>) (List<?>) stmt, "sasha.s");
+	// File output = new File("/home/daginno/temp/" + "AllNodes" + ".js");
+	// if (!output.exists()) {
+	// output.createNewFile();
+	// } else {
+	// System.out.println("FILE EXISTS: " + output.getAbsolutePath());
+	// }
+	// FileOutputStream stream = new FileOutputStream(output);
+	// stream.write(result.toString().getBytes());
+	// stream.close();
+	// }
+	//
+	// }
 
 	public Map<String, Node> getNodes() {
 		return nodes;
@@ -225,10 +303,11 @@ public class NamespaceOgranizer extends VoidVisitorAdapter<Node> {
 		Expression expression = n.getExpression();
 		if (expression instanceof AssignmentExpression
 				|| expression instanceof IdentifierName
-				|| expression instanceof FieldAccessExpression) {
+				|| expression instanceof FieldAccessExpression
+				|| expression instanceof ArrayAccessExpression) {
 			n.getExpression().accept(this, n);
 		} else {
-			warnUnknown(n);
+			warnUnknown(expression);
 		}
 	}
 
@@ -240,8 +319,16 @@ public class NamespaceOgranizer extends VoidVisitorAdapter<Node> {
 
 	@Override
 	public void visit(ArrayAccessExpression n, Node ctx) throws Exception {
-		warnUnknown(n);
-		super.visit(n, ctx);
+		Expression index = n.getIndex();
+		Expression name = n.getName();
+		if ((name instanceof FieldAccessExpression || name instanceof IdentifierName)
+				&& index instanceof com.digiarea.es5.StringLiteral) {
+			String realName = name.toString() + "."
+					+ ((com.digiarea.es5.StringLiteral) index).getValue();
+			put(realName, ctx);
+		} else {
+			warnUnknown(n);
+		}
 	}
 
 	@Override
@@ -364,7 +451,7 @@ public class NamespaceOgranizer extends VoidVisitorAdapter<Node> {
 
 	@Override
 	public void visit(EmptyStatement n, Node ctx) throws Exception {
-		warnUnknown(n);
+		// warnUnknown(n);
 		super.visit(n, ctx);
 	}
 
@@ -613,29 +700,70 @@ public class NamespaceOgranizer extends VoidVisitorAdapter<Node> {
 	}
 
 	private void warnUnknown(Node node) {
-		System.out.println("UNKNOWN NODE: " + " " + node.getClass().getName()
-				+ " " + node.getPosBegin() + " " + node.getPosEnd());
-		System.out.println();
+		errorManager.report(ErrorType.ERROR, "UNKNOWN NODE: " + " "
+				+ node.getClass().getName() + " " + node.getPosBegin() + " "
+				+ node.getPosEnd());
 	}
 
 	private void warnDuplicate(Node node, String name) {
-		System.out.println("DUPLICATE: " + node.getClass().getName());
-		System.out.println("DUPLICATE EXISTING: " + nodes.get(name).toString());
-		System.out.println();
+		errorManager.report(ErrorType.ERROR, "NODE EXISTS: "
+				+ node.getClass().getName() + " " + nodes.get(name).toString()
+				+ " " + node.getPosBegin() + " " + node.getPosEnd());
 	}
 
 	private void put(String name, Node node) {
 		if (nodes.containsKey(name)) {
 			warnDuplicate(node, name);
+
+			Node existingNode = nodes.get(name);
+
+			String finalComment = "";
+
+			if (existingNode.getJsDocComment() != null
+					&& existingNode.getJsDocComment().getContent() != null) {
+				finalComment = finalComment
+						+ existingNode.getJsDocComment().getContent();
+			}
+
+			if (browsers != null) {
+				String browser = browsers.get(path);
+				if (browser != null) {
+					finalComment = finalComment + "\n * " + "@browser "
+							+ browser + "\n";
+				}
+			}
+
+			if (node.getJsDocComment() != null
+					&& node.getJsDocComment().getContent() != null) {
+				finalComment = finalComment
+						+ node.getJsDocComment().getContent();
+			}
+
+			if (!finalComment.isEmpty()) {
+				existingNode.setJsDocComment(NodeFacade
+						.JSDocComment(finalComment));
+			}
+
 		} else {
 			nodes.put(name, node);
-			if (node.getJsDocComment() != null) {
-				JSDocComment comment = node.getJsDocComment();
+			String finalComment = "";
+
+			if (node.getJsDocComment() != null
+					&& node.getJsDocComment().getContent() != null) {
+				finalComment = finalComment
+						+ node.getJsDocComment().getContent();
+			}
+
+			if (browsers != null) {
 				String browser = browsers.get(path);
-				if(browser != null){
-					comment.setContent(comment.getContent() + "\n * " + "@browser "
-							+ browser + "\n");
+				if (browser != null) {
+					finalComment = finalComment + "\n * " + "@browser "
+							+ browser + "\n";
 				}
+			}
+
+			if (!finalComment.isEmpty()) {
+				node.setJsDocComment(NodeFacade.JSDocComment(finalComment));
 			}
 		}
 	}
