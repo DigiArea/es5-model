@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +55,6 @@ import com.digiarea.es5.LabelledStatement;
 import com.digiarea.es5.LetDefinition;
 import com.digiarea.es5.LetExpression;
 import com.digiarea.es5.LetStatement;
-import com.digiarea.es5.LineComment;
 import com.digiarea.es5.NewExpression;
 import com.digiarea.es5.Node;
 import com.digiarea.es5.NodeFacade;
@@ -141,9 +139,15 @@ public class NamespaceOrganizer extends VoidVisitorAdapter<Node> {
 	private static final String JS_EXT = "js";
 	private static final String JS_EXT_DOTTED = "." + JS_EXT;
 
+	private String copyright;
+
 	public NamespaceOrganizer(IErrorManager errorManager) {
 		nodes = new TreeMap<>();
 		this.errorManager = errorManager;
+	}
+
+	public void setCopyright(String copyright) {
+		this.copyright = copyright;
 	}
 
 	public void setBrowsers(Map<String, String> browsers) {
@@ -162,11 +166,12 @@ public class NamespaceOrganizer extends VoidVisitorAdapter<Node> {
 		this.path = path;
 	}
 
-	private void sort() {
-		TreeMap<String, Node> sortedSymbols = new TreeMap<String, Node>(
-				new SymbolComparator());
-		sortedSymbols.putAll(nodes);
-		nodes = sortedSymbols;
+	public void byClass() throws Exception {
+		// TODO
+	}
+
+	public void byOneUnit() throws Exception {
+		// TODO
 	}
 
 	public void byLibrary() throws IOException {
@@ -214,7 +219,11 @@ public class NamespaceOrganizer extends VoidVisitorAdapter<Node> {
 					"FILE EXISTS: " + output.getAbsolutePath());
 		}
 		FileOutputStream stream = new FileOutputStream(output);
-		stream.write(result.toString().getBytes());
+		String content = result.toString();
+		if (copyright != null) {
+			content = copyright + "\n\n" + result.toString();
+		}
+		stream.write(content.getBytes());
 		stream.close();
 	}
 
@@ -341,7 +350,8 @@ public class NamespaceOrganizer extends VoidVisitorAdapter<Node> {
 	public void visit(AssignmentExpression n, Node ctx) throws Exception {
 		Expression expression = n.getTarget();
 		if (expression instanceof IdentifierName
-				|| expression instanceof FieldAccessExpression) {
+				|| expression instanceof FieldAccessExpression
+				|| expression instanceof ArrayAccessExpression) {
 			expression.accept(this, ctx);
 		} else {
 			warnUnknown(expression);
@@ -551,12 +561,6 @@ public class NamespaceOrganizer extends VoidVisitorAdapter<Node> {
 	}
 
 	@Override
-	public void visit(LineComment n, Node ctx) throws Exception {
-		warnUnknown(n);
-		super.visit(n, ctx);
-	}
-
-	@Override
 	public void visit(NewExpression n, Node ctx) throws Exception {
 		warnUnknown(n);
 		super.visit(n, ctx);
@@ -701,8 +705,7 @@ public class NamespaceOrganizer extends VoidVisitorAdapter<Node> {
 
 	private void warnUnknown(Node node) {
 		errorManager.report(ErrorType.ERROR, "UNKNOWN NODE: " + " "
-				+ node.getClass().getName() + " " + node.getPosBegin() + " "
-				+ node.getPosEnd());
+				+ node.getClass().getName() + " " + node.toString());
 	}
 
 	private void warnDuplicate(Node node, String name) {
