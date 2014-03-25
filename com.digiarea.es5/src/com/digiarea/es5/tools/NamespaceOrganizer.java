@@ -736,11 +736,13 @@ public class NamespaceOrganizer extends VoidVisitorAdapter<Node> {
 				}
 			}
 
-			if (node.getJsDocComment() != null
-					&& node.getJsDocComment().getContent() != null) {
-				finalComment = finalComment
-						+ node.getJsDocComment().getContent();
-			}
+			// FIXME simple joining of comment causes to problems of duplicated
+			// type definitions, params etc.
+			// if (node.getJsDocComment() != null
+			// && node.getJsDocComment().getContent() != null) {
+			// finalComment = finalComment
+			// + node.getJsDocComment().getContent();
+			// }
 
 			if (!finalComment.isEmpty()) {
 				existingNode.setJsDocComment(NodeFacade
@@ -768,6 +770,7 @@ public class NamespaceOrganizer extends VoidVisitorAdapter<Node> {
 			if (!finalComment.isEmpty()) {
 				node.setJsDocComment(NodeFacade.JSDocComment(finalComment));
 			}
+
 		}
 	}
 }

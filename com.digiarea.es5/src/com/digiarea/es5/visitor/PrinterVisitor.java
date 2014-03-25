@@ -101,11 +101,22 @@ public class PrinterVisitor implements VoidVisitor<SourcePrinter> {
 			String content = jsDocComment.getContent();
 			if (content != null) {
 				content = content.replaceAll("\t", " ");
-				content = content.replaceAll("\n", " ");
 				content = content.replaceAll("\r", " ");
-				printer.print("/**");
-				printer.print(content);
-				printer.print("*/");
+
+				String[] lines = content.split("\n");
+				printer.print("/**\n");
+				for (String string : lines) {
+					string = string.trim();
+					if(string.startsWith("*")){
+						string = string.replaceFirst("\\*", "").trim();
+					}
+//					if(string.endsWith("*")){
+//						//if it was an inlined-JSDoc
+//						string = string.substring(0, string.length() - 1).trim();
+//					}
+					printer.print(" * " + string + "\n");
+				}
+				printer.print(" */\n");
 				printer.print(" ");
 			}
 
