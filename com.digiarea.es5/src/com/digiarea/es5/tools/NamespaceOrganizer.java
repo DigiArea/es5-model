@@ -1,13 +1,20 @@
 package com.digiarea.es5.tools;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.FileVisitor;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -82,10 +89,168 @@ import com.digiarea.es5.VariableExpression;
 import com.digiarea.es5.VariableStatement;
 import com.digiarea.es5.WhileStatement;
 import com.digiarea.es5.WithStatement;
+import com.digiarea.es5.parser.ASTParser;
 import com.digiarea.es5.tools.IErrorManager.ErrorType;
 import com.digiarea.es5.visitor.VoidVisitorAdapter;
 
 public class NamespaceOrganizer extends VoidVisitorAdapter<Node> {
+
+	public enum Status {
+		SRC, DST, LIB, COPYRIGHT, BROWSER, DEFAULT_NAMESPACE, NONE
+	}
+
+	public static void main(String[] args) {
+		String src0 = null;
+		String dst0 = null;
+		String copy0 = null;
+		String defaultNamespace0 = null;
+		List<String> libs0 = new ArrayList<>();
+		List<String> browsers0 = new ArrayList<>();
+		Status status = Status.NONE;
+		for (int i = 0; i < args.length; i++) {
+			if ("-src".equals(args[i])) {
+				status = Status.SRC;
+			} else if (status == Status.SRC) {
+				src0 = args[i];
+				status = Status.NONE;
+			} else if ("-dst".equals(args[i])) {
+				status = Status.DST;
+			} else if (status == Status.DST) {
+				dst0 = args[i];
+				status = Status.NONE;
+			}else if ("-defaultClass".equals(args[i])) {
+				status = Status.DEFAULT_NAMESPACE;
+			} else if (status == Status.DEFAULT_NAMESPACE) {
+				defaultNamespace0 = args[i];
+				status = Status.NONE;
+			} else if ("-copyright".equals(args[i])) {
+				status = Status.COPYRIGHT;
+			} else if (status == Status.COPYRIGHT) {
+				copy0 = args[i];
+				status = Status.NONE;
+			} else if ("-browser".equals(args[i])) {
+				status = Status.BROWSER;
+			} else if (status == Status.BROWSER) {
+				browsers0.add(args[i]);
+				status = Status.NONE;
+			} else if ("-lib".equals(args[i])) {
+				status = Status.LIB;
+			} else if (status == Status.LIB) {
+				libs0.add(args[i]);
+				status = Status.NONE;
+			}
+		}
+
+		final String src = src0;
+		final String dst = dst0;
+
+		final NamespaceOrganizer namespaceOgranizer = new NamespaceOrganizer(
+				new DefaultErrorManager());
+		namespaceOgranizer.setLibraries(prepareLibraries(libs0));
+		namespaceOgranizer.setBrowsers(prepareBrowsers(browsers0));
+		namespaceOgranizer.setOutput(dst);
+		namespaceOgranizer.setCopyright(copy0);
+		if(defaultNamespace0 != null){
+			namespaceOgranizer.setDefaultNamespace(defaultNamespace0);
+		}
+
+		if (src == null || dst == null) {
+			System.out.println("Usage:");
+			System.out
+					.println("com.digiarea.es5.tools.NamespaceOrganizer\n"
+							+ " -src          : JavaScript externs (*.js) input folder\n"
+							+ " -dst          : output folder path\n"
+							+ " -lib          : to organize externs by library. If no -lib flags are specified, externs will be organized by namespace.\n"
+							+ "                 Usage example:\n"
+							+ "                 -lib DomAPI:Attr,Document,DocumentFragment\n"
+							+ " -browser      : (optional) to specify browser-specific JavaScript externs.\n"
+							+ "                 Usage example:\n"
+							+ "                 -browser ie:ie_event.js,ie_dom.js\n"
+							+ " -defaultClass : (optional) file name to save variables and functions without any namespace when externs are organized by namespace. Default value is \"globals\"\n"
+							+ "                 Usage example:\n"
+							+ "                 -defaultClass globals\n"
+							+ " -copyright    : (optional) copyright notice for generated files\n");
+			System.exit(1);
+		}
+
+		Path p = Paths.get(src);
+		FileVisitor<Path> fv = new SimpleFileVisitor<Path>() {
+			@Override
+			public FileVisitResult visitFile(Path file,
+					BasicFileAttributes attrs) throws IOException {
+				try {
+					if (file.toString().endsWith(JS_EXT)) {
+						FileInputStream stream = new FileInputStream(
+								file.toFile());
+						CompilationUnit unit = new ASTParser(stream, "UTF-8")
+								.CompilationUnit(null);
+						namespaceOgranizer.setPath(file.getFileName()
+								.toString());
+						unit.accept(namespaceOgranizer, null);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return FileVisitResult.CONTINUE;
+			}
+		};
+
+		try {
+			Files.walkFileTree(p, fv);
+			if (!libs0.isEmpty()) {
+				namespaceOgranizer.byLibrary();
+			} else {
+				namespaceOgranizer.byClass();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static Map<String, String> prepareBrowsers(List<String> browsers) {
+		Map<String, String> resultBrowsers = new HashMap<>();
+		for (String browser : browsers) {
+			String[] pieces = browser.split(":");
+			if (pieces.length == 2) {
+				String browserName = pieces[0];
+				for (String name : pieces[1].split(",")) {
+					if (!name.isEmpty()) {
+						resultBrowsers.put(name, browserName);
+					}
+				}
+			} else {
+				throw new IllegalArgumentException(
+						"Invalid Browser definition: " + browser);
+			}
+		}
+		return resultBrowsers;
+	}
+
+	/**
+	 * Format: myLibrary.js:myVar,myNamespace
+	 * 
+	 * @param libraries
+	 */
+	private static Map<String, List<String>> prepareLibraries(
+			List<String> libraries) {
+		Map<String, List<String>> resultLibraries = new HashMap<>();
+		for (String library : libraries) {
+			String[] pieces = library.split(":");
+			if (pieces.length == 2) {
+				List<String> namespaces = new ArrayList<String>();
+				for (String name : pieces[1].split(",")) {
+					if (!name.isEmpty()) {
+						namespaces.add(name.trim());
+					}
+				}
+				resultLibraries.put(pieces[0].trim(), namespaces);
+			} else {
+				throw new IllegalArgumentException(
+						"Invalid Library definition: " + library);
+			}
+		}
+		return resultLibraries;
+	}
 
 	public class SymbolComparator implements Comparator<String> {
 
@@ -140,10 +305,15 @@ public class NamespaceOrganizer extends VoidVisitorAdapter<Node> {
 	private static final String JS_EXT_DOTTED = "." + JS_EXT;
 
 	private String copyright;
+	private String defaultNamespace = "globals";
 
 	public NamespaceOrganizer(IErrorManager errorManager) {
 		nodes = new TreeMap<>();
 		this.errorManager = errorManager;
+	}
+
+	public void setDefaultNamespace(String defaultNamespace) {
+		this.defaultNamespace = defaultNamespace;
 	}
 
 	public void setCopyright(String copyright) {
@@ -167,7 +337,61 @@ public class NamespaceOrganizer extends VoidVisitorAdapter<Node> {
 	}
 
 	public void byClass() throws Exception {
-		// TODO
+		TreeMap<String, Node> finalNodes = new TreeMap<String, Node>(
+				new SymbolComparator());
+		finalNodes.putAll(nodes);
+
+		Map<String, Node> myNodes = new TreeMap<String, Node>(
+				new AlphabetComparator());
+		myNodes.putAll(finalNodes);
+
+		Set<String> set = myNodes.keySet();
+		Collection<Node> globals = new ArrayList<>();
+		while (!myNodes.isEmpty()) {
+			String name = null;
+			Iterator<String> itr = set.iterator();
+			List<Node> finalNode = new ArrayList<>();
+			List<String> names = new ArrayList<>();
+			while (itr.hasNext()) {
+				String o = itr.next();
+
+				if (name == null) {
+					if (o.contains(".")) {
+						int index = o.indexOf(".");
+						name = o.substring(0, index);
+					} else {
+						name = o;
+					}
+				}
+				if (o.toLowerCase().startsWith(name.toLowerCase() + ".")
+						|| o.equalsIgnoreCase(name)) {
+					finalNode.add(myNodes.get(o));
+					itr.remove();
+					names.add(o);
+				}
+
+			}
+
+			if (finalNode.size() > 1 || canBeClassDecl(finalNode.get(0))) {
+				createFile(finalNode, name);
+			} else {
+				globals.addAll(finalNode);
+			}
+		}
+		if (!globals.isEmpty()) {
+			createFile(globals, defaultNamespace);
+		}
+
+	}
+
+	private boolean canBeClassDecl(Node node) {
+		boolean canBe = false;
+		canBe = ((node instanceof FunctionDeclaration && Character
+				.isUpperCase(((FunctionDeclaration) node).getName().charAt(0))) || (node instanceof VariableStatement
+				&& ((VariableStatement) node).getVariableDeclarations().size() == 1 && Character
+				.isUpperCase(((VariableStatement) node)
+						.getVariableDeclarations().get(0).getName().charAt(0))));
+		return canBe;
 	}
 
 	public void byOneUnit() throws Exception {
@@ -187,7 +411,8 @@ public class NamespaceOrganizer extends VoidVisitorAdapter<Node> {
 				createFile(libraryNodes, library);
 			}
 			if (!myNodes.isEmpty()) {
-				createFile(new ArrayList<Node>(myNodes.values()), "globals");
+				createFile(new ArrayList<Node>(myNodes.values()),
+						"DefaultLibrary");
 			}
 		}
 	}
@@ -215,8 +440,8 @@ public class NamespaceOrganizer extends VoidVisitorAdapter<Node> {
 		if (!output.exists()) {
 			output.createNewFile();
 		} else {
-			errorManager.report(ErrorType.ERROR,
-					"FILE EXISTS: " + output.getAbsolutePath());
+			errorManager.report(ErrorType.WARNING, "FILE WILL BE OVERRIDDEN: "
+					+ output.getAbsolutePath());
 		}
 		FileOutputStream stream = new FileOutputStream(output);
 		String content = result.toString();
@@ -226,82 +451,6 @@ public class NamespaceOrganizer extends VoidVisitorAdapter<Node> {
 		stream.write(content.getBytes());
 		stream.close();
 	}
-
-	// public void getAstRoot() throws Exception {
-	// TreeMap<String, Node> sortedSymbols = new TreeMap<String, Node>(
-	// new SymbolComparator());
-	// sortedSymbols.putAll(nodes);
-	// // Map<String, Node> finalSymbols = new TreeMap<String, Node>(
-	// // new AlphabetComparator());
-	// // finalSymbols.putAll(sortedSymbols);
-	//
-	// List<Node> stmt = new ArrayList<>();
-	// for (Node node : sortedSymbols.values()) {
-	// stmt.add(node);
-	// }
-	//
-	// Set<String> set = nodes.keySet();
-	// List<Node> globals = new ArrayList<>();
-	// while (!nodes.isEmpty()) {
-	// String name = null;
-	// boolean namespace = false;
-	// Iterator<String> itr = set.iterator();
-	// List<Node> finalNode = new ArrayList<>();
-	// List<String> names = new ArrayList<>();
-	// while (itr.hasNext()) {
-	// String o = itr.next();
-	// if (name == null) {
-	// if (o.contains(".")) {
-	// int index = o.indexOf(".");
-	// name = o.substring(0, index);
-	// namespace = true;
-	// } else {
-	// name = o;
-	// }
-	// // if (name.contains("Element")) {
-	// // System.out.println("NAME MAIN: " + name);
-	// // }
-	// }
-	// if ((namespace && (o.startsWith(name + ".") || o.equals(name)))
-	// || (!namespace && o.startsWith(name))) {
-	// finalNode.add(nodes.get(o));
-	// itr.remove();
-	// names.add(o);
-	// }
-	// }
-	// if (finalNode.size() == 1) {
-	// globals.addAll(finalNode);
-	// } else {
-	// CompilationUnit result = NodeFacade.CompilationUnit(null,
-	// (List<Statement>) (List<?>) finalNode, "sasha.s");
-	// File output = new File("/home/daginno/temp/externs/" + name
-	// + ".js");
-	// if (!output.exists()) {
-	// output.createNewFile();
-	// } else {
-	// System.out.println("FILE EXISTS: "
-	// + output.getAbsolutePath());
-	// }
-	// FileOutputStream stream = new FileOutputStream(output);
-	// stream.write(result.toString().getBytes());
-	// stream.close();
-	// }
-	// }
-	// if (!stmt.isEmpty()) {
-	// CompilationUnit result = NodeFacade.CompilationUnit(null,
-	// (List<Statement>) (List<?>) stmt, "sasha.s");
-	// File output = new File("/home/daginno/temp/" + "AllNodes" + ".js");
-	// if (!output.exists()) {
-	// output.createNewFile();
-	// } else {
-	// System.out.println("FILE EXISTS: " + output.getAbsolutePath());
-	// }
-	// FileOutputStream stream = new FileOutputStream(output);
-	// stream.write(result.toString().getBytes());
-	// stream.close();
-	// }
-	//
-	// }
 
 	public Map<String, Node> getNodes() {
 		return nodes;
@@ -709,9 +858,9 @@ public class NamespaceOrganizer extends VoidVisitorAdapter<Node> {
 	}
 
 	private void warnDuplicate(Node node, String name) {
-		errorManager.report(ErrorType.ERROR, "NODE EXISTS: "
+		errorManager.report(ErrorType.WARNING, "DUPLICATE NODE: "
 				+ node.getClass().getName() + " " + nodes.get(name).toString()
-				+ " " + node.getPosBegin() + " " + node.getPosEnd());
+				+ ". NODES WILL BE MERGED");
 	}
 
 	private void put(String name, Node node) {
