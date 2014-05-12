@@ -39,12 +39,12 @@ public class Output implements Runnable {
 	 * The encoding.
 	 */
 	private String encoding = null;
-	
+
 	/**
 	 * The path.
 	 */
 	private String path = null;
-	
+
 	/**
 	 * The project.
 	 */
@@ -59,10 +59,13 @@ public class Output implements Runnable {
 
 	/**
 	 * Instantiates a new output.
-	 *
-	 * @param encoding the encoding
-	 * @param path the path
-	 * @param project the project
+	 * 
+	 * @param encoding
+	 *            the encoding
+	 * @param path
+	 *            the path
+	 * @param project
+	 *            the project
 	 */
 	public Output(String encoding, String path, Project project) {
 		super();
@@ -77,7 +80,7 @@ public class Output implements Runnable {
 
 	/**
 	 * Gets the encoding.
-	 *
+	 * 
 	 * @return the encoding
 	 */
 	public String getEncoding() {
@@ -86,8 +89,9 @@ public class Output implements Runnable {
 
 	/**
 	 * Sets the encoding.
-	 *
-	 * @param encoding the new encoding
+	 * 
+	 * @param encoding
+	 *            the new encoding
 	 */
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
@@ -95,7 +99,7 @@ public class Output implements Runnable {
 
 	/**
 	 * Gets the path.
-	 *
+	 * 
 	 * @return the path
 	 */
 	public String getPath() {
@@ -104,8 +108,9 @@ public class Output implements Runnable {
 
 	/**
 	 * Sets the path.
-	 *
-	 * @param path the new path
+	 * 
+	 * @param path
+	 *            the new path
 	 */
 	public void setPath(String path) {
 		this.path = path;
@@ -113,7 +118,7 @@ public class Output implements Runnable {
 
 	/**
 	 * Gets the project.
-	 *
+	 * 
 	 * @return the project
 	 */
 	public Project getProject() {
@@ -122,14 +127,17 @@ public class Output implements Runnable {
 
 	/**
 	 * Sets the project.
-	 *
-	 * @param project the new project
+	 * 
+	 * @param project
+	 *            the new project
 	 */
 	public void setProject(Project project) {
 		this.project = project;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Runnable#run()
 	 */
 	@Override
@@ -154,8 +162,9 @@ public class Output implements Runnable {
 
 	/**
 	 * Gets the name.
-	 *
-	 * @param unit the unit
+	 * 
+	 * @param unit
+	 *            the unit
 	 * @return the name
 	 */
 	private String getName(CompilationUnit unit) {
@@ -164,19 +173,22 @@ public class Output implements Runnable {
 
 	/**
 	 * Gets the path.
-	 *
-	 * @param path the path
-	 * @param name the name
+	 * 
+	 * @param path
+	 *            the path
+	 * @param name
+	 *            the name
 	 * @return the path
 	 */
 	private String getPath(String path, String name) {
-		return path + createPathFromQName(name) + "." + EXT;
+		return path + createPathFromQName(name) + EXT;
 	}
 
 	/**
 	 * Creates the path from q name.
-	 *
-	 * @param name the name
+	 * 
+	 * @param name
+	 *            the name
 	 * @return the string
 	 */
 	private static String createPathFromQName(String name) {
